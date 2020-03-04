@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://invocieAdmin:qwert123@invoiceapp-qswxd.mongodb.net/test?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://invocieAdmin:qwert123@invoiceapp-qswxd.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "sbU10dhf645gdtyxSD"
 }
