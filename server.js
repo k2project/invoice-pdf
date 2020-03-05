@@ -6,4 +6,5 @@ app.use(express.json({ extended: false }));
 app.use('/api/register', require('./routes/api/register'));
 app.use('/api/auth', require('./routes/api/auth'));
 
-app.listen(process.env.PORT || 5000, () => console.log('server is running'));
+const PORT = process.env.PORT || 5500;
+app.listen(PORT, () => console.log(`server is running on port ${PORT}`));

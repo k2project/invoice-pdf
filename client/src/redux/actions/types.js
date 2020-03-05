@@ -1,0 +1,2 @@
+export const REGISTR_SUCCESS = 'REGISTR_SUCCESS';
+export const REGISTR_FAIL = 'REGISTR_FAIL';
