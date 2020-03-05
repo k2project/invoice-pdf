@@ -1,0 +1,12 @@
+@import './../../../App.scss';
+.register {
+    display: grid;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.register__form {
+    margin: 0 auto 5rem;
+    width: 40rem;
+}
