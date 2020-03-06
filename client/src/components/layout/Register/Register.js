@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import './Register.scss';
 
-const Register = () => {
+const Register = props => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -12,13 +13,12 @@ const Register = () => {
         errors: []
     });
     const { email, password, password2 } = formData;
-    //clear errors on change
+
     const onChange = e => {
         const name = e.target.name;
-        //remove errors related to the input
+        //remove errors styling related to the input
+        //empty errors array
         e.target.classList.remove('form__input--err');
-        const errors = formData.errors.filter(err => err.param !== name);
-
         setFormData({
             ...formData,
             [name]: e.target.value,
@@ -28,6 +28,7 @@ const Register = () => {
 
     const onSubmit = async e => {
         e.preventDefault();
+
         try {
             const config = {
                 headers: {
@@ -37,12 +38,10 @@ const Register = () => {
 
             const body = JSON.stringify({ email, password, password2 });
             const res = await axios.post('/api/register', body, config);
-            setFormData({
-                email: '',
-                password: '',
-                password2: '',
-                errors: []
-            });
+            //registered successefully
+            console.log(res.data);
+            // redirect to login page
+            props.history.push('/login');
         } catch (err) {
             setFormData({
                 ...formData,
@@ -51,7 +50,7 @@ const Register = () => {
         }
     };
     useEffect(() => {
-        console.log('errors:', formData.errors);
+        //add error styling to the input
         formData.errors.forEach(err => {
             if (err.param)
                 document
@@ -100,9 +99,7 @@ const Register = () => {
     );
 };
 
-Register.propTypes = {};
-
-export default Register;
+export default withRouter(Register);
 
 function FormErrors({ errors }) {
     const arr = [];
@@ -114,3 +111,6 @@ function FormErrors({ errors }) {
     });
     return <div className='form__errs'>{errList}</div>;
 }
+FormErrors.propTypes = {
+    errors: PropTypes.array.isRequired
+};

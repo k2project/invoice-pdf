@@ -33,7 +33,8 @@ router.post(
                     // trow error if passwords do not match
                     throw new Error("Passwords don't match.");
                 } else {
-                    return value;
+                    //to get rid of 'invalid value' error
+                    return true;
                 }
             }),
         check('password2')
@@ -44,7 +45,8 @@ router.post(
                     // trow error if passwords do not match
                     throw new Error("Passwords don't match.");
                 } else {
-                    return value;
+                    //to get rid of 'invalid value' error
+                    return true;
                 }
             })
     ],
