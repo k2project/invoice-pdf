@@ -1,3 +1,13 @@
+.alert {
+    padding: 2rem;
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 0.2rem;
+}
+.alert--success {
+    background: seagreen;
+    color: seashell;
+}
 form {
     margin-top: 3rem;
     display: block;

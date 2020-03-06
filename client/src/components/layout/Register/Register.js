@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setAlert } from '../../../redux/actions/alerts';
+import FormErrorsDisplay from '../../func/FormErrorsDisplay';
 
 import './Register.scss';
 
-const Register = props => {
+const Register = ({ history, setAlert }) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -39,9 +42,9 @@ const Register = props => {
             const body = JSON.stringify({ email, password, password2 });
             const res = await axios.post('/api/register', body, config);
             //registered successefully
-            console.log(res.data);
+            setAlert(res.data, 'success');
             // redirect to login page
-            props.history.push('/login');
+            history.push('/login');
         } catch (err) {
             setFormData({
                 ...formData,
@@ -88,7 +91,9 @@ const Register = props => {
                         onChange={onChange}
                         className='form__input'
                     />
-                    {formData.errors && <FormErrors errors={formData.errors} />}
+                    {formData.errors && (
+                        <FormErrorsDisplay errors={formData.errors} />
+                    )}
 
                     <button type='submit' className='btn btn--form btn--orange'>
                         Register Now
@@ -98,19 +103,7 @@ const Register = props => {
         </main>
     );
 };
-
-export default withRouter(Register);
-
-function FormErrors({ errors }) {
-    const arr = [];
-    const errList = errors.map((err, i) => {
-        if (!arr.includes(err.msg)) {
-            arr.push(err.msg);
-            return <p key={i + '_form__err'}>Error : {err.msg}</p>;
-        }
-    });
-    return <div className='form__errs'>{errList}</div>;
-}
-FormErrors.propTypes = {
-    errors: PropTypes.array.isRequired
+Register.propTypes = {
+    setAlert: PropTypes.func.isRequired
 };
+export default withRouter(connect(null, { setAlert })(Register));
