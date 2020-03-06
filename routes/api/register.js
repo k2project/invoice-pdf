@@ -12,19 +12,47 @@ const jwt = require('jsonwebtoken');
 router.post(
     '/',
     [
-        check('email', 'Please enter a valid email address.').isEmail(),
+        check('email', 'Please enter a valid email address.')
+            .normalizeEmail()
+            .isEmail()
+            .trim()
+            .escape(),
         check('password')
-            .isLength({ min: 5 })
-            .withMessage('Password must be at least 5 chars long.')
+            .trim()
+            .escape()
+            .isLength({ min: 6 })
+            .withMessage(
+                'Password must be at least 6 chars long and must contain a number.'
+            )
             .matches(/\d/)
-            .withMessage('Password must contain a number.')
+            .withMessage(
+                'Password must be at least 6 chars long and must contain a number.'
+            )
+            .custom((value, { req }) => {
+                if (value !== req.body.password2) {
+                    // trow error if passwords do not match
+                    throw new Error("Passwords don't match.");
+                } else {
+                    return value;
+                }
+            }),
+        check('password2')
+            .trim()
+            .escape()
+            .custom((value, { req }) => {
+                if (value !== req.body.password) {
+                    // trow error if passwords do not match
+                    throw new Error("Passwords don't match.");
+                } else {
+                    return value;
+                }
+            })
     ],
     async (req, res) => {
-        console.log(req.body);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             console.log(errors.array());
-            return res.status(400).json({ erorrs: errors.array() });
+            return res.status(400).json({ errors: errors.array() });
         }
         const { email, password } = req.body;
         try {
@@ -44,19 +72,10 @@ router.post(
             user.password = await bcrypt.hash(password, salt);
             //save a new user to DB
             await user.save();
-            //asign a token
-            const payload = { user: { id: user.id } };
-            jwt.sign(
-                payload,
-                config.get('jwtSecret'),
-                { expiresIn: 3600 },
-                (err, token) => {
-                    if (err) throw err;
-                    res.json({ token });
-                }
-            );
+
+            res.send('Account created successfully.');
         } catch (err) {
-            console.log(err.message);
+            // console.log(err.message);
             res.status(500).send('Server Error');
         }
     }

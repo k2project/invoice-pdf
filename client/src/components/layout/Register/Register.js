@@ -1,32 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { register } from '../../../redux/actions/auth';
+import axios from 'axios';
 
 import './Register.scss';
 
-const Register = ({ register }) => {
+const Register = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
-        password2: ''
+        password2: '',
+        errors: []
     });
     const { email, password, password2 } = formData;
-    const onChange = e =>
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    function onSubmit(e) {
+    //clear errors on change
+    const onChange = e => {
+        const name = e.target.name;
+        //remove errors related to the input
+        e.target.classList.remove('form__input--err');
+        const errors = formData.errors.filter(err => err.param !== name);
+
+        setFormData({
+            ...formData,
+            [name]: e.target.value,
+            errors: []
+        });
+    };
+
+    const onSubmit = async e => {
         e.preventDefault();
-        if (password !== password2) {
-            console.log('error registering');
-        } else {
-            register(email, password);
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            const body = JSON.stringify({ email, password, password2 });
+            const res = await axios.post('/api/register', body, config);
             setFormData({
-                emial: '',
+                email: '',
                 password: '',
-                password2: ''
+                password2: '',
+                errors: []
+            });
+        } catch (err) {
+            setFormData({
+                ...formData,
+                errors: [...formData.errors, ...err.response.data.errors]
             });
         }
-    }
+    };
+    useEffect(() => {
+        console.log('errors:', formData.errors);
+        formData.errors.forEach(err => {
+            if (err.param)
+                document
+                    .getElementById(err.param)
+                    .classList.add('form__input--err');
+        });
+    }, [formData.errors]);
     return (
         <main className='register'>
             <section className='register__form'>
@@ -39,6 +71,7 @@ const Register = ({ register }) => {
                         id='email'
                         name='email'
                         onChange={onChange}
+                        className='form__input'
                     />
                     <label htmlFor='password'>Password</label>
                     <input
@@ -46,6 +79,7 @@ const Register = ({ register }) => {
                         id='password'
                         name='password'
                         onChange={onChange}
+                        className='form__input'
                     />
                     <label htmlFor='password2'>Confirm Password</label>
                     <input
@@ -53,8 +87,11 @@ const Register = ({ register }) => {
                         id='password2'
                         name='password2'
                         onChange={onChange}
+                        className='form__input'
                     />
-                    <button type='submit' className='btn btn--form btn--green'>
+                    {formData.errors && <FormErrors errors={formData.errors} />}
+
+                    <button type='submit' className='btn btn--form btn--orange'>
                         Register Now
                     </button>
                 </form>
@@ -63,8 +100,17 @@ const Register = ({ register }) => {
     );
 };
 
-Register.propTypes = {
-    register: PropTypes.func.isRequired
-};
+Register.propTypes = {};
 
-export default connect(null, { register })(Register);
+export default Register;
+
+function FormErrors({ errors }) {
+    const arr = [];
+    const errList = errors.map((err, i) => {
+        if (!arr.includes(err.msg)) {
+            arr.push(err.msg);
+            return <p key={i + '_form__err'}>Error : {err.msg}</p>;
+        }
+    });
+    return <div className='form__errs'>{errList}</div>;
+}

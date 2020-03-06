@@ -1,9 +1,9 @@
 form {
-    margin-top: 5rem;
+    margin-top: 3rem;
     display: block;
 }
 label,
-input {
+.form__input {
     text-align: left;
     display: block;
     margin: 0.5rem 0;
@@ -15,9 +15,21 @@ label {
     color: #c1c7cd;
 }
 
-input {
+.form__input {
     border: solid 0.1rem #ebedef;
     padding: 1rem;
+}
+.form__input--err {
+    border: solid 0.1rem crimson;
+}
+.form__errs {
+    color: crimson;
+    p {
+        font-size: 1.2rem;
+        margin: 0.2rem 0;
+    }
+    margin: 2rem 0 0;
+    text-align: left;
 }
 .heading {
     margin: 1rem 0;
@@ -30,7 +42,7 @@ input {
 .btn {
     border: solid 0.1rem #111;
     padding: 1.4rem 1rem;
-    margin-top: 3rem;
+    margin-top: 2rem;
     font-size: 1.4rem;
     background-color: none;
     min-width: 20rem;
@@ -39,6 +51,11 @@ input {
     background-color: #53ac52;
     border-color: #53ac52;
     color: #fff;
+    font-size: 1.8rem;
+}
+.btn--orange {
+    background-color: orange;
+    border-color: orange;
     font-size: 1.8rem;
 }
 .btn--form {
