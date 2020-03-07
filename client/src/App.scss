@@ -1,3 +1,26 @@
+//var
+$COLOR_THEME: #e77e22;
+$COLOR_THEME_DARKER: #cf711e;
+$COLOR_GREEN: seagreen;
+$COLOR_BLUE: #0081a7;
+$COLOR_BG: #f5f8fb;
+$COLOR_DARK: #1b262b;
+$COLOR_DARK_SECONDARY: #2b3a41;
+a:link,
+a:visited {
+    color: $COLOR_BLUE;
+}
+a:hover,
+a:active {
+    text-decoration: underline;
+    color: $COLOR_THEME;
+}
+a:focus {
+    border: dashed 0.1rem #111;
+    padding: 0.5rem 0.7rem;
+    text-decoration: underline;
+    color: $COLOR_THEME;
+}
 .alert {
     padding: 2rem;
     text-align: center;
@@ -5,7 +28,7 @@
     margin-bottom: 0.2rem;
 }
 .alert--success {
-    background: seagreen;
+    background: $COLOR_GREEN;
     color: seashell;
 }
 form {
@@ -26,19 +49,25 @@ label {
 }
 
 .form__input {
-    border: solid 0.1rem #ebedef;
+    border: solid 0.1rem #c1c7cd;
     padding: 1rem;
 }
+.form__input:focus {
+    background: #ebedef;
+    border: solid 0.1rem #ebedef;
+}
+.form__input--err:focus,
 .form__input--err {
-    border: solid 0.1rem crimson;
+    border: solid 0.1rem $COLOR_THEME;
 }
 .form__errs {
-    color: crimson;
-    p {
+    color: $COLOR_THEME;
+    li {
         font-size: 1.2rem;
         margin: 0.2rem 0;
     }
-    margin: 2rem 0 0;
+    display: block;
+    margin: 1rem 0 0;
     text-align: left;
 }
 .heading {
@@ -52,20 +81,22 @@ label {
 .btn {
     border: solid 0.1rem #111;
     padding: 1.4rem 1rem;
-    margin-top: 2rem;
+    margin: 1rem 0;
     font-size: 1.4rem;
     background-color: none;
     min-width: 20rem;
 }
-.btn--green {
-    background-color: #53ac52;
-    border-color: #53ac52;
-    color: #fff;
-    font-size: 1.8rem;
+.btn:hover {
+    background-color: $COLOR_THEME_DARKER;
 }
-.btn--orange {
-    background-color: orange;
-    border-color: orange;
+.btn:focus {
+    border: dashed 0.1rem #111;
+}
+
+.btn--theme {
+    background-color: $COLOR_THEME;
+    border-color: $COLOR_THEME;
+    color: seashell;
     font-size: 1.8rem;
 }
 .btn--form {

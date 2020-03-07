@@ -1,5 +1,6 @@
 @import './../../../App.scss';
 .register {
+    background-color: $COLOR_BG;
     display: grid;
     min-height: 100vh;
     align-items: center;
@@ -7,6 +8,7 @@
     text-align: center;
 }
 .register__form {
+    color: $COLOR_DARK;
     margin: 0 auto 5rem;
     width: 40rem;
 }

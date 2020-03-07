@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../redux/actions/alerts';
 import FormErrorsDisplay from '../../func/FormErrorsDisplay';
@@ -22,10 +22,11 @@ const Register = ({ history, setAlert }) => {
         //remove errors styling related to the input
         //empty errors array
         e.target.classList.remove('form__input--err');
+        const errors = formData.errors.filter(err => err.param !== name);
         setFormData({
             ...formData,
             [name]: e.target.value,
-            errors: []
+            errors
         });
     };
 
@@ -44,7 +45,7 @@ const Register = ({ history, setAlert }) => {
             //registered successefully
             setAlert(res.data, 'success');
             // redirect to login page
-            history.push('/login');
+            history.push('/');
         } catch (err) {
             setFormData({
                 ...formData,
@@ -64,8 +65,8 @@ const Register = ({ history, setAlert }) => {
     return (
         <main className='register'>
             <section className='register__form'>
-                <h1 className='heading heading--med'>Register</h1>
-                <p>Create your account. It's free and only takes a minute.</p>
+                <h1 className='heading heading--med'>Create Your Account</h1>
+                <p> It's free and only takes a minute.</p>
                 <form onSubmit={onSubmit}>
                     <label htmlFor='email'>Email</label>
                     <input
@@ -92,13 +93,19 @@ const Register = ({ history, setAlert }) => {
                         className='form__input'
                     />
                     {formData.errors && (
-                        <FormErrorsDisplay errors={formData.errors} />
+                        <FormErrorsDisplay
+                            errors={formData.errors}
+                            label='Register form errors list.'
+                        />
                     )}
 
-                    <button type='submit' className='btn btn--form btn--orange'>
-                        Register Now
+                    <button type='submit' className='btn btn--form btn--theme'>
+                        Create Account
                     </button>
                 </form>
+                <p>
+                    Already have an account? <Link to='/'>Login.</Link>
+                </p>
             </section>
         </main>
     );

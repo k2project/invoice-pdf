@@ -20,13 +20,9 @@ router.post(
         check('password')
             .trim()
             .escape()
-            .isLength({ min: 6 })
+            .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
             .withMessage(
-                'Password must be at least 6 chars long and must contain a number.'
-            )
-            .matches(/\d/)
-            .withMessage(
-                'Password must be at least 6 chars long and must contain a number.'
+                'Password must be at least 8 characters long and must contain a number and a capital letter.'
             )
             .custom((value, { req }) => {
                 if (value !== req.body.password2) {
@@ -53,7 +49,6 @@ router.post(
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            console.log(errors.array());
             return res.status(400).json({ errors: errors.array() });
         }
         const { email, password } = req.body;
