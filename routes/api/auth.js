@@ -24,25 +24,34 @@ router.get('/user', token, async (req, res) => {
 router.post(
     '/login',
     [
-        check('email', 'Please include valid email').isEmail(),
-        check('password', 'Password is required').exists()
+        check('email', 'Please include valid email')
+            .trim()
+            .escape()
+            .normalizeEmail()
+            .isEmail(),
+        check('password', 'Password is required')
+            .trim()
+            .escape()
+            .not()
+            .isEmpty()
     ],
     async (req, res) => {
         const errors = validationResult(req);
+        console.log(errors);
         if (!errors.isEmpty())
             return res.status(400).json({ errors: errors.array() });
         const { email, password } = req.body;
         try {
             let user = await User.findOne({ email });
             if (!user)
-                return res
-                    .status(400)
-                    .json({ errors: [{ msg: 'Invalid login credentials' }] });
+                return res.status(400).json({
+                    errors: [{ msg: 'Invalid login credentials' }]
+                });
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch)
-                return res
-                    .status(400)
-                    .json({ errors: [{ msg: 'Invalid login credentials' }] });
+                return res.status(400).json({
+                    errors: [{ msg: 'Invalid login credentials' }]
+                });
             const paylod = { user: { id: user.id } };
             jwt.sign(
                 paylod,
@@ -54,7 +63,7 @@ router.post(
                 }
             );
         } catch (err) {
-            console.error(err.message);
+            // console.error(err.message);
             return res.status(500).send('Server Error');
         }
     }

@@ -13,10 +13,10 @@ router.post(
     '/',
     [
         check('email', 'Please enter a valid email address.')
-            .normalizeEmail()
-            .isEmail()
             .trim()
-            .escape(),
+            .escape()
+            .normalizeEmail()
+            .isEmail(),
         check('password')
             .trim()
             .escape()
@@ -56,13 +56,9 @@ router.post(
             //check if user exists
             let user = await User.findOne({ email });
             if (user) {
-                return res
-                    .status(400)
-                    .json({
-                        errors: [
-                            { msg: 'User already exists.', param: 'email' }
-                        ]
-                    });
+                return res.status(400).json({
+                    errors: [{ msg: 'User already exists.', param: 'email' }]
+                });
             }
             user = new User({
                 email,
