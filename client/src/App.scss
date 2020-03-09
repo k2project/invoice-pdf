@@ -6,20 +6,86 @@ $COLOR_BLUE: #0081a7;
 $COLOR_BG: #f5f8fb;
 $COLOR_DARK: #1b262b;
 $COLOR_DARK_SECONDARY: #2b3a41;
+// ==============
+//    mixins
+//===============
+@mixin desktop-sm {
+    @media only screen and (max-width: 1200px) {
+        @content;
+    }
+}
+@mixin tablet {
+    @media only screen and (max-width: 1024px) {
+        @content;
+    }
+}
+@mixin mobile {
+    @media only screen and (max-width: 768px) {
+        @content;
+    }
+}
+@mixin mobile-sm {
+    @media only screen and (max-width: 480px) {
+        @content;
+    }
+}
+@mixin portrait {
+    @media only screen and (max-width: 768px) and (orientation: portrait) {
+        @content;
+    }
+}
+@mixin landscape {
+    @media only screen and (max-width: 768px) and (orientation: landscape) {
+        @content;
+    }
+}
+
+.sr-only {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip: rect(1px 1px 1px 1px); //IE6 and IE7
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.sr-only--in-focus {
+    position: static;
+    clip: auto !important;
+    clip-path: none;
+    height: auto;
+    margin: 0;
+    overflow: auto;
+    line-height: normal;
+    width: auto;
+    padding: 3rem 5rem;
+    left: 0;
+    right: 0;
+    background: $COLOR_THEME;
+    color: #000 !important;
+    font-size: 1.6rem;
+    z-index: 1000;
+    display: block;
+}
+.sr-only--in-focus:hover {
+    text-decoration-line: underline;
+}
 a:link,
 a:visited {
-    color: $COLOR_BLUE;
+    color: $COLOR_THEME;
 }
 a:hover,
 a:active {
     text-decoration: underline;
-    color: $COLOR_THEME;
+    color: $COLOR_BLUE;
 }
 a:focus {
-    border: dashed 0.1rem #111;
-    padding: 0.5rem 0.7rem;
     text-decoration: underline;
-    color: $COLOR_THEME;
+    color: $COLOR_BLUE;
 }
 .alert {
     padding: 2rem;
@@ -62,9 +128,13 @@ label {
 }
 .form__errs {
     color: $COLOR_THEME;
-    li {
+    a {
         font-size: 1.2rem;
         margin: 0.2rem 0;
+    }
+    a:focus {
+        border: none;
+        padding: 0;
     }
     display: block;
     margin: 1rem 0 0;

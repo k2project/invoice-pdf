@@ -63,7 +63,7 @@ const Register = ({ history, setAlert }) => {
         });
     }, [formData.errors]);
     return (
-        <main className='register'>
+        <main className='register' id='main'>
             <section className='register__form'>
                 <h1 className='heading heading--med'>Create Your Account</h1>
                 <p> It's free and only takes a minute.</p>

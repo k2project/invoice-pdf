@@ -9,11 +9,11 @@ function FormErrorsDisplay({ errors, label }) {
             if (err.param) {
                 return (
                     <li key={i + '_form__err'}>
-                        <a href={`#${err.param}`}>Error :{err.msg}</a>
+                        <a href={`#${err.param}`}>Error: {err.msg}</a>
                     </li>
                 );
             } else {
-                return <li key={i + '_form__err'}>Error : {err.msg}</li>;
+                return <li key={i + '_form__err'}>Error: {err.msg}</li>;
             }
         }
     });

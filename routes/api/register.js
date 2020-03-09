@@ -58,7 +58,11 @@ router.post(
             if (user) {
                 return res
                     .status(400)
-                    .json({ errors: [{ msg: 'User already exists.' }] });
+                    .json({
+                        errors: [
+                            { msg: 'User already exists.', param: 'email' }
+                        ]
+                    });
             }
             user = new User({
                 email,
