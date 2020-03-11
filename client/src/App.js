@@ -6,7 +6,7 @@ import SkipToMainContentLink from './components/func/SkipToMainContentLink';
 import Alert from './components/func/Alert';
 import Register from './components/layout/Register/Register';
 import Login from './components/layout/Login/Login';
-import Dashboard from './components/layout/Dashboard/Dashboard';
+import Profile from './components/layout/Profile/Profile';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -25,7 +25,7 @@ const App = () => {
                     <Switch>
                         <Route exact path='/' component={Login} />
                         <Route exact path='/register' component={Register} />
-                        <Route exact path='/dashboard' component={Dashboard} />
+                        <Route exact path='/dashboard' component={Profile} />
                     </Switch>
                 </Fragment>
             </Router>

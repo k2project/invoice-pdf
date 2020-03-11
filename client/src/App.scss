@@ -1,13 +1,15 @@
-//var
+//====================
+//  APP VARIABLES
+//====================
 $COLOR_THEME: #e77e22;
-$COLOR_THEME_DARKER: #cf711e;
-$COLOR_GREEN: seagreen;
-$COLOR_BLUE: #0081a7;
+$COLOR_DANGER: crimson;
+$COLOR_SUCCESS: seagreen;
+$COLOR_INFO: #0081a7;
 $COLOR_BG: #f5f8fb;
 $COLOR_DARK: #1b262b;
 $COLOR_DARK_SECONDARY: #2b3a41;
 // ==============
-//    mixins
+//    MIXINS
 //===============
 @mixin desktop-sm {
     @media only screen and (max-width: 1200px) {
@@ -39,7 +41,9 @@ $COLOR_DARK_SECONDARY: #2b3a41;
         @content;
     }
 }
-
+//==========================
+//  SCREEN READERS STYLING
+//==========================
 .sr-only {
     border: 0;
     clip: rect(1px, 1px, 1px, 1px);
@@ -74,6 +78,9 @@ $COLOR_DARK_SECONDARY: #2b3a41;
 .sr-only--in-focus:hover {
     text-decoration-line: underline;
 }
+//====================
+//  LINKS STYLING
+//====================
 a:link,
 a:visited {
     color: $COLOR_THEME;
@@ -81,12 +88,15 @@ a:visited {
 a:hover,
 a:active {
     text-decoration: underline;
-    color: $COLOR_BLUE;
+    color: $COLOR_INFO;
 }
 a:focus {
     text-decoration: underline;
-    color: $COLOR_BLUE;
+    color: $COLOR_INFO;
 }
+//====================
+//  ALERTS STYLING
+//====================
 .alert {
     padding: 2rem;
     text-align: center;
@@ -94,9 +104,12 @@ a:focus {
     margin-bottom: 0.2rem;
 }
 .alert--success {
-    background: $COLOR_GREEN;
+    background: $COLOR_SUCCESS;
     color: seashell;
 }
+//====================
+//  FORM STYLING
+//====================
 form {
     margin-top: 3rem;
     display: block;
@@ -141,14 +154,9 @@ label {
     margin: 1rem 0 0;
     text-align: left;
 }
-.heading {
-    margin: 1rem 0;
-    font-weight: bold;
-}
-.heading--med {
-    font-size: 2.8rem;
-}
-
+//====================
+//  BUTTONS STYLING
+//====================
 .btn {
     border: solid 0.1rem #111;
     border-radius: 0.4rem;
@@ -159,7 +167,7 @@ label {
     min-width: 20rem;
 }
 .btn:hover {
-    background-color: $COLOR_THEME_DARKER;
+    background-color: darken($COLOR_THEME, 10%);
 }
 .btn:focus {
     border: dashed 0.1rem #111;
@@ -171,6 +179,55 @@ label {
     color: seashell;
     font-size: 1.8rem;
 }
+.btn--white {
+    background-color: none;
+    border-color: seashell;
+    color: seashell;
+}
+.btn--white:focus {
+    border: dashed 0.1rem #fff;
+}
+.btn--white:hover {
+    border-color: $COLOR_DARK;
+}
+.btn--danger {
+    background-color: $COLOR_DANGER;
+    color: #fff;
+    border-color: $COLOR_DANGER;
+}
+.btn--danger:hover {
+    background-color: darken($COLOR_DANGER, 10%);
+    border-color: darken($COLOR_DANGER, 10%);
+}
+.btn--danger:focus {
+    border: dashed 0.1rem #111;
+    background-color: darken($COLOR_BG, 20%);
+    color: $COLOR_DARK;
+}
 .btn--form {
     width: 100%;
+}
+.btn--sml {
+    min-width: 10rem;
+    padding: 1rem;
+}
+//====================
+//  HEADINGS STYLING
+//====================
+.heading {
+    margin: 1rem 0;
+    font-weight: bold;
+}
+.heading--med {
+    font-size: 2.8rem;
+}
+.heading--sml {
+    font-size: 2.2rem;
+}
+//====================
+//  OTHERS STYLING
+//====================
+.wrapper {
+    width: 100rem;
+    margin: auto;
 }

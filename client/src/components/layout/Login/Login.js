@@ -52,11 +52,13 @@ const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
             history.push('/dashboard');
         } catch (err) {
             localStorage.removeItem('token');
-            // console.log(err);
-            setFormData({
-                ...formData,
-                errors: [...formData.errors, ...err.response.data.errors]
-            });
+            // console.log(err.response);
+            if (err.response.data.errors) {
+                setFormData({
+                    ...formData,
+                    errors: [...formData.errors, ...err.response.data.errors]
+                });
+            }
         }
     };
 

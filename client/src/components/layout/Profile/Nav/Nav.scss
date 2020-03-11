@@ -1,0 +1,31 @@
+@import '../../../../App.scss';
+.main-nav {
+    width: 100vw;
+    background-color: $COLOR_DARK;
+    text-align: right;
+    padding: 0 4rem;
+    color: #fff;
+    li {
+        display: inline-block;
+    }
+    button {
+        display: inline-block;
+        padding: 3rem 1.5rem;
+        color: seashell;
+        border: solid 0.1rem $COLOR_DARK;
+    }
+    .btn--is-active:hover,
+    .btn--is-active {
+        background-color: lighten($COLOR_DARK, 20%);
+        border-color: lighten($COLOR_DARK, 20%);
+    }
+
+    button:hover {
+        background-color: $COLOR_THEME;
+        border-color: $COLOR_THEME;
+    }
+    .btn--is-active:focus,
+    button:focus {
+        border: dashed 0.1rem #fff;
+    }
+}
