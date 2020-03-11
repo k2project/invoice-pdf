@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -55,62 +55,75 @@ const Register = ({ history, setAlert }) => {
     };
     useEffect(() => {
         //add error styling to the input
-        formData.errors.forEach(err => {
-            if (err.param)
-                document
-                    .getElementById(err.param)
-                    .classList.add('form__input--err');
-        });
+        formData.errors.length > 0 &&
+            formData.errors.forEach(err => {
+                if (err.param)
+                    document
+                        .getElementById(err.param)
+                        .classList.add('form__input--err');
+            });
     }, [formData.errors]);
     return (
-        <main className='register' id='main'>
-            <section className='register__form'>
-                <h1 className='heading heading--med'>Create Your Account</h1>
-                <p> It's free and only takes a minute.</p>
-                <form onSubmit={onSubmit}>
-                    <label htmlFor='email'>Email</label>
-                    <input
-                        type='text'
-                        id='email'
-                        name='email'
-                        onChange={onChange}
-                        className='form__input'
-                    />
-                    <label htmlFor='password'>Password</label>
-                    <input
-                        type='password'
-                        id='password'
-                        name='password'
-                        onChange={onChange}
-                        className='form__input'
-                    />
-                    <label htmlFor='password2'>Confirm Password</label>
-                    <input
-                        type='password'
-                        id='password2'
-                        name='password2'
-                        onChange={onChange}
-                        className='form__input'
-                    />
-                    {formData.errors && (
-                        <FormErrorsDisplay
-                            errors={formData.errors}
-                            label='Register form errors list.'
-                        />
-                    )}
+        <Fragment>
+            {localStorage.getItem('token') && history.push('/dashboard')}
+            {!localStorage.getItem('token') && (
+                <main className='register' id='main'>
+                    <section className='register__form'>
+                        <h1 className='heading heading--med'>
+                            Create Your Account
+                        </h1>
+                        <p> It's free and only takes a minute.</p>
+                        <form onSubmit={onSubmit}>
+                            <label htmlFor='email'>Email</label>
+                            <input
+                                type='text'
+                                id='email'
+                                name='email'
+                                onChange={onChange}
+                                className='form__input'
+                            />
+                            <label htmlFor='password'>Password</label>
+                            <input
+                                type='password'
+                                id='password'
+                                name='password'
+                                onChange={onChange}
+                                className='form__input'
+                            />
+                            <label htmlFor='password2'>Confirm Password</label>
+                            <input
+                                type='password'
+                                id='password2'
+                                name='password2'
+                                onChange={onChange}
+                                className='form__input'
+                            />
+                            {formData.errors && (
+                                <FormErrorsDisplay
+                                    errors={formData.errors}
+                                    label='Register form errors list.'
+                                />
+                            )}
 
-                    <button type='submit' className='btn btn--form btn--theme'>
-                        Create Account
-                    </button>
-                </form>
-                <p>
-                    Already have an account? <Link to='/'>Login.</Link>
-                </p>
-            </section>
-        </main>
+                            <button
+                                type='submit'
+                                className='btn btn--form btn--theme'
+                            >
+                                Create Account
+                            </button>
+                        </form>
+                        <p>
+                            Already have an account?{' '}
+                            <Link to='/'>Sign in.</Link>
+                        </p>
+                    </section>
+                </main>
+            )}
+        </Fragment>
     );
 };
 Register.propTypes = {
     setAlert: PropTypes.func.isRequired
 };
+
 export default withRouter(connect(null, { setAlert })(Register));

@@ -1,25 +1,27 @@
 import axios from 'axios';
-import { REGISTR_FAIL, REGISTR_SUCCESS } from './types';
+import { LOGIN_FAIL, LOGIN_SUCCESS, USER_LOADED, AUTH_ERROR } from './types';
+import setAuthToken from '../../utils/setAuthToken';
 
-export const register = (email, password) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-
-    const body = JSON.stringify({ email, password });
+export const loadUser = () => async dispatch => {
+    if (localStorage.token) {
+        setAuthToken(localStorage.token);
+    }
     try {
-        const res = await axios.post('/api/register', body, config);
-
+        const res = await axios.get('/api/auth/user');
         dispatch({
-            type: REGISTR_SUCCESS,
+            type: USER_LOADED,
             payload: res.data
         });
     } catch (err) {
-        console.log(err.response.data.errors);
-        dispatch({
-            type: REGISTR_FAIL
-        });
+        dispatch({ type: AUTH_ERROR });
     }
+};
+
+export const loginSuccess = token => dispatch => {
+    localStorage.setItem('token', token);
+    dispatch({
+        type: LOGIN_SUCCESS,
+        payload: token
+    });
+    dispatch(loadUser());
 };

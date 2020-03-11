@@ -115,6 +115,7 @@ label {
 }
 
 .form__input {
+    border-radius: 0.4rem;
     border: solid 0.1rem #c1c7cd;
     padding: 1rem;
 }
@@ -150,6 +151,7 @@ label {
 
 .btn {
     border: solid 0.1rem #111;
+    border-radius: 0.4rem;
     padding: 1.4rem 1rem;
     margin: 1rem 0;
     font-size: 1.4rem;
