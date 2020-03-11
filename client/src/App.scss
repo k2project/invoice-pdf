@@ -8,6 +8,8 @@ $COLOR_INFO: #0081a7;
 $COLOR_BG: #f5f8fb;
 $COLOR_DARK: #1b262b;
 $COLOR_DARK_SECONDARY: #2b3a41;
+$COLOR_GREY: #ebedef;
+
 // ==============
 //    MIXINS
 //===============
@@ -121,7 +123,9 @@ label,
     margin: 0.5rem 0;
     width: 100%;
 }
-
+.form__input--sml {
+    width: 42rem;
+}
 label {
     margin-top: 2rem;
     color: #c1c7cd;
@@ -133,8 +137,8 @@ label {
     padding: 1rem;
 }
 .form__input:focus {
-    background: #ebedef;
-    border: solid 0.1rem #ebedef;
+    background: $COLOR_GREY;
+    border: solid 0.1rem $COLOR_GREY;
 }
 .form__input--err:focus,
 .form__input--err {
@@ -204,12 +208,29 @@ label {
     background-color: darken($COLOR_BG, 20%);
     color: $COLOR_DARK;
 }
+.btn--grey {
+    border: solid 0.1rem $COLOR_GREY;
+    background-color: $COLOR_GREY;
+    color: $COLOR_DARK;
+}
+.btn--grey:hover {
+    background-color: darken($COLOR_GREY, 10%);
+    border-color: darken($COLOR_GREY, 10%);
+}
+.btn--grey:focus {
+    border: dashed 0.1rem #111;
+    background-color: darken($COLOR_BG, 20%);
+    color: $COLOR_DARK;
+}
 .btn--form {
     width: 100%;
 }
 .btn--sml {
     min-width: 10rem;
     padding: 1rem;
+}
+.btn--sibling {
+    margin-right: 2rem;
 }
 //====================
 //  HEADINGS STYLING
