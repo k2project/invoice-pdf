@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../redux/actions/alerts';
-import { loginSuccess } from '../../../redux/actions/auth';
+import { loadUser } from '../../../redux/actions/auth';
 import FormErrorsDisplay from '../../func/FormErrorsDisplay';
+import setAuthToken from '../../../utils/setAuthToken';
 
 import './Login.scss';
 
-const Login = ({ history, setAlert, loginSuccess }) => {
+const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -43,14 +44,15 @@ const Login = ({ history, setAlert, loginSuccess }) => {
             const body = JSON.stringify({ email, password });
             const res = await axios.post('/api/auth/login', body, config);
 
-            // localStorage.setItem('token', res.data.token);
-            loginSuccess(res.data.token);
+            localStorage.setItem('token', res.data.token);
+            setAuthToken(res.data.token);
+            loadUser();
             setAlert('Login successful.', 'success');
             // redirect to dashboard
             history.push('/dashboard');
         } catch (err) {
             localStorage.removeItem('token');
-            console.log(err);
+            // console.log(err);
             setFormData({
                 ...formData,
                 errors: [...formData.errors, ...err.response.data.errors]
@@ -121,7 +123,7 @@ const Login = ({ history, setAlert, loginSuccess }) => {
 
 Login.propTypes = {
     setAlert: PropTypes.func.isRequired,
-    loginSuccess: PropTypes.func.isRequired
+    loadUser: PropTypes.func.isRequired
 };
 
-export default withRouter(connect(null, { setAlert, loginSuccess })(Login));
+export default withRouter(connect(null, { setAlert, loadUser })(Login));

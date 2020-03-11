@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOGIN_FAIL, LOGIN_SUCCESS, USER_LOADED, AUTH_ERROR } from './types';
+import { LOGIN_SUCCESS, USER_LOADED, AUTH_ERROR } from './types';
 import setAuthToken from '../../utils/setAuthToken';
 
 export const loadUser = () => async dispatch => {
@@ -17,11 +17,6 @@ export const loadUser = () => async dispatch => {
     }
 };
 
-export const loginSuccess = token => dispatch => {
-    localStorage.setItem('token', token);
-    dispatch({
-        type: LOGIN_SUCCESS,
-        payload: token
-    });
+export const loginSuccess = () => dispatch => {
     dispatch(loadUser());
 };
