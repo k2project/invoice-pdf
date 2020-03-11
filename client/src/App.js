@@ -11,11 +11,7 @@ import Dashboard from './components/layout/Dashboard/Dashboard';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { loadUser } from './redux/actions/auth';
-import setAuthToken from './utils/setAuthToken';
 
-if (localStorage.token) {
-    setAuthToken(localStorage.token);
-}
 const App = () => {
     useEffect(() => {
         store.dispatch(loadUser());

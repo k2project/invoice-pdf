@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ const Dashboard = ({ history, user }) => {
     useEffect(() => {
         if (!user) history.push('/');
     });
-    return <div>dashboard</div>;
+    return <Fragment>{user && <div>dashboard</div>}</Fragment>;
 };
 
 Dashboard.propTypes = {};
