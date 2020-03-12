@@ -39,7 +39,11 @@ const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
             localStorage.setItem('token', res.data.token);
             setAuthToken(res.data.token);
             loadUser();
-            setAlert('Login successful.', 'success');
+            setAlert(
+                'Login successful.',
+                'success',
+                "your profile's dashboard"
+            );
             // redirect to dashboard
             history.push('/dashboard');
         } catch (err) {
@@ -84,7 +88,7 @@ const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
                                 className='form__input'
                             />
 
-                            {formData.errors && (
+                            {formData.errors.length > 0 && (
                                 <FormErrorsDisplay
                                     errors={formData.errors}
                                     label='login'

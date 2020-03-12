@@ -39,7 +39,11 @@ const Register = ({ history, setAlert }) => {
             const body = JSON.stringify({ email, password, password2 });
             const res = await axios.post('/api/register', body, config);
             //registered successefully
-            setAlert(res.data, 'success');
+            setAlert(
+                `${res.data} Please sign in now.`,
+                'success',
+                'login page'
+            );
             // redirect to login page
             history.push('/');
         } catch (err) {
@@ -91,7 +95,7 @@ const Register = ({ history, setAlert }) => {
                                 onChange={onChange}
                                 className='form__input'
                             />
-                            {formData.errors && (
+                            {formData.errors.length > 0 && (
                                 <FormErrorsDisplay
                                     errors={formData.errors}
                                     label='register'
