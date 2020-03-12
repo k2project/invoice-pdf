@@ -63,6 +63,58 @@ router.post(
                 }
             );
         } catch (err) {
+            console.error(err.message);
+            return res.status(500).send('Server Error');
+        }
+    }
+);
+
+//@route    DELETE api/auth/unregister
+//@desc     Delete user's account and profile
+//@status   Private
+router.delete('/unregister', token, async (req, res) => {
+    try {
+        await User.findOneAndRemove({ _id: req.user.id });
+        res.json({ msg: 'User account deleted.' });
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send('Server error');
+    }
+});
+//@route    POST api/auth/unregister
+//@desc     Authorise laccount deactivation
+//@status   Public
+router.post(
+    '/unregister',
+    [
+        check(
+            'password',
+            'To delete yor account you must provide your password.'
+        )
+            .trim()
+            .escape()
+            .not()
+            .isEmpty()
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        // console.log(errors);
+        if (!errors.isEmpty())
+            return res.status(400).json({ errors: errors.array() });
+        const { id, password } = req.body;
+        try {
+            let user = await User.findOne({ _id: id });
+            if (!user)
+                return res.status(400).json({
+                    errors: [{ msg: 'Cant find the user' }]
+                });
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch)
+                return res.status(400).json({
+                    errors: [{ msg: 'Incorrect password.' }]
+                });
+            res.json({ msg: 'Deregistration authorised.' });
+        } catch (err) {
             // console.error(err.message);
             return res.status(500).send('Server Error');
         }

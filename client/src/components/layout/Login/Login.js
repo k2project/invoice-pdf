@@ -6,7 +6,11 @@ import { connect } from 'react-redux';
 import { setAlert } from '../../../redux/actions/alerts';
 import { loadUser } from '../../../redux/actions/auth';
 import FormErrorsDisplay from '../../blocks/forms/FormErrorsDisplay';
-import { formErrorsStyling, inputOnChange } from '../../blocks/forms/formFuns';
+import {
+    formErrorsStyling,
+    inputOnChange,
+    updateStateErrors
+} from '../../blocks/forms/formFuns';
 import setAuthToken from '../../../utils/setAuthToken';
 
 import './Login.scss';
@@ -48,13 +52,7 @@ const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
             history.push('/dashboard');
         } catch (err) {
             localStorage.removeItem('token');
-            // console.log(err.response);
-            if (err.response.data.errors) {
-                setFormData({
-                    ...formData,
-                    errors: [...formData.errors, ...err.response.data.errors]
-                });
-            }
+            updateStateErrors(formData, setFormData, err.response.data.errors);
         }
     };
 

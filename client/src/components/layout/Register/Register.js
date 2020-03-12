@@ -48,10 +48,6 @@ const Register = ({ history, setAlert }) => {
             history.push('/');
         } catch (err) {
             updateStateErrors(formData, setFormData, err.response.data.errors);
-            // setFormData({
-            //     ...formData,
-            //     errors: [...formData.errors, ...err.response.data.errors]
-            // });
         }
     };
 

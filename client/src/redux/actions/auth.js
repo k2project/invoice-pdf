@@ -16,6 +16,7 @@ export const loadUser = () => async dispatch => {
         dispatch({ type: AUTH_ERROR });
     }
 };
+
 export const logoutUser = () => dispatch => {
     dispatch({ type: AUTH_ERROR });
 };

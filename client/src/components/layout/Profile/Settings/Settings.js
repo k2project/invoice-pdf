@@ -6,11 +6,11 @@ import DeleteAccount from './DeleteAccount';
 
 const Settings = props => {
     return (
-        <div className='settings'>
+        <main className='settings' id='main'>
             <div className='wrapper'>
                 <DeleteAccount />
             </div>
-        </div>
+        </main>
     );
 };
 
