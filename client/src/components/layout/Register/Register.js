@@ -5,7 +5,11 @@ import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../redux/actions/alerts';
 import FormErrorsDisplay from '../../blocks/forms/FormErrorsDisplay';
-import { formErrorsStyling, inputOnChange } from '../../blocks/forms/formFuns';
+import {
+    formErrorsStyling,
+    inputOnChange,
+    updateStateErrors
+} from '../../blocks/forms/formFuns';
 
 import './Register.scss';
 
@@ -39,10 +43,11 @@ const Register = ({ history, setAlert }) => {
             // redirect to login page
             history.push('/');
         } catch (err) {
-            setFormData({
-                ...formData,
-                errors: [...formData.errors, ...err.response.data.errors]
-            });
+            updateStateErrors(formData, setFormData, err.response.data.errors);
+            // setFormData({
+            //     ...formData,
+            //     errors: [...formData.errors, ...err.response.data.errors]
+            // });
         }
     };
 
