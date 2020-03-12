@@ -53,6 +53,8 @@ const Register = ({ history, setAlert }) => {
             });
         }
     };
+    function onFocus(e) {}
+    function onBlur(e) {}
     useEffect(() => {
         //add error styling to the input
         formData.errors.length > 0 &&
@@ -80,6 +82,8 @@ const Register = ({ history, setAlert }) => {
                                 id='email'
                                 name='email'
                                 onChange={onChange}
+                                onFocus={onFocus}
+                                onBlur={onBlur}
                                 className='form__input'
                             />
                             <label htmlFor='password'>Password</label>
