@@ -87,7 +87,7 @@ const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
                             {formData.errors && (
                                 <FormErrorsDisplay
                                     errors={formData.errors}
-                                    label='Register form errors list.'
+                                    label='login'
                                 />
                             )}
 

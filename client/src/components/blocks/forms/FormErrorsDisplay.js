@@ -30,7 +30,11 @@ function FormErrorsDisplay({ errors, label }) {
         }
     });
     return (
-        <ul className='form__errs' role='alert' aria-label={label}>
+        <ul
+            className='form__errs'
+            role='alert'
+            aria-label={`List of ${label} form errors links. Number of errors: ${arr.length}.`}
+        >
             {errList}
         </ul>
     );

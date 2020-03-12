@@ -4,7 +4,6 @@ export const formErrorsStyling = arr => {
     const uniqueErr = [];
     arr.length > 0 &&
         arr.forEach(err => {
-            console.log(err);
             if (err.param) {
                 if (!uniqueErr.includes(err.param)) {
                     uniqueErr.push(err.param);

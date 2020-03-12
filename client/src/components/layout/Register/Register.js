@@ -94,7 +94,7 @@ const Register = ({ history, setAlert }) => {
                             {formData.errors && (
                                 <FormErrorsDisplay
                                     errors={formData.errors}
-                                    label='Register form errors list.'
+                                    label='register'
                                 />
                             )}
 
