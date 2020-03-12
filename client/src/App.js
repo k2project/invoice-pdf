@@ -2,8 +2,8 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.scss';
 
-import SkipToMainContentLink from './components/func/SkipToMainContentLink';
-import Alert from './components/func/Alert';
+import SkipToMainContentLink from './components/blocks/SkipToMainContentLink';
+import Alert from './components/blocks/Alert';
 import Register from './components/layout/Register/Register';
 import Login from './components/layout/Login/Login';
 import Profile from './components/layout/Profile/Profile';

@@ -5,7 +5,8 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../redux/actions/alerts';
 import { loadUser } from '../../../redux/actions/auth';
-import FormErrorsDisplay from '../../func/FormErrorsDisplay';
+import FormErrorsDisplay from '../../blocks/forms/FormErrorsDisplay';
+import { formErrorsStyling, inputOnChange } from '../../blocks/forms/formFuns';
 import setAuthToken from '../../../utils/setAuthToken';
 
 import './Login.scss';
@@ -19,16 +20,7 @@ const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
     const { email, password } = formData;
 
     const onChange = e => {
-        const name = e.target.name;
-        //remove errors styling related to the input
-        //empty errors array
-        e.target.classList.remove('form__input--err');
-        const errors = formData.errors.filter(err => err.param !== name);
-        setFormData({
-            ...formData,
-            [name]: e.target.value,
-            errors
-        });
+        inputOnChange(e, formData, setFormData);
     };
 
     const onSubmit = async e => {
@@ -63,14 +55,8 @@ const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
     };
 
     useEffect(() => {
-        //add error styling to the input
-        formData.errors.length > 0 &&
-            formData.errors.forEach(err => {
-                if (err.param)
-                    document
-                        .getElementById(err.param)
-                        .classList.add('form__input--err');
-            });
+        //add error styling to the inputs
+        formErrorsStyling(formData.errors);
     }, [formData.errors]);
 
     return (

@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../redux/actions/alerts';
-import FormErrorsDisplay from '../../func/FormErrorsDisplay';
+import FormErrorsDisplay from '../../blocks/forms/FormErrorsDisplay';
+import { formErrorsStyling, inputOnChange } from '../../blocks/forms/formFuns';
 
 import './Register.scss';
 
@@ -18,16 +19,7 @@ const Register = ({ history, setAlert }) => {
     const { email, password, password2 } = formData;
 
     const onChange = e => {
-        const name = e.target.name;
-        //remove errors styling related to the input
-        //empty errors array
-        e.target.classList.remove('form__input--err');
-        const errors = formData.errors.filter(err => err.param !== name);
-        setFormData({
-            ...formData,
-            [name]: e.target.value,
-            errors
-        });
+        inputOnChange(e, formData, setFormData);
     };
 
     const onSubmit = async e => {
@@ -53,18 +45,12 @@ const Register = ({ history, setAlert }) => {
             });
         }
     };
-    function onFocus(e) {}
-    function onBlur(e) {}
+
     useEffect(() => {
-        //add error styling to the input
-        formData.errors.length > 0 &&
-            formData.errors.forEach(err => {
-                if (err.param)
-                    document
-                        .getElementById(err.param)
-                        .classList.add('form__input--err');
-            });
+        //add error styling to the inputs
+        formErrorsStyling(formData.errors);
     }, [formData.errors]);
+
     return (
         <Fragment>
             {localStorage.getItem('token') && history.push('/dashboard')}
@@ -82,8 +68,6 @@ const Register = ({ history, setAlert }) => {
                                 id='email'
                                 name='email'
                                 onChange={onChange}
-                                onFocus={onFocus}
-                                onBlur={onBlur}
                                 className='form__input'
                             />
                             <label htmlFor='password'>Password</label>
