@@ -29,7 +29,7 @@ const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
 
     const onSubmit = async e => {
         e.preventDefault();
-
+        const form = e.target;
         try {
             const config = {
                 headers: {
@@ -52,7 +52,12 @@ const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
             history.push('/dashboard');
         } catch (err) {
             localStorage.removeItem('token');
-            updateStateErrors(formData, setFormData, err.response.data.errors);
+            updateStateErrors(
+                form,
+                formData,
+                setFormData,
+                err.response.data.errors
+            );
         }
     };
 

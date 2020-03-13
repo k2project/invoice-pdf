@@ -46,6 +46,7 @@ const ChangeEmail = ({ setAlert, history, id, email, logoutUser }) => {
     }
     async function onSubmit(e) {
         e.preventDefault();
+        const form = e.target;
         if (deleteConfirmation) {
             const { email } = formData;
             try {
@@ -73,6 +74,7 @@ const ChangeEmail = ({ setAlert, history, id, email, logoutUser }) => {
                 history.push('/');
             } catch (err) {
                 updateStateErrors(
+                    form,
                     formData,
                     setFormData,
                     err.response.data.errors

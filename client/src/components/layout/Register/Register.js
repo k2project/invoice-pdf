@@ -28,7 +28,7 @@ const Register = ({ history, setAlert }) => {
 
     const onSubmit = async e => {
         e.preventDefault();
-
+        const form = e.target;
         try {
             const config = {
                 headers: {
@@ -47,7 +47,12 @@ const Register = ({ history, setAlert }) => {
             // redirect to login page
             history.push('/');
         } catch (err) {
-            updateStateErrors(formData, setFormData, err.response.data.errors);
+            updateStateErrors(
+                form,
+                formData,
+                setFormData,
+                err.response.data.errors
+            );
         }
     };
 

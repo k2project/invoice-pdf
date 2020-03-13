@@ -27,13 +27,13 @@ export const inputOnChange = (e, state, stateUpdate) => {
         errors
     });
 };
-export const updateStateErrors = async (state, updateState, errors) => {
+export const updateStateErrors = async (form, state, updateState, errors) => {
     if (errors) {
         await updateState({
             ...state,
             errors: [...state.errors, ...errors]
         });
-        const errorsLinks = document.querySelectorAll('.form__errs a');
+        const errorsLinks = form.querySelectorAll('.form__errs a');
         if (errorsLinks.length > 0) errorsLinks[0].focus();
     }
 };

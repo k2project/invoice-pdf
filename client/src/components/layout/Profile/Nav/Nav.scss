@@ -8,7 +8,11 @@
     li {
         display: inline-block;
     }
+    li:last-child {
+        margin-left: 3rem;
+    }
     button {
+        min-width: 10rem;
         display: inline-block;
         padding: 3rem 1.5rem;
         color: seashell;

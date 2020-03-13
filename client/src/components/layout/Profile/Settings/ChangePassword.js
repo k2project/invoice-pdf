@@ -50,6 +50,7 @@ const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
     }
     async function onSubmit(e) {
         e.preventDefault();
+        const form = e.target;
         if (deleteConfirmation) {
             const {
                 currentPassword,
@@ -83,6 +84,7 @@ const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
                 history.push('/');
             } catch (err) {
                 updateStateErrors(
+                    form,
                     formData,
                     setFormData,
                     err.response.data.errors
