@@ -106,7 +106,7 @@ const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
                                 Sign In
                             </button>
                         </form>
-                        <p>
+                        <p className='p--sml'>
                             Need an account?{' '}
                             <Link to='/register'>Sign up now.</Link>
                         </p>

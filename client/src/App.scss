@@ -157,12 +157,14 @@ label,
 label {
     margin-top: 2rem;
     color: #c1c7cd;
+    font-size: 1.4rem;
 }
 
 .form__input {
     border-radius: 0.4rem;
     border: solid 0.1rem #c1c7cd;
     padding: 1rem;
+    font-size: 1.6rem;
 }
 .form__input:focus {
     background: $COLOR_GREY;
@@ -176,7 +178,7 @@ label {
     color: $COLOR_THEME;
     a {
         font-size: 1.2rem;
-        margin: 0.2rem 0;
+        margin: 0.5rem 0;
     }
     a:focus {
         border: none;
@@ -276,11 +278,19 @@ label {
     font-weight: bold;
 }
 .heading--med {
-    font-size: 2.8rem;
+    font-size: 3rem;
 }
 .heading--sml {
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     font-weight: normal;
+    margin: 2rem 0;
+}
+p {
+    margin: 1rem 0;
+    font-size: 1.3rem;
+}
+.p--lrg {
+    font-size: 1.6rem;
 }
 //====================
 //  OTHERS STYLING

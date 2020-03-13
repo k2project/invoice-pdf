@@ -71,7 +71,10 @@ const Register = ({ history, setAlert }) => {
                         <h1 className='heading heading--med'>
                             Create Your Account
                         </h1>
-                        <p> It's free and only takes a minute.</p>
+                        <p className='p--lrg'>
+                            {' '}
+                            It's free and only takes a minute.
+                        </p>
                         <form onSubmit={onSubmit}>
                             <label htmlFor='email'>Email</label>
                             <input
