@@ -62,7 +62,8 @@ const DeleteAccount = ({ setAlert, history, id, logoutUser }) => {
                 setAlert(
                     'Your account has been deleted successfully. We are sorry to see you going...',
                     'success',
-                    'sign up page'
+                    'sign up page',
+                    false
                 );
                 // // redirect to dashboard
                 history.push('/register');
@@ -82,7 +83,7 @@ const DeleteAccount = ({ setAlert, history, id, logoutUser }) => {
     }, [formData.errors]);
     return (
         <section className='delete-account'>
-            <h2 className='heading heading--sml'>Delete Account.</h2>
+            <h2 className='heading heading--sml'>Delete your account.</h2>
             <p>
                 Once you delete your account, there is no going back. Please be
                 certain.

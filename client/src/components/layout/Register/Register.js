@@ -37,12 +37,13 @@ const Register = ({ history, setAlert }) => {
             };
 
             const body = JSON.stringify({ email, password, password2 });
-            const res = await axios.post('/api/register', body, config);
+            await axios.post('/api/register', body, config);
             //registered successefully
             setAlert(
-                `${res.data} Please sign in now.`,
+                "Account's created successfully. Please sign in now. ",
                 'success',
-                'login page'
+                'login page',
+                false
             );
             // redirect to login page
             history.push('/');

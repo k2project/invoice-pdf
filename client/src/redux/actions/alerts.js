@@ -5,6 +5,7 @@ export const setAlert = (
     msg,
     status,
     redirection,
+    hidden = true,
     timeout = 5000
 ) => dispatch => {
     const id = uuidv4();
@@ -14,8 +15,12 @@ export const setAlert = (
             msg,
             status,
             redirection,
+            hidden,
             id
         }
     });
     setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), timeout);
+};
+export const removeAlert = id => dispatch => {
+    dispatch({ type: REMOVE_ALERT, payload: id });
 };

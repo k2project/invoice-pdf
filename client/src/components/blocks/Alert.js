@@ -1,29 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { removeAlert } from '../../redux/actions/alerts';
 
-const Alert = ({ alerts }) =>
+const Alert = ({ alerts, removeAlert }) =>
     alerts !== null &&
     alerts.length > 0 &&
     alerts.map(alert => (
         <div
             key={alert.id}
-            className={`alert alert--${alert.status}`}
-            role='alert'
+            className={`alert alert--${alert.status} ${
+                alert.hidden ? 'sr-only' : ''
+            }`}
         >
-            {alert.msg}
-            {alert.redirection && (
-                <span className='sr-only'>
-                    You have been redirected to{alert.redirection}.
-                </span>
+            <div role='alert'>
+                {alert.msg}
+                {alert.redirection && (
+                    <span className='sr-only'>
+                        {`You have been redirected to ${alert.redirection}.`}
+                    </span>
+                )}
+            </div>
+            {!alert.hidden && (
+                <button
+                    className='alert__close'
+                    onMouseDown={e => e.preventDefault()}
+                    onClick={() => removeAlert(alert.id)}
+                >
+                    <span aria-hidden='true'>&times;</span>
+                    <span className='sr-only'>Close alert</span>
+                </button>
             )}
         </div>
     ));
 
 Alert.propTypes = {
-    alerts: PropTypes.array.isRequired
+    alerts: PropTypes.array.isRequired,
+    logoutUser: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
     alerts: state.alerts
 });
-export default connect(mapStateToProps)(Alert);
+export default connect(mapStateToProps, { removeAlert })(Alert);

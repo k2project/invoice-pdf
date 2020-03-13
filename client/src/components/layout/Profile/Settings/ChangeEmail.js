@@ -65,7 +65,8 @@ const ChangeEmail = ({ setAlert, history, id, email, logoutUser }) => {
                 setAlert(
                     'Your email address has been changed successfully. Please sign up with a new email.',
                     'success',
-                    'login page'
+                    'login page',
+                    false
                 );
                 localStorage.removeItem('token');
                 logoutUser();
@@ -87,7 +88,7 @@ const ChangeEmail = ({ setAlert, history, id, email, logoutUser }) => {
     return (
         <section className='change-email'>
             <h2 className='heading heading--sml'>
-                Change user email ({email}).
+                Change your user email ({email}).
             </h2>
             <p>
                 Upon a successful update you will be redirected to the login

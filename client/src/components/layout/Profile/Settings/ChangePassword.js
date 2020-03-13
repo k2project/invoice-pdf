@@ -75,7 +75,8 @@ const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
                 setAlert(
                     'Your password has been changed successfully. Please sign up with a new password.',
                     'success',
-                    'login page'
+                    'login page',
+                    false
                 );
                 localStorage.removeItem('token');
                 logoutUser();
@@ -96,7 +97,7 @@ const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
     }, [formData.errors]);
     return (
         <section className='change-password'>
-            <h2 className='heading heading--sml'>Change password.</h2>
+            <h2 className='heading heading--sml'>Change your password.</h2>
             <p>
                 Make sure it's at least 7 characters including a number and an
                 uppercase letter.
