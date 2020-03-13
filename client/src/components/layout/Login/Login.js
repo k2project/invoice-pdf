@@ -101,6 +101,7 @@ const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
                             <button
                                 type='submit'
                                 className='btn btn--form btn--theme'
+                                onMouseDown={e => e.preventDefault()}
                             >
                                 Sign In
                             </button>

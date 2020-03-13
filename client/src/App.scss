@@ -100,10 +100,25 @@ a:focus {
 //  ALERTS STYLING
 //====================
 .alert {
-    padding: 2rem;
+    padding: 2.5rem;
     text-align: center;
     font-size: 1.6rem;
-    margin-bottom: 0.2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 98vw;
+    margin: 1vw;
+    z-index: 999;
+    border-radius: 0.5rem;
+    opacity: 0;
+    top: -5rem;
+    animation: slideIn 0.5s forwards ease-in-out;
+}
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        top: 0;
+    }
 }
 .alert--success {
     background: $COLOR_SUCCESS;
@@ -251,7 +266,8 @@ label {
     font-size: 2.8rem;
 }
 .heading--sml {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
+    font-weight: normal;
 }
 //====================
 //  OTHERS STYLING

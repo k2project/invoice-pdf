@@ -218,7 +218,15 @@ router.put(
             return res.status(400).json({ errors: errors.array() });
         }
         const { id, email } = req.body;
+
         try {
+            //check if user exists
+            let user = await User.findOne({ email });
+            if (user) {
+                return res.status(400).json({
+                    errors: [{ msg: 'User already exists.', param: 'email' }]
+                });
+            }
             //update email
             await User.findOneAndUpdate(
                 { _id: id },

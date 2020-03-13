@@ -20,34 +20,32 @@ const ChangeEmail = ({ setAlert, history, id, email, logoutUser }) => {
     const onChange = e => {
         inputOnChange(e, formData, setFormData);
     };
-    const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+    const [updateConfirmation, setUpdateConfirmation] = useState(false);
 
     async function handleUpdate(e) {
-        e.preventDefault();
-        const btn = e.target;
-        await setDeleteConfirmation(true);
-        btn.classList = 'btn btn--info';
-        document.getElementById('email').focus();
+        if (!updateConfirmation) {
+            e.preventDefault();
+            const btn = e.target;
+            await setUpdateConfirmation(true);
+            btn.classList = 'btn btn--info';
+            document.getElementById('email').focus();
+        }
     }
-    function updateOnEnter(e) {
-        if (e.keyCode === 13) handleUpdate(e);
-    }
+
     function handleCancelation(e) {
         const btn = e.target;
-        setDeleteConfirmation(false);
+        setUpdateConfirmation(false);
         btn.nextElementSibling.classList = 'btn btn--grey';
         setFormData({
             email: null,
             errors: []
         });
     }
-    function cancelationOnEnter(e) {
-        if (e.keyCode === 13) handleCancelation(e);
-    }
+
     async function onSubmit(e) {
         e.preventDefault();
         const form = e.target;
-        if (deleteConfirmation) {
+        if (updateConfirmation) {
             const { email } = formData;
             try {
                 const config = {
@@ -97,7 +95,7 @@ const ChangeEmail = ({ setAlert, history, id, email, logoutUser }) => {
             </p>
 
             <form onSubmit={onSubmit}>
-                {deleteConfirmation && (
+                {updateConfirmation && (
                     <Fragment>
                         <label htmlFor='email'>
                             Enter your new email address.
@@ -114,14 +112,14 @@ const ChangeEmail = ({ setAlert, history, id, email, logoutUser }) => {
                 {formData.errors.length > 0 && (
                     <FormErrorsDisplay
                         errors={formData.errors}
-                        label='delete account'
+                        label='change email'
                     />
                 )}
-                {deleteConfirmation && (
+                {updateConfirmation && (
                     <button
                         className='btn btn--grey btn--sibling'
-                        onMouseDown={handleCancelation}
-                        onKeyDown={cancelationOnEnter}
+                        onClick={handleCancelation}
+                        onMouseDown={e => e.preventDefault()}
                     >
                         Cancel
                     </button>
@@ -129,10 +127,16 @@ const ChangeEmail = ({ setAlert, history, id, email, logoutUser }) => {
                 <button
                     type='submit'
                     className='btn btn--grey'
-                    onMouseDown={handleUpdate}
-                    onKeyDown={updateOnEnter}
+                    onClick={handleUpdate}
+                    onMouseDown={e => e.preventDefault()}
                 >
+                    {!updateConfirmation && (
+                        <span className='sr-only'>Display form to </span>
+                    )}
                     Change Email
+                    {updateConfirmation && (
+                        <span className='sr-only'> now </span>
+                    )}
                 </button>
             </form>
         </section>

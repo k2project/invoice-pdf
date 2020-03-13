@@ -23,13 +23,15 @@ const DeleteAccount = ({ setAlert, history, id, logoutUser }) => {
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
     async function handleDelete(e) {
-        e.preventDefault();
+        if (!deleteConfirmation) {
+            e.preventDefault();
+            await setDeleteConfirmation(true);
+            document.getElementById('password').focus();
+        }
         await setDeleteConfirmation(true);
         document.getElementById('password').focus();
     }
-    function deleteOnEnter(e) {
-        if (e.keyCode === 13) handleDelete(e);
-    }
+
     function handleCancelation() {
         setDeleteConfirmation(false);
         setFormData({
@@ -37,9 +39,7 @@ const DeleteAccount = ({ setAlert, history, id, logoutUser }) => {
             errors: []
         });
     }
-    function cancelationOnEnter(e) {
-        if (e.keyCode === 13) handleCancelation(e);
-    }
+
     async function onSubmit(e) {
         e.preventDefault();
         const form = e.target;
@@ -112,8 +112,8 @@ const DeleteAccount = ({ setAlert, history, id, logoutUser }) => {
                 {deleteConfirmation && (
                     <button
                         className='btn btn--grey btn--sibling'
-                        onMouseDown={handleCancelation}
-                        onKeyDown={cancelationOnEnter}
+                        onClick={handleCancelation}
+                        onMouseDown={e => e.preventDefault()}
                     >
                         Cancel
                     </button>
@@ -121,10 +121,16 @@ const DeleteAccount = ({ setAlert, history, id, logoutUser }) => {
                 <button
                     type='submit'
                     className='btn btn--danger'
-                    onMouseDown={handleDelete}
-                    onKeyDown={deleteOnEnter}
+                    onClick={handleDelete}
+                    onMouseDown={e => e.preventDefault()}
                 >
+                    {!deleteConfirmation && (
+                        <span className='sr-only'>Display form to </span>
+                    )}
                     Delete Account
+                    {deleteConfirmation && (
+                        <span className='sr-only'> now </span>
+                    )}
                 </button>
             </form>
         </section>

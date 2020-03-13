@@ -106,6 +106,7 @@ const Register = ({ history, setAlert }) => {
                             <button
                                 type='submit'
                                 className='btn btn--form btn--theme'
+                                onMouseDown={e => e.preventDefault()}
                             >
                                 Create Account
                             </button>
