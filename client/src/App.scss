@@ -203,11 +203,17 @@ label {
     background-color: darken($COLOR_DANGER, 10%);
     border-color: darken($COLOR_DANGER, 10%);
 }
-.btn--danger:focus {
-    border: dashed 0.1rem #111;
-    background-color: darken($COLOR_BG, 20%);
-    color: $COLOR_DARK;
+
+.btn--info {
+    background-color: $COLOR_INFO;
+    color: #fff;
+    border-color: $COLOR_INFO;
 }
+.btn--info:hover {
+    background-color: darken($COLOR_INFO, 10%);
+    border-color: darken($COLOR_INFO, 10%);
+}
+
 .btn--grey {
     border: solid 0.1rem $COLOR_GREY;
     background-color: $COLOR_GREY;
@@ -217,6 +223,8 @@ label {
     background-color: darken($COLOR_GREY, 10%);
     border-color: darken($COLOR_GREY, 10%);
 }
+.btn--danger:focus,
+.btn--info:focus,
 .btn--grey:focus {
     border: dashed 0.1rem #111;
     background-color: darken($COLOR_BG, 20%);

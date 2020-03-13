@@ -22,7 +22,7 @@ router.post(
             .escape()
             .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
             .withMessage(
-                'Password must be at least 8 characters long and must contain a number and a capital letter.'
+                'Password must be at least 8 characters long and must contain a number and a uppercase letter.'
             )
             .custom((value, { req }) => {
                 if (value !== req.body.password2) {

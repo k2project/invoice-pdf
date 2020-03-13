@@ -120,4 +120,81 @@ router.post(
         }
     }
 );
+//@route    PUT /api/auth/change-password
+//@desc     Change password
+//@status   Private
+router.put(
+    '/change-password',
+    [
+        token,
+        [
+            check('currentPassword', 'Please enter your current password.')
+                .trim()
+                .escape()
+                .not()
+                .isEmpty(),
+            check('newPassword')
+                .trim()
+                .escape()
+                .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
+                .withMessage(
+                    'Password must be at least 8 characters long and must contain a number and a uppercase letter.'
+                )
+                .custom((value, { req }) => {
+                    if (value === req.body.currentPassword) {
+                        // trow error if passwords do not match
+                        throw new Error(
+                            'New passwords must be different to the current one.'
+                        );
+                    } else {
+                        //to get rid of 'invalid value' error
+                        return true;
+                    }
+                })
+                .custom((value, { req }) => {
+                    if (value !== req.body.newPasswordConfirmation) {
+                        // trow error if passwords do not match
+                        throw new Error("New passwords don't match.");
+                    } else {
+                        //to get rid of 'invalid value' error
+                        return true;
+                    }
+                }),
+            check('newPasswordConfirmation')
+                .trim()
+                .escape()
+                .custom((value, { req }) => {
+                    if (value !== req.body.newPassword) {
+                        // trow error if passwords do not match
+                        throw new Error("New passwords don't match.");
+                    } else {
+                        //to get rid of 'invalid value' error
+                        return true;
+                    }
+                })
+        ]
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const { id, newPassword } = req.body;
+        try {
+            //encrypt password
+            const salt = await bcrypt.genSalt(10);
+            const password = await bcrypt.hash(newPassword, salt);
+            //update password
+            await User.findOneAndUpdate(
+                { _id: id },
+                { $set: { password } },
+                { new: true }
+            );
+            res.send('Password has been updated successfully.');
+        } catch (err) {
+            // console.log(err.message);
+            res.status(500).send('Server Error');
+        }
+    }
+);
 module.exports = router;
