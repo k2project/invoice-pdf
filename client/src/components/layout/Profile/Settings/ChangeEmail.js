@@ -12,11 +12,9 @@ import { setAlert } from '../../../../redux/actions/alerts';
 import axios from 'axios';
 import { logoutUser } from '../../../../redux/actions/auth';
 
-const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
+const ChangeEmail = ({ setAlert, history, id, email, logoutUser }) => {
     const [formData, setFormData] = useState({
-        currentPassword: null,
-        newPassword: null,
-        newPasswordConfirmation: null,
+        email: null,
         errors: []
     });
     const onChange = e => {
@@ -29,7 +27,7 @@ const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
         const btn = e.target;
         await setDeleteConfirmation(true);
         btn.classList = 'btn btn--info';
-        document.getElementById('currentPassword').focus();
+        document.getElementById('email').focus();
     }
     function updateOnEnter(e) {
         if (e.keyCode === 13) handleUpdate(e);
@@ -39,9 +37,7 @@ const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
         setDeleteConfirmation(false);
         btn.nextElementSibling.classList = 'btn btn--grey';
         setFormData({
-            currentPassword: null,
-            newPassword: null,
-            newPasswordConfirmation: null,
+            email: null,
             errors: []
         });
     }
@@ -51,11 +47,7 @@ const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
     async function onSubmit(e) {
         e.preventDefault();
         if (deleteConfirmation) {
-            const {
-                currentPassword,
-                newPassword,
-                newPasswordConfirmation
-            } = formData;
+            const { email } = formData;
             try {
                 const config = {
                     headers: {
@@ -65,16 +57,14 @@ const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
 
                 const body = JSON.stringify({
                     id,
-                    currentPassword,
-                    newPassword,
-                    newPasswordConfirmation
+                    email
                 });
 
-                await axios.put('/api/auth/change-password', body, config);
+                await axios.put('/api/auth/change-email', body, config);
 
                 // logout user
                 setAlert(
-                    'Your password has been changed successfully. Please sign up with a new password.',
+                    'Your email address has been changed successfully. Please sign up with a new email.',
                     'success',
                     'login page'
                 );
@@ -95,12 +85,10 @@ const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
         formErrorsStyling(formData.errors);
     }, [formData.errors]);
     return (
-        <section className='change-password'>
-            <h2 className='heading heading--sml'>Change password.</h2>
-            <p>
-                Make sure it's at least 7 characters including a number and an
-                uppercase letter.
-            </p>
+        <section className='change-email'>
+            <h2 className='heading heading--sml'>
+                Change user email ({email}).
+            </h2>
             <p>
                 Upon a successful update you will be redirected to the login
                 page to sign in with the new credentials.
@@ -109,33 +97,13 @@ const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
             <form onSubmit={onSubmit}>
                 {deleteConfirmation && (
                     <Fragment>
-                        <label htmlFor='currentPassword'>
-                            Enter your current password.
+                        <label htmlFor='email'>
+                            Enter your new email address.
                         </label>
                         <input
-                            type='password'
-                            name='currentPassword'
-                            id='currentPassword'
-                            onChange={onChange}
-                            className='form__input form__input--sml'
-                        />
-                        <label htmlFor='newPassword'>
-                            Enter a new password.
-                        </label>
-                        <input
-                            type='password'
-                            name='newPassword'
-                            id='newPassword'
-                            onChange={onChange}
-                            className='form__input form__input--sml'
-                        />
-                        <label htmlFor='newPasswordConfirmation'>
-                            Confirm your new password.
-                        </label>
-                        <input
-                            type='password'
-                            name='newPasswordConfirmation'
-                            id='newPasswordConfirmation'
+                            type='email'
+                            name='email'
+                            id='email'
                             onChange={onChange}
                             className='form__input form__input--sml'
                         />
@@ -162,21 +130,23 @@ const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
                     onMouseDown={handleUpdate}
                     onKeyDown={updateOnEnter}
                 >
-                    Change Password
+                    Change Email
                 </button>
             </form>
         </section>
     );
 };
 
-ChangePassword.propTypes = {
+ChangeEmail.propTypes = {
     setAlert: PropTypes.func.isRequired,
     logoutUser: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired
 };
 const mapStateToProps = state => ({
-    id: state.auth.user._id
+    id: state.auth.user._id,
+    email: state.auth.user.email
 });
 export default withRouter(
-    connect(mapStateToProps, { setAlert, logoutUser })(ChangePassword)
+    connect(mapStateToProps, { setAlert, logoutUser })(ChangeEmail)
 );

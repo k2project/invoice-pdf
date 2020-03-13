@@ -197,4 +197,39 @@ router.put(
         }
     }
 );
+//@route    PUT /api/auth/change-email
+//@desc     Change email
+//@status   Private
+router.put(
+    '/change-email',
+    [
+        token,
+        [
+            check('email', 'Please enter a valid email address.')
+                .trim()
+                .escape()
+                .normalizeEmail()
+                .isEmail()
+        ]
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const { id, email } = req.body;
+        try {
+            //update email
+            await User.findOneAndUpdate(
+                { _id: id },
+                { $set: { email } },
+                { new: true }
+            );
+            res.send('Email has been updated successfully.');
+        } catch (err) {
+            // console.log(err.message);
+            res.status(500).send('Server Error');
+        }
+    }
+);
 module.exports = router;

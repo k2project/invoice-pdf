@@ -4,11 +4,13 @@ import './Settings.scss';
 
 import DeleteAccount from './DeleteAccount';
 import ChangePassword from './ChangePassword';
+import ChangeEmail from './ChangeEmail';
 
 const Settings = props => {
     return (
         <main className='settings' id='main'>
             <div className='wrapper'>
+                <ChangeEmail />
                 <ChangePassword />
                 <DeleteAccount />
             </div>
