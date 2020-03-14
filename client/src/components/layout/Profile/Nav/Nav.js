@@ -8,17 +8,22 @@ import './Nav.scss';
 
 const Nav = ({ logoutUser, toggleDisplay, setAlert }) => {
     function handleClick(e) {
-        const target = e.target.closest('button ');
+        e.preventDefault();
+        const target = e.target.closest('a');
         const text = target.firstElementChild.nextElementSibling.textContent.trim();
-        toggleDisplay(text);
         tagActiveEl(target);
+        toggleDisplay(text);
+        setAlert(
+            `${text} settings have been now desplayed on the page below `,
+            'success'
+        );
     }
 
     function tagActiveEl(target) {
-        Array.from(document.querySelectorAll('.main-nav button')).forEach(
-            btn => (btn.classList = '')
-        );
-        target.classList.add('btn--is-active');
+        Array.from(document.querySelectorAll('.main-nav__link')).forEach(a => {
+            a.classList = 'main-nav__link';
+        });
+        target.classList = 'main-nav__link main-nav__link--is-active ';
     }
     function logout() {
         setAlert(
@@ -32,25 +37,34 @@ const Nav = ({ logoutUser, toggleDisplay, setAlert }) => {
         <nav aria-label='main naviagtion' id='main-nav'>
             <ul className='main-nav' role='menu'>
                 <li role='menuitem'>
-                    <button
+                    <a
+                        href='#dashboard'
                         onMouseDown={e => e.preventDefault()}
                         onClick={handleClick}
-                        className='btn--is-active'
+                        className='main-nav__link main-nav__link--is-active'
                     >
                         <span className='sr-only'>Display </span>
                         <span className='btn-text'> Dashboard</span>
-                        <span className='sr-only'> settings on the page</span>
-                    </button>
+                        <span className='sr-only'>
+                            {' '}
+                            settings on the page below
+                        </span>
+                    </a>
                 </li>
                 <li role='menuitem'>
-                    <button
+                    <a
+                        href='account'
                         onMouseDown={e => e.preventDefault()}
                         onClick={handleClick}
+                        className='main-nav__link'
                     >
                         <span className='sr-only'>Display </span>
                         <span className='btn-text'> Account</span>
-                        <span className='sr-only'> settings on the page</span>
-                    </button>
+                        <span className='sr-only'>
+                            {' '}
+                            settings on the page below
+                        </span>
+                    </a>
                 </li>
                 <li role='menuitem'>
                     <button

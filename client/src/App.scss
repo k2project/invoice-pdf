@@ -5,9 +5,11 @@ $COLOR_THEME: #e77e22;
 $COLOR_DANGER: crimson;
 $COLOR_SUCCESS: seagreen;
 $COLOR_INFO: #0081a7;
-$COLOR_BG: #f5f8fb;
+$COLOR_BG: #f6f9fc;
 $COLOR_DARK: #1b262b;
 $COLOR_DARK_SECONDARY: #2b3a41;
+$COLOR_DARK2: #354052;
+$COLOR_LIGHT2: #edf2f6;
 $COLOR_GREY: #ebedef;
 
 // ==============
@@ -85,7 +87,7 @@ $COLOR_GREY: #ebedef;
 //====================
 a:link,
 a:visited {
-    color: $COLOR_THEME;
+    // color: $COLOR_THEME;
 }
 a:hover,
 a:active {
@@ -281,7 +283,7 @@ label {
     font-size: 3rem;
 }
 .heading--sml {
-    font-size: 2.6rem;
+    font-size: 2.5rem;
     font-weight: normal;
     margin: 2rem 0;
 }

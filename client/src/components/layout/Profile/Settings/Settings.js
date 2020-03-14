@@ -8,11 +8,16 @@ import ChangeEmail from './ChangeEmail';
 
 const Settings = props => {
     return (
-        <main className='settings' id='main'>
+        <main className='settings' id='account'>
+            <h1 id='account' className='sr-only'>
+                Account settings
+            </h1>
             <div className='wrapper'>
-                <ChangeEmail />
-                <ChangePassword />
-                <DeleteAccount />
+                <div id='main'>
+                    <ChangeEmail />
+                    <ChangePassword />
+                    <DeleteAccount />
+                </div>
             </div>
         </main>
     );

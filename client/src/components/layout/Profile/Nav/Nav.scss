@@ -11,26 +11,33 @@
     li:last-child {
         margin-left: 3rem;
     }
+    .main-nav__link,
     button {
-        min-width: 10rem;
+        width: 10rem;
         display: inline-block;
-        padding: 3rem 1.5rem;
+        padding: 2.7rem 0;
         color: seashell;
         border: solid 0.1rem $COLOR_DARK;
-        font-size: 1.4rem;
-    }
-    .btn--is-active:hover,
-    .btn--is-active {
-        background-color: lighten($COLOR_DARK, 20%);
-        border-color: lighten($COLOR_DARK, 20%);
+        font-size: 1.3rem;
+        text-align: center;
     }
 
+    .main-nav__link:hover,
     button:hover {
+        text-decoration: none;
         background-color: $COLOR_THEME;
         border-color: $COLOR_THEME;
     }
-    .btn--is-active:focus,
+
+    .main-nav__link--is-active:hover,
+    .main-nav__link--is-active {
+        text-decoration: none;
+        background-color: lighten($COLOR_DARK, 20%);
+        border-color: lighten($COLOR_DARK, 20%);
+    }
+    .main-nav__link:focus,
     button:focus {
+        text-decoration: none;
         border: dashed 0.1rem #fff;
     }
 }

@@ -24,6 +24,8 @@ html {
 li {
     list-style: none;
 }
+details,
+summary,
 a:link,
 a:visited,
 a:hover,
@@ -48,6 +50,7 @@ textarea:focus,
 select:focus,
 button:active,
 button:focus {
+    background: none;
     outline: none;
     border: none;
 }
