@@ -5,8 +5,7 @@ const ProfileSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    name: String,
-    surname: String,
+    fullName: String,
     company: String,
     address: String,
     bank: {
@@ -18,6 +17,7 @@ const ProfileSchema = new mongoose.Schema({
         email: String,
         mobile: Number
     },
+    comapnies: Array,
     date: {
         type: Date,
         default: Date.now
