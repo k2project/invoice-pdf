@@ -26,7 +26,7 @@ router.get('/user', token, async (req, res) => {
 //@route    POST api/profile/
 //@desc     Create or update the profile
 //@status   Private
-router.get('/user', token, async (req, res) => {
+router.post('/', token, async (req, res) => {
     const {
         fullName,
         company,

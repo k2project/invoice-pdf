@@ -1,9 +1,12 @@
 @import '../../../../App.scss';
 .settings {
-    padding: 7rem 0 5rem;
+    padding: 5rem 0;
     section {
         padding: 2rem 0 2rem;
         border-bottom: solid 0.1rem $COLOR_BG;
+    }
+    section:last-child {
+        border: none;
     }
 }
 .delete-account label {

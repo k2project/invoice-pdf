@@ -1,5 +1,16 @@
 @import '../../../../App.scss';
-.dashboard {
+.dashboard__init {
+    background-color: #fff;
+    min-height: 100vh;
+}
+.dashboard__init-heading {
+    padding: 4rem 0 3rem;
+    background-color: $COLOR_BG;
+}
+.dashboard__init-form {
+    padding: 4rem 0;
+}
+.dashboard__profiled {
     display: grid;
     grid-template-columns: auto 1fr;
 }
