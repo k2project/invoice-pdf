@@ -22,12 +22,9 @@ const FormInput = ({ type = 'text', name, size = 'sml', children, form }) => {
 };
 
 FormInput.propTypes = {
-    label: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
     children: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired
+    form: PropTypes.object.isRequired
 };
 
 export default FormInput;

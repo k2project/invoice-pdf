@@ -37,3 +37,23 @@ export const updateStateErrors = async (form, state, updateState, errors) => {
         if (errorsLinks.length > 0) errorsLinks[0].focus();
     }
 };
+
+export const sanitize = string => {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        '/': '&#x2F;'
+    };
+    const reg = /[&<>"'/]/gi;
+    return string.replace(reg, match => map[match]);
+};
+
+export const cleanData = async state => {
+    Object.keys(state).forEach(function(item) {
+        if (typeof state[item] === 'string')
+            state[item] = sanitize(state[item].trim());
+    });
+};

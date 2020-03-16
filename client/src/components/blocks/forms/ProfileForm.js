@@ -2,7 +2,7 @@ import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import FormErrorsDisplay from './FormErrorsDisplay';
 import FormInput from './FormInput';
-import { formErrorsStyling, updateStateErrors } from './formFuns';
+import { formErrorsStyling, updateStateErrors, cleanData } from './formFuns';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../redux/actions/alerts';
 import { getCurrentProfile } from '../../../redux/actions/profile';
@@ -34,6 +34,7 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
                     'Content-Type': 'application/json'
                 }
             };
+            await cleanData(formData);
             const {
                 fullName,
                 company,
@@ -50,7 +51,17 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
             } = formData;
             const body = JSON.stringify({
                 fullName,
-                company
+                company,
+                addressLine1,
+                addressLine2,
+                town,
+                county,
+                postcode,
+                email,
+                mobile,
+                bankName,
+                bankSortCode,
+                bankAccount
             });
 
             await axios.post('/api/profile/', body, config);
