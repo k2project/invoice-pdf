@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const token = require('../../middleware/token');
 const User = require('../../models/User');
+const Profile = require('../../models/Profile');
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -74,7 +75,11 @@ router.post(
 //@status   Private
 router.delete('/unregister', token, async (req, res) => {
     try {
+        //remove profile
+        await Profile.findOneAndRemove({ user: req.user.id });
+        //remove user
         await User.findOneAndRemove({ _id: req.user.id });
+
         res.json({ msg: 'User account deleted.' });
     } catch (err) {
         console.error(err.message);
@@ -82,7 +87,7 @@ router.delete('/unregister', token, async (req, res) => {
     }
 });
 //@route    POST api/auth/unregister
-//@desc     Authorise laccount deactivation
+//@desc     Authorise account's deactivation
 //@status   Public
 router.post(
     '/unregister',

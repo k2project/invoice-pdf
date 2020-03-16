@@ -16,9 +16,7 @@ router.get('/user', token, async (req, res) => {
             await Profile.findOne({ user: req.user.id })
         ).populate('user', ['email']);
         if (!profile)
-            return res.status(400).json({
-                errors: [{ msg: "User's profile not found" }]
-            });
+            return res.status(400).json({ msg: "User's profile not found" });
         res.json(profile);
     } catch (err) {
         console.error(err.message);
@@ -70,6 +68,70 @@ router.get('/user', token, async (req, res) => {
         }
         //create a new profile
         profile = new Profile(profileFields);
+        await profile.save();
+        res.json(profile);
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send('Server error');
+    }
+});
+
+//@route    PUT api/profile/company
+//@desc     Add a new company into user's profile
+//@status   Private
+router.put(
+    '/company',
+    [token, [check('name', "Company's name is required")]],
+    async (req, res) => {
+        const errors = validationResult(req);
+        // console.log(errors);
+        if (!errors.isEmpty())
+            return res.status(400).json({ errors: errors.array() });
+        const { name } = req.body;
+        const newCompany = {
+            name
+        };
+        try {
+            const profile = await Profile.findOne({ user: req.user.id });
+            profile.companies.push(newCompany);
+            await profile.save();
+            res.json(profile);
+        } catch (err) {
+            console.error(err.message);
+            return res.status(500).send('Server error');
+        }
+    }
+);
+//@route    PUT api/profile/company/:company_id
+//@desc     Update the company in user's profile
+//@status   Private
+router.put('/company/:company_id', token, async (req, res) => {
+    try {
+        const profile = await Profile.findOne({ user: req.user.id });
+        const upatedCompany = profile.companies.filter(
+            item => item.id === req.params.company_id
+        );
+        upatedCompany = {
+            ...upatedCompany,
+            ...req.body
+        };
+        await profile.save();
+        res.json(profile);
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send('Server error');
+    }
+});
+//@route    DELETE api/profile/company/:company_id
+//@desc     Delete company from user's profile
+//@status   Private
+router.delete('/company/:company_id', token, async (req, res) => {
+    try {
+        const profile = await Profile.findOne({ user: req.user.id });
+        const removeIndex = profile.companies
+            .map(item => item.id)
+            .indexOf(req.params.company_id);
+        profile.companies.splice(removeIndex, 1);
         await profile.save();
         res.json(profile);
     } catch (err) {
