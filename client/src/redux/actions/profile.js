@@ -10,5 +10,6 @@ export const getCurrentProfile = () => async dispatch => {
         });
     } catch (err) {
         console.log(err);
+        return null;
     }
 };

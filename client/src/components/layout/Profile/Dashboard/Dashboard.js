@@ -9,22 +9,24 @@ import { getCurrentProfile } from '../../../../redux/actions/profile';
 import DashboardNav from './DashboardNav';
 import DashboardInit from './DashboardInit';
 
-const Dashboard = ({ profile: { profile }, getCurrentProfile }) => {
+const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
     const [display, setDisplay] = useState('profile');
-    // useEffect(() => {
-    //     getCurrentProfile();
-    // }, []);
+    useEffect(() => {
+        getCurrentProfile();
+    }, []);
     return (
         <main className='dashboard' id='main'>
+            {console.log(profile, loading)}
             <h1 id='dashboard' className='sr-only'>
                 Dashboard
             </h1>
-            {!profile && <DashboardInit />}
-            {profile && (
+            {!loading && !profile && <DashboardInit />}
+            {!loading && profile && (
                 <div className='dashboard__profiled'>
                     <DashboardNav />
                 </div>
             )}
+
             {/* {display === 'profile' && <Profile />} */}
         </main>
     );
