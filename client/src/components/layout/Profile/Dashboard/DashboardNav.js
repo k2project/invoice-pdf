@@ -6,7 +6,7 @@ import profileIcon from './../../../../imgs/icons/profileIcon.png';
 function DashboardNav(props) {
     return (
         <nav aria-labelledby='dashboard-menu-label'>
-            <h2 id='dashboard-menu-label' class='sr-only'>
+            <h2 id='dashboard-menu-label' className='sr-only'>
                 Dashboard Menu
             </h2>
             <ul

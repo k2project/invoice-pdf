@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { USER_LOADED, AUTH_ERROR } from './types';
+import { USER_LOADED, AUTH_ERROR, CLEAR_PROFILE } from './types';
 import setAuthToken from '../../utils/setAuthToken';
 
 export const loadUser = () => async dispatch => {
@@ -19,4 +19,5 @@ export const loadUser = () => async dispatch => {
 
 export const logoutUser = () => dispatch => {
     dispatch({ type: AUTH_ERROR });
+    dispatch({ type: CLEAR_PROFILE });
 };

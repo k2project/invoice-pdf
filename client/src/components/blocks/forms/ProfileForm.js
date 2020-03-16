@@ -9,9 +9,10 @@ import {
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../redux/actions/alerts';
+import { getCurrentProfile } from '../../../redux/actions/profile';
 import axios from 'axios';
 
-function ProfileForm({ setAlert, user: { _id, email } }) {
+function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
     const [formData, setFormData] = useState({
         fullName: null,
         company: null,
@@ -36,8 +37,7 @@ function ProfileForm({ setAlert, user: { _id, email } }) {
             });
 
             await axios.post('/api/profile/', body, config);
-
-            // logout user
+            getCurrentProfile();
             setAlert(
                 'Your profile has been created successfully. Please explore your dashboard below.',
                 'success',
@@ -93,4 +93,6 @@ ProfileForm.propTypes = {};
 const mapStateToProps = state => ({
     user: state.auth.user
 });
-export default connect(mapStateToProps, { setAlert })(ProfileForm);
+export default connect(mapStateToProps, { setAlert, getCurrentProfile })(
+    ProfileForm
+);
