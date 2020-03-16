@@ -1,12 +1,8 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import FormErrorsDisplay from './FormErrorsDisplay';
-import {
-    formErrorsStyling,
-    inputOnChange,
-    updateStateErrors
-} from './formFuns';
-import { withRouter } from 'react-router-dom';
+import FormInput from './FormInput';
+import { formErrorsStyling, updateStateErrors } from './formFuns';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../redux/actions/alerts';
 import { getCurrentProfile } from '../../../redux/actions/profile';
@@ -14,13 +10,21 @@ import axios from 'axios';
 
 function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
     const [formData, setFormData] = useState({
-        fullName: null,
-        company: null,
+        fullName: '',
+        company: '',
+        addressLine1: '',
+        addressLine2: '',
+        town: '',
+        county: '',
+        postcode: '',
+        email,
+        mobile: '',
+        bankName: '',
+        bankSortCode: '',
+        bankAccount: '',
         errors: []
     });
-    const onChange = e => {
-        inputOnChange(e, formData, setFormData);
-    };
+
     async function onSubmit(e) {
         const form = e.target;
         e.preventDefault();
@@ -30,7 +34,20 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
                     'Content-Type': 'application/json'
                 }
             };
-            const { fullName, company } = formData;
+            const {
+                fullName,
+                company,
+                addressLine1,
+                addressLine2,
+                town,
+                county,
+                postcode,
+                email,
+                mobile,
+                bankName,
+                bankSortCode,
+                bankAccount
+            } = formData;
             const body = JSON.stringify({
                 fullName,
                 company
@@ -46,12 +63,14 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
             );
         } catch (err) {
             console.log(err);
-            // updateStateErrors(
-            //     form,
-            //     formData,
-            //     setFormData,
-            //     err.response.data.errors
-            // );
+            if (err.response.data.errors) {
+                updateStateErrors(
+                    form,
+                    formData,
+                    setFormData,
+                    err.response.data.errors
+                );
+            }
         }
     }
 
@@ -61,25 +80,71 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
     }, [formData.errors]);
     return (
         <form onSubmit={onSubmit}>
-            <label htmlFor='fullName'>Full Name</label>
-            <input
-                type='text'
+            <FormInput
+                form={{ formData, setFormData }}
                 name='fullName'
-                id='fullName'
-                onChange={onChange}
-                className='form__input form__input--sml'
-            />
-            <label htmlFor='company'>Company Name</label>
-            <input
-                type='text'
+                size='md'
+            >
+                Full Name
+            </FormInput>
+            <FormInput
+                form={{ formData, setFormData }}
                 name='company'
-                id='company'
-                onChange={onChange}
-                className='form__input form__input--sml'
-            />
+                size='md'
+            >
+                Company Name
+            </FormInput>
+
+            <fieldset>
+                <legend>Address:</legend>
+                <FormInput form={{ formData, setFormData }} name='addressLine1'>
+                    Address Line 1
+                </FormInput>
+                <FormInput form={{ formData, setFormData }} name='addressLine2'>
+                    Address Line 2 (optional)
+                </FormInput>
+                <FormInput form={{ formData, setFormData }} name='town'>
+                    Town/City
+                </FormInput>
+                <FormInput form={{ formData, setFormData }} name='county'>
+                    County
+                </FormInput>
+                <FormInput form={{ formData, setFormData }} name='postcode'>
+                    Postcode
+                </FormInput>
+            </fieldset>
+            <fieldset>
+                <legend>Contact Details:</legend>
+                <FormInput
+                    form={{ formData, setFormData }}
+                    name='email'
+                    type='email'
+                >
+                    Email
+                </FormInput>
+                <FormInput
+                    form={{ formData, setFormData }}
+                    name='mobile'
+                    type='tel'
+                >
+                    Mobile
+                </FormInput>
+            </fieldset>
+            <fieldset>
+                <legend>Bank Details:</legend>
+                <FormInput form={{ formData, setFormData }} name='bankName'>
+                    Bank Name
+                </FormInput>{' '}
+                <FormInput form={{ formData, setFormData }} name='bankSortCode'>
+                    Sort Code
+                </FormInput>{' '}
+                <FormInput form={{ formData, setFormData }} name='bankAccount'>
+                    Account Number
+                </FormInput>
+            </fieldset>
             <button
                 type='submit'
-                className='btn btn--grey'
+                className='btn btn--info'
                 onClick={onSubmit}
                 onMouseDown={e => e.preventDefault()}
             >
@@ -89,7 +154,11 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
     );
 }
 
-ProfileForm.propTypes = {};
+ProfileForm.propTypes = {
+    setAlert: PropTypes.func.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired
+};
 const mapStateToProps = state => ({
     user: state.auth.user
 });

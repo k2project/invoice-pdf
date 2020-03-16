@@ -11,9 +11,9 @@ import DashboardInit from './DashboardInit';
 
 const Dashboard = ({ profile: { profile }, getCurrentProfile }) => {
     const [display, setDisplay] = useState('profile');
-    useEffect(() => {
-        getCurrentProfile();
-    }, []);
+    // useEffect(() => {
+    //     getCurrentProfile();
+    // }, []);
     return (
         <main className='dashboard' id='main'>
             <h1 id='dashboard' className='sr-only'>

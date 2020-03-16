@@ -129,4 +129,4 @@ Register.propTypes = {
     setAlert: PropTypes.func.isRequired
 };
 
-export default withRouter(connect(null, { setAlert })(Register));
+export default connect(null, { setAlert })(withRouter(Register));

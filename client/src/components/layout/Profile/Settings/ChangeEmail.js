@@ -154,6 +154,6 @@ const mapStateToProps = state => ({
     id: state.auth.user._id,
     email: state.auth.user.email
 });
-export default withRouter(
-    connect(mapStateToProps, { setAlert, logoutUser })(ChangeEmail)
+export default connect(mapStateToProps, { setAlert, logoutUser })(
+    withRouter(ChangeEmail)
 );

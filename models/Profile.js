@@ -7,7 +7,7 @@ const ProfileSchema = new mongoose.Schema({
     },
     fullName: String,
     company: String,
-    address: String,
+    address: Array,
     bank: {
         name: String,
         account: Number,

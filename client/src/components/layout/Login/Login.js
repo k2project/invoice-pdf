@@ -122,4 +122,4 @@ Login.propTypes = {
     loadUser: PropTypes.func.isRequired
 };
 
-export default withRouter(connect(null, { setAlert, loadUser })(Login));
+export default connect(null, { setAlert, loadUser })(withRouter(Login));

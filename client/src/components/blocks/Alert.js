@@ -36,7 +36,7 @@ const Alert = ({ alerts, removeAlert }) =>
 
 Alert.propTypes = {
     alerts: PropTypes.array.isRequired,
-    logoutUser: PropTypes.func.isRequired
+    removeAlert: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
     alerts: state.alerts

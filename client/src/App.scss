@@ -156,6 +156,9 @@ label,
 .form__input--sml {
     width: 42rem;
 }
+.form__input--md {
+    width: 55rem;
+}
 label {
     margin-top: 2rem;
     color: #c1c7cd;
@@ -189,6 +192,19 @@ label {
     display: block;
     margin: 1rem 0 0;
     text-align: left;
+}
+legend {
+    font-size: 1.6rem;
+    color: #c1c7cd;
+    padding: 0 2rem;
+}
+fieldset {
+    border-radius: 0.4rem;
+    border: solid 0.1rem #c1c7cd;
+    padding: 0rem 4rem 2rem;
+    width: 55rem;
+    display: block;
+    margin: 4rem 0 2rem;
 }
 //====================
 //  BUTTONS STYLING

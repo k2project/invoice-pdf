@@ -184,6 +184,6 @@ ChangePassword.propTypes = {
 const mapStateToProps = state => ({
     id: state.auth.user._id
 });
-export default withRouter(
-    connect(mapStateToProps, { setAlert, logoutUser })(ChangePassword)
+export default connect(mapStateToProps, { setAlert, logoutUser })(
+    withRouter(ChangePassword)
 );
