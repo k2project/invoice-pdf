@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PROFILE, CLEAR_PROFILE } from './types';
+import { GET_PROFILE, GET_PROFILE_ERR } from './types';
 
 export const getCurrentProfile = () => async dispatch => {
     try {
@@ -10,6 +10,12 @@ export const getCurrentProfile = () => async dispatch => {
         });
     } catch (err) {
         console.log(err);
-        return null;
+        dispatch({
+            type: GET_PROFILE_ERR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
+        });
     }
 };

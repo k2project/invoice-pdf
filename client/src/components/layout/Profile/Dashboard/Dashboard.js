@@ -8,15 +8,16 @@ import { getCurrentProfile } from '../../../../redux/actions/profile';
 
 import DashboardNav from './DashboardNav';
 import DashboardInit from './DashboardInit';
+import Profile from './Profile/Profile';
 
 const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
     const [display, setDisplay] = useState('profile');
     useEffect(() => {
         getCurrentProfile();
     }, []);
+
     return (
         <main className='dashboard' id='main'>
-            {console.log(profile, loading)}
             <h1 id='dashboard' className='sr-only'>
                 Dashboard
             </h1>
@@ -24,10 +25,9 @@ const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
             {!loading && profile && (
                 <div className='dashboard__profiled'>
                     <DashboardNav />
+                    {display === 'profile' && <Profile />}
                 </div>
             )}
-
-            {/* {display === 'profile' && <Profile />} */}
         </main>
     );
 };

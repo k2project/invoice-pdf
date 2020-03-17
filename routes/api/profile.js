@@ -44,24 +44,27 @@ router.post('/', token, async (req, res) => {
     const profileFields = {};
 
     profileFields.user = req.user.id;
-    if (fullName) profileFields.fullName = fullName;
-    if (company) profileFields.company = company;
+    profileFields.fullName = fullName;
+    profileFields.company = company;
 
-    profileFields.address = {};
-    if (addressLine1) profileFields.address.addressLine1 = addressLine1;
-    if (addressLine2) profileFields.address.addressLine1 = addressLine2;
-    if (town) profileFields.address.town = town;
-    if (county) profileFields.address.county = county;
-    if (postcode) profileFields.address.postcode = postcode;
+    profileFields.address = [
+        addressLine1,
+        addressLine2,
+        town,
+        county,
+        postcode
+    ];
 
-    profileFields.bank = {};
-    if (bankName) profileFields.bank.name = bankName;
-    if (bankAccount) profileFields.bank.account = bankAccount;
-    if (bankSortCode) profileFields.bank.sortCode = bankSortCode;
+    profileFields.bank = {
+        bankName,
+        bankAccount,
+        bankSortCode
+    };
 
-    profileFields.contact = {};
-    if (email) profileFields.contact.email = email;
-    if (mobile) profileFields.contact.mobile = mobile;
+    profileFields.contact = {
+        email,
+        mobile
+    };
 
     profileFields.companies = [];
 

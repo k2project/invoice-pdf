@@ -1,9 +1,10 @@
-import { GET_PROFILE, CLEAR_PROFILE } from '../actions/types';
+import { GET_PROFILE, CLEAR_PROFILE, GET_PROFILE_ERR } from '../actions/types';
 
 //loading stops from rendering DashboardInit on initial laod before useEffect
 const initialState = {
     profile: null,
-    loading: true
+    loading: true,
+    errors: null
 };
 
 export default function(state = initialState, action) {
@@ -19,7 +20,14 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 profile: null,
-                loading: true
+                loading: true,
+                errors: null
+            };
+        case GET_PROFILE_ERR:
+            return {
+                ...state,
+                loading: false,
+                errors: payload
             };
         default:
             return state;
