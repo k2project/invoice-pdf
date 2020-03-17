@@ -1,8 +1,15 @@
 @import '../../../../App.scss';
+
+.section__body {
+    padding: 4rem;
+    background-color: #fff;
+    min-height: 100vh;
+}
 .dashboard__init {
     background-color: #fff;
     min-height: 100vh;
 }
+.section__heading,
 .dashboard__init-heading {
     padding: 4rem 0 3rem;
     background-color: $COLOR_BG;
@@ -15,12 +22,17 @@
     grid-template-columns: auto 1fr;
 }
 .dashboard-nav {
-    display: inline-block;
-    padding-top: 4rem;
-    min-height: 100vh;
-    width: 18rem;
+    height: 100%;
     background-color: $COLOR_THEME;
     color: #111;
+}
+.dashboard-nav__list {
+    width: 18rem;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    display: inline-block;
+    padding-top: 4rem;
 
     li {
         display: block;
@@ -34,7 +46,9 @@
     color: #111;
     // border-bottom: solid 0.1rem darken($COLOR_THEME, 10%);
 }
-
+.dashboard-nav__sublink:last-child {
+    padding-bottom: 1.4rem;
+}
 .dashboard-nav__sublink {
     background-color: lighten($COLOR_THEME, 20%);
 }

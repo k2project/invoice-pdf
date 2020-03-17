@@ -8,11 +8,9 @@ const ProfileSchema = new mongoose.Schema({
     fullName: String,
     company: String,
     address: Array,
-    bank: {
-        name: String,
-        account: Number,
-        sortCode: String
-    },
+    bankName: String,
+    bankAccount: String,
+    bankSortCode: String,
     contact: {
         email: String,
         mobile: Number

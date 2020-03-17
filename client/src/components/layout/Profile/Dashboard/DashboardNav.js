@@ -5,12 +5,12 @@ import profileIcon from './../../../../imgs/icons/profileIcon.png';
 
 function DashboardNav(props) {
     return (
-        <nav aria-labelledby='dashboard-menu-label'>
+        <nav aria-labelledby='dashboard-menu-label' className='dashboard-nav'>
             <h2 id='dashboard-menu-label' className='sr-only'>
                 Dashboard Menu
             </h2>
             <ul
-                className='dashboard-nav'
+                className='dashboard-nav__list'
                 aria-labelledby='dashboard-menu-label'
             >
                 <li>
@@ -24,26 +24,6 @@ function DashboardNav(props) {
                     </a>
                 </li>
 
-                <li>
-                    <a href='' className='dashboard-nav__link'>
-                        <img
-                            src={plusIcon}
-                            className='dashboard__icon'
-                            alt=''
-                        />
-                        New Invoice
-                    </a>
-                </li>
-                <li>
-                    <a href='' className='dashboard-nav__link'>
-                        <img
-                            src={plusIcon}
-                            className='dashboard__icon'
-                            alt=''
-                        />
-                        Add Company
-                    </a>
-                </li>
                 <li>
                     <details>
                         <summary className='dashboard-nav__link'>
@@ -59,6 +39,27 @@ function DashboardNav(props) {
                             Compnay3
                         </a>
                     </details>
+                </li>
+
+                <li>
+                    <a href='' className='dashboard-nav__link'>
+                        <img
+                            src={plusIcon}
+                            className='dashboard__icon'
+                            alt=''
+                        />
+                        Add Company
+                    </a>
+                </li>
+                <li>
+                    <a href='' className='dashboard-nav__link'>
+                        <img
+                            src={plusIcon}
+                            className='dashboard__icon'
+                            alt=''
+                        />
+                        New Invoice
+                    </a>
                 </li>
             </ul>
         </nav>

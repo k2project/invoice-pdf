@@ -41,6 +41,7 @@ router.post('/', token, async (req, res) => {
         bankAccount,
         bankSortCode
     } = req.body;
+
     const profileFields = {};
 
     profileFields.user = req.user.id;
@@ -55,11 +56,9 @@ router.post('/', token, async (req, res) => {
         postcode
     ];
 
-    profileFields.bank = {
-        bankName,
-        bankAccount,
-        bankSortCode
-    };
+    profileFields.bankName = bankName;
+    profileFields.bankAccount = bankAccount;
+    profileFields.bankSortCode = bankSortCode;
 
     profileFields.contact = {
         email,

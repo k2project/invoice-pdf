@@ -40,12 +40,12 @@ export const updateStateErrors = async (form, state, updateState, errors) => {
 
 export const sanitize = string => {
     const map = {
-        '&': '&amp;',
+        // '&': '&amp;',
         '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#x27;',
-        '/': '&#x2F;'
+        '>': '&gt;'
+        // '"': '&quot;',
+        // "'": '&#x27;',
+        // '/': '&#x2F;'
     };
     const reg = /[&<>"'/]/gi;
     return string.replace(reg, match => map[match]);

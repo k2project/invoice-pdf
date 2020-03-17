@@ -1,1 +1,17 @@
 @import '../../../../../App.scss';
+.profile-details {
+    text-align: left;
+    font-size: 1.4rem;
+    margin-top: 4rem;
+    b {
+        font-weight: bold;
+    }
+    th {
+        padding-right: 3rem;
+        padding-bottom: 0.7rem;
+    }
+
+    span {
+        display: block;
+    }
+}
