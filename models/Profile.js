@@ -8,12 +8,16 @@ const ProfileSchema = new mongoose.Schema({
     fullName: String,
     company: String,
     address: Array,
-    bankName: String,
-    bankAccount: String,
-    bankSortCode: String,
+    bank: {
+        bankName: String,
+        bankAccount: String,
+        bankSortCode: String
+    },
     contact: {
         email: String,
-        mobile: Number
+        website: String,
+        mobile: Number,
+        fax: Number
     },
     comapnies: Array,
     date: {

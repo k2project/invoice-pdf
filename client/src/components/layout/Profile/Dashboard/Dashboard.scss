@@ -1,15 +1,18 @@
 @import '../../../../App.scss';
 
+.section__heading {
+    padding: 3rem 7rem;
+    background-color: $COLOR_BG;
+}
 .section__body {
-    padding: 4rem;
+    padding: 7rem;
     background-color: #fff;
-    min-height: 100vh;
 }
 .dashboard__init {
     background-color: #fff;
     min-height: 100vh;
 }
-.section__heading,
+
 .dashboard__init-heading {
     padding: 4rem 0 3rem;
     background-color: $COLOR_BG;
@@ -22,6 +25,7 @@
     grid-template-columns: auto 1fr;
 }
 .dashboard-nav {
+    min-height: 90vh;
     height: 100%;
     background-color: $COLOR_THEME;
     color: #111;

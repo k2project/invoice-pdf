@@ -47,7 +47,8 @@ export const sanitize = string => {
         // "'": '&#x27;',
         // '/': '&#x2F;'
     };
-    const reg = /[&<>"'/]/gi;
+    const reg = /[<>]/gi;
+    // const reg = /[&<>"'/]/gi;
     return string.replace(reg, match => map[match]);
 };
 
@@ -56,4 +57,17 @@ export const cleanData = async state => {
         if (typeof state[item] === 'string')
             state[item] = sanitize(state[item].trim());
     });
+};
+export const objHasAllPropertyEmpty = obj => {
+    let res = true;
+    if (Object.values(obj).length > 0) {
+        Object.values(obj).forEach(value => {
+            if (value) {
+                res = false;
+                return;
+            }
+            res = true;
+        });
+    }
+    return res;
 };

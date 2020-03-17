@@ -18,7 +18,9 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
         county: '',
         postcode: '',
         email,
+        website: '',
         mobile: '',
+        fax: '',
         bankName: '',
         bankSortCode: '',
         bankAccount: '',
@@ -43,8 +45,10 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
                 town,
                 county,
                 postcode,
+                website,
                 email,
                 mobile,
+                fax,
                 bankName,
                 bankSortCode,
                 bankAccount
@@ -57,8 +61,10 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
                 town,
                 county,
                 postcode,
+                website,
                 email,
                 mobile,
+                fax,
                 bankName,
                 bankSortCode,
                 bankAccount
@@ -124,23 +130,7 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
                     Postcode
                 </FormInput>
             </fieldset>
-            <fieldset>
-                <legend>Contact Details:</legend>
-                <FormInput
-                    form={{ formData, setFormData }}
-                    name='email'
-                    type='email'
-                >
-                    Email
-                </FormInput>
-                <FormInput
-                    form={{ formData, setFormData }}
-                    name='mobile'
-                    type='tel'
-                >
-                    Mobile
-                </FormInput>
-            </fieldset>
+
             <fieldset>
                 <legend>Bank Details:</legend>
                 <FormInput form={{ formData, setFormData }} name='bankName'>
@@ -153,13 +143,32 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
                     Account Number
                 </FormInput>
             </fieldset>
+            <fieldset>
+                <legend>Contact Details:</legend>
+                <FormInput
+                    form={{ formData, setFormData }}
+                    name='email'
+                    type='email'
+                >
+                    Email
+                </FormInput>
+                <FormInput form={{ formData, setFormData }} name='website'>
+                    Website
+                </FormInput>
+                <FormInput form={{ formData, setFormData }} name='mobile'>
+                    Tel/Mobile
+                </FormInput>
+                <FormInput form={{ formData, setFormData }} name='fax'>
+                    Fax
+                </FormInput>
+            </fieldset>
             <button
                 type='submit'
                 className='btn btn--info'
                 onClick={onSubmit}
                 onMouseDown={e => e.preventDefault()}
             >
-                Create Profile
+                Submit Profile
             </button>
         </form>
     );

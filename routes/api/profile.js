@@ -36,12 +36,13 @@ router.post('/', token, async (req, res) => {
         county,
         postcode,
         email,
+        website,
         mobile,
+        fax,
         bankName,
         bankAccount,
         bankSortCode
     } = req.body;
-
     const profileFields = {};
 
     profileFields.user = req.user.id;
@@ -56,13 +57,17 @@ router.post('/', token, async (req, res) => {
         postcode
     ];
 
-    profileFields.bankName = bankName;
-    profileFields.bankAccount = bankAccount;
-    profileFields.bankSortCode = bankSortCode;
+    profileFields.bank = {
+        bankName,
+        bankAccount,
+        bankSortCode
+    };
 
     profileFields.contact = {
         email,
-        mobile
+        website,
+        mobile,
+        fax
     };
 
     profileFields.companies = [];

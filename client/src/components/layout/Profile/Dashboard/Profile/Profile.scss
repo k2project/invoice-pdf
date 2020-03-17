@@ -1,17 +1,20 @@
 @import '../../../../../App.scss';
+.profile {
+    min-height: 100vh;
+}
 .profile-details {
     text-align: left;
     font-size: 1.4rem;
-    margin-top: 4rem;
-    b {
-        font-weight: bold;
+    li {
+        display: grid;
+        grid-template-columns: 15rem 1fr;
+        padding-bottom: 0.5rem;
     }
-    th {
-        padding-right: 3rem;
-        padding-bottom: 0.7rem;
-    }
-
-    span {
-        display: block;
-    }
+}
+.profile-details__address {
+    white-space: pre-line;
+    padding-top: 3rem;
+}
+.profile-details__bank {
+    padding-top: 3rem;
 }
