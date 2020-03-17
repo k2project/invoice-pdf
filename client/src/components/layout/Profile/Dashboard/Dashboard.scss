@@ -35,7 +35,7 @@
     position: -webkit-sticky; /* Safari */
     position: sticky;
     top: 0;
-    display: inline-block;
+    display: block;
     padding-top: 4rem;
 
     li {
@@ -48,13 +48,13 @@
     font-size: 1.3rem;
     padding: 1.2rem 3rem 1.2rem 2rem;
     color: #111;
-    // border-bottom: solid 0.1rem darken($COLOR_THEME, 10%);
 }
 .dashboard-nav__sublink:last-child {
     padding-bottom: 1.4rem;
 }
 .dashboard-nav__sublink {
     background-color: lighten($COLOR_THEME, 20%);
+    padding-left: 3rem;
 }
 .dashboard-nav__link:focus,
 .dashboard-nav__link:hover {
@@ -65,14 +65,25 @@
 .dashboard-nav__sublink:focus,
 .dashboard-nav__sublink:hover {
     background-color: lighten($COLOR_THEME, 30%);
-    color: #111;
+    color: $COLOR_THEME;
     text-decoration: none;
 }
+.dashboard__link--is-active:hover,
+.dashboard__link--is-active:focus,
+.dashboard__link--is-active {
+    background-color: $COLOR_BG;
+}
+
+.dashboard-nav__link:link,
 .dashboard-nav__link:active,
 .dashboard-nav__link:visited,
 .dashboard-nav__sublink:active,
 .dashboard-nav__sublink:visited {
     color: #111;
+}
+.dashboard-nav__link:focus,
+.dashboard-nav__sublink:focus {
+    border: dashed 0.1rem #111;
 }
 .dashboard-nav__link::-webkit-details-marker {
     padding-left: 0.9rem;

@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import './Profile.scss';
 import ProfileDetails from './ProfileDetails';
-import ProfileForm from '../../../../blocks/forms/ProfileForm';
+import ProfileForm from './ProfileForm';
 
 const Profile = props => {
     const [form, displayForm] = useState(false);

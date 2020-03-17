@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import ProfileForm from '../../../blocks/forms/ProfileForm';
+import ProfileForm from './Profile/ProfileForm';
 
 function DashboardInit(props) {
     useEffect(() => {

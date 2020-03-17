@@ -9,9 +9,13 @@ import { getCurrentProfile } from '../../../../redux/actions/profile';
 import DashboardNav from './DashboardNav';
 import DashboardInit from './DashboardInit';
 import Profile from './Profile/Profile';
+import AddCompany from './Companies/AddCompany';
+import Company from './Companies/Company';
+import NewInvoice from './Invoices/NewInvoice';
 
 const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
-    const [display, setDisplay] = useState('profile');
+    const [display, setDisplay] = useState('profile-settings');
+    const [company, setCompany] = useState(null);
     useEffect(() => {
         getCurrentProfile();
     }, []);
@@ -24,8 +28,14 @@ const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
             {!loading && !profile && <DashboardInit />}
             {!loading && profile && (
                 <div className='dashboard__profiled'>
-                    <DashboardNav />
-                    {display === 'profile' && <Profile />}
+                    <DashboardNav
+                        setDisplay={setDisplay}
+                        setCompany={setCompany}
+                    />
+                    {display === 'profile-settings' && <Profile />}
+                    {display === 'add-company-form' && <AddCompany />}
+                    {display === 'new-invoice-form' && <NewInvoice />}
+                    {display === 'company' && <Company id={company} />}
                 </div>
             )}
         </main>

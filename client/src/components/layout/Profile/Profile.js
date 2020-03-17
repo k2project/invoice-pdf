@@ -2,6 +2,7 @@ import React, { useEffect, Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import './Profile.scss';
 
 import Nav from './Nav/Nav';
@@ -9,7 +10,7 @@ import Dashboard from './Dashboard/Dashboard';
 import Settings from './Settings/Settings';
 
 const Profile = ({ history, user }) => {
-    const [display, setDisplay] = useState('Dashboard');
+    const [display, setDisplay] = useState('dashboard');
     function toggleDisplay(display) {
         setDisplay(display);
     }
@@ -22,8 +23,8 @@ const Profile = ({ history, user }) => {
                 <div className='profile'>
                     <Nav toggleDisplay={toggleDisplay} />
                     <h1 className='sr-only'>{`${display} settings displayed.`}</h1>
-                    {display === 'Dashboard' && <Dashboard />}
-                    {display === 'Account' && <Settings />}
+                    {display === 'dashboard' && <Dashboard />}
+                    {display === 'account' && <Settings />}
                 </div>
             )}
         </Fragment>

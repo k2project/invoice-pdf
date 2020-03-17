@@ -10,11 +10,11 @@ const Nav = ({ logoutUser, toggleDisplay, setAlert }) => {
     function handleClick(e) {
         e.preventDefault();
         const target = e.target.closest('a');
-        const text = target.firstElementChild.nextElementSibling.textContent.trim();
+        const href = target.getAttribute('href').slice(1);
         tagActiveEl(target);
-        toggleDisplay(text);
+        toggleDisplay(href);
         setAlert(
-            `${text} settings have been now desplayed on the page below `,
+            `${href} settings have been now desplayed on the page `,
             'success'
         );
     }
@@ -53,7 +53,7 @@ const Nav = ({ logoutUser, toggleDisplay, setAlert }) => {
                 </li>
                 <li role='menuitem'>
                     <a
-                        href='account'
+                        href='#account'
                         onMouseDown={e => e.preventDefault()}
                         onClick={handleClick}
                         className='main-nav__link'

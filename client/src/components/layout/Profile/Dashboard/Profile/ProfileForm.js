@@ -1,11 +1,15 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import FormErrorsDisplay from './FormErrorsDisplay';
-import FormInput from './FormInput';
-import { formErrorsStyling, updateStateErrors, cleanData } from './formFuns';
+import FormErrorsDisplay from '../../../../blocks/forms/FormErrorsDisplay';
+import FormInput from '../../../../blocks/forms/FormInput';
+import {
+    formErrorsStyling,
+    updateStateErrors,
+    cleanData
+} from '../../../../blocks/forms/formFuns';
 import { connect } from 'react-redux';
-import { setAlert } from '../../../redux/actions/alerts';
-import { getCurrentProfile } from '../../../redux/actions/profile';
+import { setAlert } from '../../../../../redux/actions/alerts';
+import { getCurrentProfile } from '../../../../../redux/actions/profile';
 import axios from 'axios';
 
 function ProfileForm({
