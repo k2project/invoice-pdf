@@ -16,8 +16,8 @@ const ProfileSchema = new mongoose.Schema({
     contact: {
         email: String,
         website: String,
-        mobile: Number,
-        fax: Number
+        mobile: String,
+        fax: String
     },
     comapnies: Array,
     date: {

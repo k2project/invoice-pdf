@@ -8,7 +8,16 @@ import { setAlert } from '../../../redux/actions/alerts';
 import { getCurrentProfile } from '../../../redux/actions/profile';
 import axios from 'axios';
 
-function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
+function ProfileForm({
+    setAlert,
+    user: { _id, email },
+    profile,
+    getCurrentProfile,
+    displayForm,
+    update
+}) {
+    //initial profile state
+    //profile doesnt exist
     const [formData, setFormData] = useState({
         fullName: '',
         company: '',
@@ -36,48 +45,35 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
                     'Content-Type': 'application/json'
                 }
             };
+
             await cleanData(formData);
-            const {
-                fullName,
-                company,
-                addressLine1,
-                addressLine2,
-                town,
-                county,
-                postcode,
-                website,
-                email,
-                mobile,
-                fax,
-                bankName,
-                bankSortCode,
-                bankAccount
-            } = formData;
+
             const body = JSON.stringify({
-                fullName,
-                company,
-                addressLine1,
-                addressLine2,
-                town,
-                county,
-                postcode,
-                website,
-                email,
-                mobile,
-                fax,
-                bankName,
-                bankSortCode,
-                bankAccount
+                fullName: formData.fullName,
+                company: formData.company,
+                addressLine1: formData.addressLine1,
+                addressLine2: formData.addressLine2,
+                town: formData.town,
+                county: formData.county,
+                postcode: formData.postcode,
+                website: formData.website,
+                email: formData.email,
+                mobile: formData.mobile,
+                fax: formData.fax,
+                bankName: formData.bankName,
+                bankSortCode: formData.bankSortCode,
+                bankAccount: formData.bankAccount
             });
 
             await axios.post('/api/profile/', body, config);
             getCurrentProfile();
-            setAlert(
-                'Your profile has been created successfully. Please explore your dashboard below.',
-                'success',
-                null,
-                false
-            );
+            let alertMsg =
+                'Your profile has been created successfully. Please explore your dashboard below.';
+            if (update) {
+                displayForm(false);
+                alertMsg = 'Your profile has been updated successfully.';
+            }
+            setAlert(alertMsg, 'success', null, false);
         } catch (err) {
             console.log(err);
             if (err.response.data.errors) {
@@ -92,11 +88,29 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
     }
 
     useEffect(() => {
+        if (update)
+            setFormData({
+                fullName: profile.fullName || '',
+                company: profile.company || '',
+                addressLine1: profile.address[0] || '',
+                addressLine2: profile.address[1] || '',
+                town: profile.address[2] || '',
+                county: profile.address[3] || '',
+                postcode: profile.address[4] || '',
+                email: profile.contact.email || '',
+                website: profile.contact.website || '',
+                mobile: profile.contact.mobile || '',
+                fax: profile.contact.fax || '',
+                bankName: profile.bank.bankName || '',
+                bankSortCode: profile.bank.bankSortCode || '',
+                bankAccount: profile.bank.bankAccount || '',
+                errors: []
+            });
         //add error styling to the inputs
         formErrorsStyling(formData.errors);
-    }, [formData.errors]);
+    }, []);
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className='form-profile'>
             <FormInput
                 form={{ formData, setFormData }}
                 name='fullName'
@@ -130,19 +144,6 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
                     Postcode
                 </FormInput>
             </fieldset>
-
-            <fieldset>
-                <legend>Bank Details:</legend>
-                <FormInput form={{ formData, setFormData }} name='bankName'>
-                    Bank Name
-                </FormInput>{' '}
-                <FormInput form={{ formData, setFormData }} name='bankSortCode'>
-                    Sort Code
-                </FormInput>{' '}
-                <FormInput form={{ formData, setFormData }} name='bankAccount'>
-                    Account Number
-                </FormInput>
-            </fieldset>
             <fieldset>
                 <legend>Contact Details:</legend>
                 <FormInput
@@ -162,6 +163,20 @@ function ProfileForm({ setAlert, user: { _id, email }, getCurrentProfile }) {
                     Fax
                 </FormInput>
             </fieldset>
+
+            <fieldset>
+                <legend>Bank Details:</legend>
+                <FormInput form={{ formData, setFormData }} name='bankName'>
+                    Bank Name
+                </FormInput>{' '}
+                <FormInput form={{ formData, setFormData }} name='bankSortCode'>
+                    Sort Code
+                </FormInput>{' '}
+                <FormInput form={{ formData, setFormData }} name='bankAccount'>
+                    Account Number
+                </FormInput>
+            </fieldset>
+
             <button
                 type='submit'
                 className='btn btn--info'
@@ -180,7 +195,8 @@ ProfileForm.propTypes = {
     user: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-    user: state.auth.user
+    user: state.auth.user,
+    profile: state.profile.profile
 });
 export default connect(mapStateToProps, { setAlert, getCurrentProfile })(
     ProfileForm

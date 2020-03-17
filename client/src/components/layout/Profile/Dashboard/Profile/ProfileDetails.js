@@ -25,6 +25,18 @@ const ProfileDetails = ({ profile }) => {
                     </li>
                 )}
 
+                {profile.address.filter(el => el).length > 0 && (
+                    <li className='profile-details__address'>
+                        <span>Address:</span>
+                        <span>
+                            {profile.address
+                                .filter(el => el)
+                                .join('\n')
+                                .slice(0, -1)}
+                        </span>
+                    </li>
+                )}
+
                 {profile.contact.email && (
                     <li>
                         <span>Email:</span>
@@ -47,17 +59,6 @@ const ProfileDetails = ({ profile }) => {
                     <li>
                         <span>Website:</span>
                         <span>{profile.contact.website}</span>
-                    </li>
-                )}
-                {profile.address.filter(el => el).length > 0 && (
-                    <li className='profile-details__address'>
-                        <span>Address:</span>
-                        <span>
-                            {profile.address
-                                .filter(el => el)
-                                .join('\n')
-                                .slice(0, -1)}
-                        </span>
                     </li>
                 )}
 

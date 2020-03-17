@@ -6,6 +6,10 @@ import ProfileForm from '../../../../blocks/forms/ProfileForm';
 
 const Profile = props => {
     const [form, displayForm] = useState(false);
+    async function updateForm() {
+        await displayForm(true);
+        document.querySelector('.form-profile input').focus();
+    }
     return (
         <section className='profile'>
             <h2 id='dashboard' className='sr-only'>
@@ -23,13 +27,18 @@ const Profile = props => {
                         <button
                             className='btn btn--grey'
                             onMouseDown={e => e.preventDefault()}
+                            onClick={updateForm}
                         >
                             Update Profile
                         </button>
                     </div>
                 </Fragment>
             )}
-            {form && <ProfileForm />}
+            {form && (
+                <div className='section__body'>
+                    <ProfileForm displayForm={displayForm} update />
+                </div>
+            )}
         </section>
     );
 };
