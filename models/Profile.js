@@ -19,7 +19,7 @@ const ProfileSchema = new mongoose.Schema({
         mobile: String,
         fax: String
     },
-    comapnies: Array,
+    companies: Array,
     date: {
         type: Date,
         default: Date.now

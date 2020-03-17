@@ -6,7 +6,7 @@ const NewInvoice = props => {
         <section className='add-company'>
             <div className='section__heading'>
                 <h2 className='heading heading--sml' id='new-invoice-form'>
-                    Create a new invoice.
+                    Create a new invoice form.
                 </h2>
             </div>
             <div className='section__body'>form goes here</div>

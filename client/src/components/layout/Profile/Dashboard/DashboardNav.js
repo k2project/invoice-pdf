@@ -5,7 +5,7 @@ import profileIcon from './../../../../imgs/icons/profileIcon.png';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../redux/actions/alerts';
 
-function DashboardNav({ setDisplay, setCompany, setAlert }) {
+function DashboardNav({ companies, setDisplay, setCompany, setAlert }) {
     function handleLinkClick(e) {
         e.preventDefault();
         const target = e.target.closest('a');
@@ -30,7 +30,6 @@ function DashboardNav({ setDisplay, setCompany, setAlert }) {
     function tagActiveEl(target) {
         Array.from(document.querySelectorAll('.dashboard-nav__list a')).forEach(
             a => {
-                console.log(a);
                 a.classList.remove('dashboard__link--is-active');
             }
         );
@@ -60,23 +59,28 @@ function DashboardNav({ setDisplay, setCompany, setAlert }) {
                         Profile
                     </a>
                 </li>
-
-                <li>
-                    <details onMouseDown={e => e.preventDefault()}>
-                        <summary className='dashboard-nav__link'>
-                            Companies
-                        </summary>
-                        <a
-                            href='#dshskhhskfh1238240'
-                            //href={`#${company._id}}
-                            className='dashboard-nav__sublink'
-                            onClick={handleSublinkClick}
-                            onMouseDown={e => e.preventDefault()}
-                        >
-                            Rose Theatre Edinburgh
-                        </a>
-                    </details>
-                </li>
+                {companies.length > 0 && (
+                    <li>
+                        <details onMouseDown={e => e.preventDefault()}>
+                            <summary className='dashboard-nav__link'>
+                                Companies
+                            </summary>
+                            {companies.map(company => {
+                                return (
+                                    <a
+                                        key={company._id}
+                                        href={`#${company._id}`}
+                                        className='dashboard-nav__sublink'
+                                        onClick={handleSublinkClick}
+                                        onMouseDown={e => e.preventDefault()}
+                                    >
+                                        {company.acronym}
+                                    </a>
+                                );
+                            })}
+                        </details>
+                    </li>
+                )}
 
                 <li>
                     <a
@@ -116,7 +120,10 @@ function DashboardNav({ setDisplay, setCompany, setAlert }) {
 DashboardNav.propTypes = {
     setAlert: PropTypes.func.isRequired,
     setDisplay: PropTypes.func.isRequired,
-    setCompany: PropTypes.func.isRequired
+    setCompany: PropTypes.func.isRequired,
+    companies: PropTypes.array
 };
-
-export default connect(null, { setAlert })(DashboardNav);
+const mapStateToProps = state => ({
+    companies: state.profile.profile.companies
+});
+export default connect(mapStateToProps, { setAlert })(DashboardNav);
