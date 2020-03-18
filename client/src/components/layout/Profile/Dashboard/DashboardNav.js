@@ -74,7 +74,12 @@ function DashboardNav({ companies, setDisplay, setCompany, setAlert }) {
                                         onClick={handleSublinkClick}
                                         onMouseDown={e => e.preventDefault()}
                                     >
-                                        {shortenString(company.companyName)}
+                                        {company.showAcronym &&
+                                        company.companyAcronym
+                                            ? company.companyAcronym
+                                            : shortenString(
+                                                  company.companyName
+                                              )}
                                     </a>
                                 );
                             })}
