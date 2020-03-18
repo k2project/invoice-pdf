@@ -26,6 +26,7 @@ function CompanyForm({
     const [formData, setFormData] = useState({
         companyName: '',
         companyAcronym: '',
+        showAcronym: true,
         addressLine1: '',
         addressLine2: '',
         town: '',
@@ -58,6 +59,7 @@ function CompanyForm({
                 _id: uuidv4(),
                 companyName: formData.companyName,
                 companyAcronym: formData.companyAcronym,
+                showAcronym: formData.showAcronym,
                 addressLine1: formData.addressLine1,
                 addressLine2: formData.addressLine2,
                 town: formData.town,
@@ -119,6 +121,7 @@ function CompanyForm({
             setFormData({
                 companyName: company.companyName || '',
                 companyAcronym: company.companyAcronym || '',
+                showAcronym: company.showAcronym || true,
                 addressLine1: company.address[0] || '',
                 addressLine2: company.address[1] || '',
                 town: company.address[2] || '',

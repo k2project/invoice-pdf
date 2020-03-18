@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { inputOnChange } from './formFuns';
 
@@ -13,6 +13,17 @@ const FormInput = ({
     const onChange = e => {
         inputOnChange(e, form.formData, form.setFormData);
     };
+    const onCheckboxClick = e => {
+        e.target.value = e.target.checked == true ? true : false;
+    };
+    useEffect(() => {
+        if (checked) {
+            const checkbox = document.querySelector('.input-checkbox input');
+            if (checkbox) {
+                checkbox.checked = true;
+            }
+        }
+    }, [checked]);
     switch (type) {
         case 'checkbox':
             return (
