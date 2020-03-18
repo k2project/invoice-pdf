@@ -85,6 +85,7 @@ function CompanyForm({
             setFormData({
                 companyName: '',
                 companyAcronym: '',
+                showAcronym: true,
                 addressLine1: '',
                 addressLine2: '',
                 town: '',
@@ -153,6 +154,15 @@ function CompanyForm({
             >
                 Company's Acronym or Abbreviation (optional)
             </FormInput>
+            <FormInput
+                type='checkbox'
+                form={{ formData, setFormData }}
+                name='showAcronym'
+                checked
+            >
+                Display acronym in the dashboard menu insted of the company's
+                name. Keep it unique.
+            </FormInput>
 
             <fieldset>
                 <legend>Address:</legend>
@@ -205,7 +215,7 @@ function CompanyForm({
                 </FormInput>
             </fieldset>
             <FormInput
-                textarea
+                type='textarea'
                 form={{ formData, setFormData }}
                 name='companyInfo'
             >

@@ -70,8 +70,6 @@ router.post('/', token, async (req, res) => {
         fax
     };
 
-    profileFields.companies = [];
-
     try {
         let profile = await Profile.findOne({ user: req.user.id });
         if (profile) {
