@@ -85,6 +85,10 @@
 .dashboard-nav__sublink:focus {
     border: dashed 0.1rem #111;
 }
+.dashboard-nav__list details,
+.dashboard-nav__list details:focus {
+    background-color: darken($color: $COLOR_THEME, $amount: 5%);
+}
 .dashboard-nav__link::-webkit-details-marker {
     padding-left: 0.9rem;
     font-size: 1.6rem;

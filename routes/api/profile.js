@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const token = require('../../middleware/token');
 const Profile = require('../../models/Profile');
-const User = require('../../models/User');
+// const User = require('../../models/User');
 const { check, validationResult } = require('express-validator');
-const jwt = require('jsonwebtoken');
-const config = require('config');
+// const jwt = require('jsonwebtoken');
+// const config = require('config');
 
 //@route    GET api/profile/user
 //@desc     Get user profile
@@ -98,18 +98,39 @@ router.post('/', token, async (req, res) => {
 //@status   Private
 router.put(
     '/company',
-    [token, [check('name', "Company's name is required")]],
+    [
+        token,
+        [
+            check('companyName', "Company's name is required")
+                .not()
+                .isEmpty()
+        ]
+    ],
     async (req, res) => {
         const errors = validationResult(req);
-        // console.log(errors);
         if (!errors.isEmpty())
             return res.status(400).json({ errors: errors.array() });
-        const { name } = req.body;
+
         const newCompany = {
-            name
+            ...req.body
         };
         try {
             const profile = await Profile.findOne({ user: req.user.id });
+            const exisitingCompany = profile.companies.filter(
+                c => c.companyName === req.body.companyName
+            );
+            if (exisitingCompany.length > 0) {
+                return res.status(400).json({
+                    errors: [
+                        {
+                            msg:
+                                'Company already exists. Please update the existing one or change the name.',
+                            param: 'companyName'
+                        }
+                    ]
+                });
+            }
+
             profile.companies.push(newCompany);
             await profile.save();
             res.json(profile);
@@ -152,7 +173,7 @@ router.delete('/company/:company_id', token, async (req, res) => {
         await profile.save();
         res.json(profile);
     } catch (err) {
-        console.error(err.message);
+        // console.error(err.message);
         return res.status(500).send('Server error');
     }
 });

@@ -74,7 +74,7 @@ function DashboardNav({ companies, setDisplay, setCompany, setAlert }) {
                                         onClick={handleSublinkClick}
                                         onMouseDown={e => e.preventDefault()}
                                     >
-                                        {company.acronym}
+                                        {shortenString(company.companyName)}
                                     </a>
                                 );
                             })}
@@ -127,3 +127,11 @@ const mapStateToProps = state => ({
     companies: state.profile.profile.companies
 });
 export default connect(mapStateToProps, { setAlert })(DashboardNav);
+
+function shortenString(str) {
+    const max = 25;
+    if (str.length > max) {
+        return str.slice(0, max) + '...';
+    }
+    return str;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CompanyForm from './CompanyForm';
 
 const AddCompany = props => {
     return (
@@ -9,7 +10,9 @@ const AddCompany = props => {
                     Add a new company form.
                 </h2>
             </div>
-            <div className='section__body'>form goes here</div>
+            <div className='section__body'>
+                <CompanyForm />
+            </div>
         </section>
     );
 };

@@ -169,7 +169,7 @@ label {
     border-radius: 0.4rem;
     border: solid 0.1rem #c1c7cd;
     padding: 1rem;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
 .form__input:focus {
     background: $COLOR_GREY;
@@ -205,6 +205,21 @@ fieldset {
     width: 55rem;
     display: block;
     margin: 4rem 0 2rem;
+}
+.txtarea {
+    border-radius: 0.4rem;
+    border: solid 0.1rem #c1c7cd;
+    padding: 1rem;
+    font-size: 1.4rem;
+    display: block;
+    min-height: 10rem;
+}
+.txtarea:focus {
+    background: $COLOR_GREY;
+    border: solid 0.1rem $COLOR_GREY;
+}
+.txtarea--md {
+    width: 55rem;
 }
 //====================
 //  BUTTONS STYLING
