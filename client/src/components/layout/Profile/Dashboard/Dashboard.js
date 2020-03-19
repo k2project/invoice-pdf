@@ -52,6 +52,7 @@ const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
                     {display === 'company' && (
                         <Company
                             id={companyId}
+                            setCompanyId={setCompanyId}
                             companyUpdates={tab => {
                                 setDisplay(tab);
                                 setCompanyToUpdate(

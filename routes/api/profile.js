@@ -156,7 +156,6 @@ router.put(
         if (!errors.isEmpty())
             return res.status(400).json({ errors: errors.array() });
         try {
-            console.log(req.params.company_id);
             const profile = await Profile.findOne({ user: req.user.id });
 
             const updatedItemIndex = profile.companies.findIndex(
@@ -181,10 +180,14 @@ router.put(
 router.delete('/company/:company_id', token, async (req, res) => {
     try {
         const profile = await Profile.findOne({ user: req.user.id });
-        const removeIndex = profile.companies
-            .map(item => item.id)
-            .indexOf(req.params.company_id);
-        profile.companies.splice(removeIndex, 1);
+        const updatedItemIndex = profile.companies.findIndex(
+            obj => obj._id === req.params.company_id
+        );
+        profile.companies = [
+            ...profile.companies.slice(0, updatedItemIndex),
+            ...profile.companies.slice(updatedItemIndex + 1)
+        ];
+
         await profile.save();
         res.json(profile);
     } catch (err) {

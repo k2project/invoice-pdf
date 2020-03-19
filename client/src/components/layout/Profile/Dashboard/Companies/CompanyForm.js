@@ -75,7 +75,6 @@ function CompanyForm({
 
             let alertMsg = `${formData.companyName} has been added to your user profile.`;
             if (company) {
-                console.log('updating company...', company._id);
                 //update company
                 await axios.put(
                     `/api/profile/company/${company._id}`,
@@ -86,12 +85,31 @@ function CompanyForm({
                 alertMsg = `${formData.companyName} profile has been updated successfully.`;
                 setDisplay('company');
             } else {
-                console.log('creating company...');
                 //add a new company
                 await axios.post('/api/profile/company', body, config);
                 getCurrentProfile();
             }
             setAlert(alertMsg, 'success', null, false);
+            // clear form
+            setFormData({
+                companyName: '',
+                companyAcronym: '',
+                showAcronym: true,
+                addressLine1: '',
+                addressLine2: '',
+                town: '',
+                county: '',
+                postcode: '',
+                email: '',
+                website: '',
+                mobile: '',
+                fax: '',
+                bankName: '',
+                bankSortCode: '',
+                bankAccount: '',
+                companyInfo: '',
+                errors: []
+            });
         } catch (err) {
             console.log(err);
             if (err.response) {
