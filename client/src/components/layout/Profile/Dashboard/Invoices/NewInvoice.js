@@ -4,24 +4,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../../redux/actions/alerts';
 
-const NewInvoice = ({ id, setDisplay, companies, setAlert }) => {
-    const [company, setCompany] = useState(null);
+const NewInvoice = ({ company, setDisplay, setAlert }) => {
+    // const [company, setCompany] = useState(null);
+    // console.log(id);
 
-    useEffect(() => {
-        const c = companies.find(c => c._id === id);
-        setCompany(c);
-    }, [company]);
+    // useEffect(() => {
+    //     const c = companies.find(c => c._id === id);
+    //     setCompany(c);
+    // }, [company]);
     return (
         <section>
             <div className='section__heading'>
                 <h2 className='heading heading--sml' id='new-invoice-form'>
                     Create a new invoice form
-                    {id && company ? ` for ${company.companyName}.` : '.'}
+                    {company ? ` for ${company.companyName}.` : '.'}
                 </h2>
             </div>
             <div className='section__body'>
                 <p>new invoice</p>
-                {id && company && (
+                {company && (
                     <button
                         className='btn btn--grey'
                         onClick={() => setDisplay('company')}
@@ -35,7 +36,7 @@ const NewInvoice = ({ id, setDisplay, companies, setAlert }) => {
 };
 
 NewInvoice.propTypes = {};
-const mapStateToProps = state => ({
-    companies: state.profile.profile.companies
-});
-export default connect(mapStateToProps, { setAlert })(NewInvoice);
+// const mapStateToProps = state => ({
+//     companies: state.profile.profile.companies
+// });
+export default connect(null, { setAlert })(NewInvoice);

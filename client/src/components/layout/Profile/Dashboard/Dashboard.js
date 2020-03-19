@@ -39,13 +39,13 @@ const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
                     {display === 'profile-settings' && <Profile />}
                     {display === 'add-company-form' && (
                         <AddCompany
-                            id={companyToUpdate}
+                            company={companyToUpdate}
                             setDisplay={setDisplay}
                         />
                     )}
                     {display === 'new-invoice-form' && (
                         <NewInvoice
-                            id={companyToUpdate}
+                            company={companyToUpdate}
                             setDisplay={setDisplay}
                         />
                     )}
@@ -54,7 +54,11 @@ const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
                             id={companyId}
                             companyUpdates={tab => {
                                 setDisplay(tab);
-                                setCompanyToUpdate(companyId);
+                                setCompanyToUpdate(
+                                    profile.companies.find(
+                                        c => c._id === companyId
+                                    )
+                                );
                             }}
                         />
                     )}

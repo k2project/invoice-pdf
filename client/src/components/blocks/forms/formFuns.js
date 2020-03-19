@@ -8,7 +8,7 @@ export const formErrorsStyling = arr => {
                 if (!uniqueErr.includes(err.param)) {
                     uniqueErr.push(err.param);
                     const input = document.getElementById(err.param);
-                    console.log(err.param, input);
+                    // console.log(err.param, input);
                     input.classList.add('form__input--err');
                     input.setAttribute('aria-label', `Error:${err.msg}`);
                 }

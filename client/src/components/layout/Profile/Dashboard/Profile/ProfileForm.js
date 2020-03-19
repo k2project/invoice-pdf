@@ -93,6 +93,7 @@ function ProfileForm({
     useEffect(() => {
         if (update)
             setFormData({
+                ...formData,
                 fullName: profile.fullName || '',
                 company: profile.company || '',
                 addressLine1: profile.address[0] || '',
@@ -106,12 +107,11 @@ function ProfileForm({
                 fax: profile.contact.fax || '',
                 bankName: profile.bank.bankName || '',
                 bankSortCode: profile.bank.bankSortCode || '',
-                bankAccount: profile.bank.bankAccount || '',
-                errors: []
+                bankAccount: profile.bank.bankAccount || ''
             });
         //add error styling to the inputs
-        formErrorsStyling(formData.errors);
-    }, [profile, formData.errros]);
+        // formErrorsStyling(formData.errors);
+    }, [profile]);
     return (
         <form onSubmit={onSubmit} className='form-profile'>
             <FormInput

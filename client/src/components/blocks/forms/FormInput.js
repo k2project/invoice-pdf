@@ -14,7 +14,7 @@ const FormInput = ({
         inputOnChange(e, form.formData, form.setFormData);
     };
     const onCheckboxClick = e => {
-        e.target.value = e.target.checked == true ? true : false;
+        e.target.value = e.target.checked === true ? true : false;
     };
     useEffect(() => {
         if (checked) {

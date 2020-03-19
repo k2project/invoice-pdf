@@ -91,10 +91,10 @@ router.post('/', token, async (req, res) => {
     }
 });
 
-//@route    PUT api/profile/company
+//@route    POST api/profile/company
 //@desc     Add a new company into user's profile
 //@status   Private
-router.put(
+router.post(
     '/company',
     [
         token,
@@ -141,23 +141,40 @@ router.put(
 //@route    PUT api/profile/company/:company_id
 //@desc     Update the company in user's profile
 //@status   Private
-router.put('/company/:company_id', token, async (req, res) => {
-    try {
-        const profile = await Profile.findOne({ user: req.user.id });
-        const upatedCompany = profile.companies.filter(
-            item => item.id === req.params.company_id
-        );
-        upatedCompany = {
-            ...upatedCompany,
-            ...req.body
-        };
-        await profile.save();
-        res.json(profile);
-    } catch (err) {
-        console.error(err.message);
-        return res.status(500).send('Server error');
+router.put(
+    '/company/:company_id',
+    [
+        token,
+        [
+            check('companyName', "Company's name is required")
+                .not()
+                .isEmpty()
+        ]
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty())
+            return res.status(400).json({ errors: errors.array() });
+        try {
+            console.log(req.params.company_id);
+            const profile = await Profile.findOne({ user: req.user.id });
+
+            const updatedItemIndex = profile.companies.findIndex(
+                obj => obj._id === req.params.company_id
+            );
+            profile.companies = [
+                ...profile.companies.slice(0, updatedItemIndex),
+                req.body,
+                ...profile.companies.slice(updatedItemIndex + 1)
+            ];
+            await profile.save();
+            res.json(profile);
+        } catch (err) {
+            console.error(err.message);
+            return res.status(500).send('Server error');
+        }
     }
-});
+);
 //@route    DELETE api/profile/company/:company_id
 //@desc     Delete company from user's profile
 //@status   Private

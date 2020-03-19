@@ -71,24 +71,30 @@ function DashboardNav({
                             <summary className='dashboard-nav__link'>
                                 Companies
                             </summary>
-                            {companies.map(company => {
-                                return (
-                                    <a
-                                        key={company._id}
-                                        href={`#${company._id}`}
-                                        className='dashboard-nav__sublink'
-                                        onClick={handleSublinkClick}
-                                        onMouseDown={e => e.preventDefault()}
-                                    >
-                                        {company.showAcronym &&
-                                        company.companyAcronym
-                                            ? company.companyAcronym
-                                            : shortenString(
-                                                  company.companyName
-                                              )}
-                                    </a>
-                                );
-                            })}
+                            {companies
+                                .sort((a, b) =>
+                                    a.companyName.localeCompare(b.companyName)
+                                )
+                                .map(company => {
+                                    return (
+                                        <a
+                                            key={company._id}
+                                            href={`#${company._id}`}
+                                            className='dashboard-nav__sublink'
+                                            onClick={handleSublinkClick}
+                                            onMouseDown={e =>
+                                                e.preventDefault()
+                                            }
+                                        >
+                                            {company.showAcronym &&
+                                            company.companyAcronym
+                                                ? company.companyAcronym
+                                                : shortenString(
+                                                      company.companyName
+                                                  )}
+                                        </a>
+                                    );
+                                })}
                         </details>
                     </li>
                 )}
