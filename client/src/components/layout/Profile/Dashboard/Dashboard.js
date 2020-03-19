@@ -30,11 +30,11 @@ const Dashboard = ({
     deleteCompany,
     invoiceCompany
 }) => {
-    const [display, setDisplay] = useState('new-invoice-form');
-    //company being currently displayed in Company component - ID
-    const [companyDisplaydByID, setCompanyDisplaydByID] = useState(null);
-    //company selected for update in 'add company' or 'new invoice' tab - ID
-    const [companyToUpdate, setCompanyToUpdate] = useState(null);
+    // const [display, setDisplay] = useState('new-invoice-form');
+    // //company being currently displayed in Company component - ID
+    // const [companyDisplaydByID, setCompanyDisplaydByID] = useState(null);
+    // //company selected for update in 'add company' or 'new invoice' tab - ID
+    // const [companyToUpdate, setCompanyToUpdate] = useState(null);
 
     useEffect(() => {
         getCurrentProfile();
@@ -48,53 +48,62 @@ const Dashboard = ({
             {!loading && !profile && <DashboardInit />}
             {!loading && profile && (
                 <div className='dashboard__profiled'>
-                    <DashboardNav
-                        setDisplay={setDisplay}
-                        setCompany={setCompanyDisplaydByID}
-                        setCompanyToUpdate={setCompanyToUpdate}
-                    />
-                    {display === 'profile-settings' && <Profile />}
-                    {display === 'add-company-form' && (
-                        <AddCompany
-                            company={companyToUpdate}
-                            setDisplay={setDisplay}
-                        />
-                    )}
-                    {display === 'new-invoice-form' && (
-                        <NewInvoice
-                            company={companyToUpdate}
-                            setDisplay={setDisplay}
-                        />
-                    )}
-                    {display === 'company' && companyDisplaydByID && (
-                        <Company
-                            id={companyDisplaydByID}
-                            companyDelete={() => {
-                                setCompanyDisplaydByID(null);
-                                setCompanyToUpdate(null);
-                                setDisplay('add-company-form');
-                                // document
-                                //     .querySelector('.dashboard-nav details')
-                                //     .removeAttribute('open');
-                            }}
-                            companyUpdate={tab => {
-                                setDisplay(tab);
-                                setCompanyToUpdate(
-                                    profile.companies.find(
-                                        c => c._id === companyDisplaydByID
-                                    )
-                                );
-                            }}
-                        />
-                    )}
+                    <DashboardNav />
+                    {currentNavLink === 'profile-settings' && <Profile />}
+                    {currentNavLink === 'company-form' && <AddCompany />}
+                    {currentNavLink === 'invoice-form' && <NewInvoice />}
+                    {currentNavLink === 'company' && <Company />}
                 </div>
+                // <div className='dashboard__profiled'>
+                //     <DashboardNav
+                //         setDisplay={setDisplay}
+                //         setCompany={setCompanyDisplaydByID}
+                //         setCompanyToUpdate={setCompanyToUpdate}
+                //     />
+                //     {display === 'profile-settings' && <Profile />}
+                //     {display === 'add-company-form' && (
+                //         <AddCompany
+                //             company={companyToUpdate}
+                //             setDisplay={setDisplay}
+                //         />
+                //     )}
+                //     {display === 'new-invoice-form' && (
+                //         <NewInvoice
+                //             company={companyToUpdate}
+                //             setDisplay={setDisplay}
+                //         />
+                //     )}
+                //     {display === 'company' && companyDisplaydByID && (
+                //         <Company
+                //             id={companyDisplaydByID}
+                //             companyDelete={() => {
+                //                 setCompanyDisplaydByID(null);
+                //                 setCompanyToUpdate(null);
+                //                 setDisplay('add-company-form');
+                //                 // document
+                //                 //     .querySelector('.dashboard-nav details')
+                //                 //     .removeAttribute('open');
+                //             }}
+                //             companyUpdate={tab => {
+                //                 setDisplay(tab);
+                //                 setCompanyToUpdate(
+                //                     profile.companies.find(
+                //                         c => c._id === companyDisplaydByID
+                //                     )
+                //                 );
+                //             }}
+                //         />
+                //     )}
+                // </div>
             )}
         </main>
     );
 };
 
 Dashboard.propTypes = {
-    profile: PropTypes.object.isRequired
+    profile: PropTypes.object.isRequired,
+    dashboard: PropTypes.object.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
     profile: state.profile,

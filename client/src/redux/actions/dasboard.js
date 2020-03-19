@@ -1,9 +1,12 @@
+import axios from 'axios';
+import { setAlert } from './alerts';
 import {
     DISPLAY_DASHNAV_CURRENT_LINK,
     DELETE_COMPANY,
     UPDATE_COMPANY,
     DISPLAY_COMPANY,
-    INVOICE_COMPANY
+    INVOICE_COMPANY,
+    GET_PROFILE
 } from '../actions/types';
 
 export const displayCurrentLink = payload => dispatch => {
@@ -24,10 +27,22 @@ export const updateCompany = payload => dispatch => {
         payload
     });
 };
-export const deleteCompany = payload => dispatch => {
-    dispatch({
-        type: DELETE_COMPANY
-    });
+export const deleteCompany = id => dispatch => {
+    async function deleteCompany() {
+        try {
+            const res = await axios.delete(`/api/profile/company/${id}`);
+            setAlert('Company deleted successfully.', 'success', null, false);
+            dispatch({
+                type: DELETE_COMPANY
+            });
+            dispatch({
+                type: GET_PROFILE,
+                payload: res.data
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    }
 };
 export const invoiceCompany = payload => dispatch => {
     dispatch({

@@ -7,7 +7,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-    currentNavLink: 'new-invoice-form',
+    currentNavLink: 'invoice-form',
     companyToDisplay: null,
     companyToUpdate: null
 };
@@ -30,20 +30,21 @@ export default function(state = initialState, action) {
         case UPDATE_COMPANY:
             return {
                 ...state,
+                currentNavLink: 'company-form',
                 companyToDisplay: payload,
                 companyToUpdate: payload
             };
         case DELETE_COMPANY:
             return {
                 ...state,
-                currentNavLink: 'new-invoice-form',
+                currentNavLink: 'invoice-form',
                 companyToDisplay: null,
                 companyToUpdate: null
             };
         case INVOICE_COMPANY:
             return {
                 ...state,
-                currentNavLink: 'new-invoice-form',
+                currentNavLink: 'invoice-form',
                 companyToDisplay: payload,
                 companyToUpdate: null
             };
