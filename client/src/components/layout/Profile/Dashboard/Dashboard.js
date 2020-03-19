@@ -16,9 +16,10 @@ import NewInvoice from './Invoices/NewInvoice';
 const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
     const [display, setDisplay] = useState('new-invoice-form');
     //company being currently displayed in Company component - ID
-    const [companyId, setCompanyId] = useState(null);
+    const [companyDisplaydByID, setCompanyDisplaydByID] = useState(null);
     //company selected for update in 'add company' or 'new invoice' tab - ID
     const [companyToUpdate, setCompanyToUpdate] = useState(null);
+
     useEffect(() => {
         getCurrentProfile();
     }, []);
@@ -33,7 +34,7 @@ const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
                 <div className='dashboard__profiled'>
                     <DashboardNav
                         setDisplay={setDisplay}
-                        setCompany={setCompanyId}
+                        setCompany={setCompanyDisplaydByID}
                         setCompanyToUpdate={setCompanyToUpdate}
                     />
                     {display === 'profile-settings' && <Profile />}
@@ -49,15 +50,22 @@ const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
                             setDisplay={setDisplay}
                         />
                     )}
-                    {display === 'company' && (
+                    {display === 'company' && companyDisplaydByID && (
                         <Company
-                            id={companyId}
-                            setCompanyId={setCompanyId}
-                            companyUpdates={tab => {
+                            id={companyDisplaydByID}
+                            companyDelete={() => {
+                                setCompanyDisplaydByID(null);
+                                setCompanyToUpdate(null);
+                                setDisplay('add-company-form');
+                                // document
+                                //     .querySelector('.dashboard-nav details')
+                                //     .removeAttribute('open');
+                            }}
+                            companyUpdate={tab => {
                                 setDisplay(tab);
                                 setCompanyToUpdate(
                                     profile.companies.find(
-                                        c => c._id === companyId
+                                        c => c._id === companyDisplaydByID
                                     )
                                 );
                             }}

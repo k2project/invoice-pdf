@@ -6,7 +6,7 @@ import { setAlert } from '../../../../../redux/actions/alerts';
 import { getCurrentProfile } from '../../../../../redux/actions/profile';
 import axios from 'axios';
 
-const Company = ({ id, companyUpdates, companies, setCompanyId, setAlert }) => {
+const Company = ({ id, companyUpdate, companies, companyDelete, setAlert }) => {
     const company = companies.find(c => c._id === id);
     let { companyName } = company;
     async function deleteCompany() {
@@ -14,14 +14,13 @@ const Company = ({ id, companyUpdates, companies, setCompanyId, setAlert }) => {
             await axios.delete(`/api/profile/company/${id}`);
             getCurrentProfile();
             setAlert('Company deleted successfully.', 'success', null, false);
-            setCompanyId(null);
-            companyUpdates('add-company-form');
+            companyDelete();
         } catch (err) {
             console.log(err);
         }
     }
     useEffect(() => {
-        getCurrentProfile();
+        // getCurrentProfile();
     }, []);
     return (
         <section>
@@ -30,10 +29,10 @@ const Company = ({ id, companyUpdates, companies, setCompanyId, setAlert }) => {
                 {companyName}
             </h2>
 
-            <button onClick={() => companyUpdates('new-invoice-form')}>
+            <button onClick={() => companyUpdate('new-invoice-form')}>
                 Create Invoice
             </button>
-            <button onClick={() => companyUpdates('add-company-form')}>
+            <button onClick={() => companyUpdate('add-company-form')}>
                 Update Company
             </button>
             <button onClick={deleteCompany}>Delete Company</button>
