@@ -17,9 +17,8 @@ function CompanyForm({
     setAlert,
     companies,
     getCurrentProfile,
-    // displayForm,
-    update,
-    updateId
+    updateId,
+    setDisplay
 }) {
     //initial profile state
     //profile doesnt exist
@@ -78,7 +77,7 @@ function CompanyForm({
             await axios.put('/api/profile/company', body, config);
             getCurrentProfile();
             let alertMsg = `${formData.companyName} has been added to your user profile.`;
-            if (update) {
+            if (updateId) {
                 // displayForm(false);
                 alertMsg = `${formData.companyName} profile has been updated successfully.`;
             }
@@ -116,31 +115,31 @@ function CompanyForm({
     }
 
     useEffect(() => {
-        if (update) {
+        if (updateId) {
             const company = companies.filter(c => c._id === updateId);
             setFormData({
                 companyName: company.companyName || '',
                 companyAcronym: company.companyAcronym || '',
                 showAcronym: company.showAcronym || true,
-                addressLine1: company.address[0] || '',
-                addressLine2: company.address[1] || '',
-                town: company.address[2] || '',
-                county: company.address[3] || '',
-                postcode: company.address[4] || '',
-                email: company.contact.email || '',
-                website: company.contact.website || '',
-                mobile: company.contact.mobile || '',
-                fax: company.contact.fax || '',
-                bankName: company.bank.bankName || '',
-                bankSortCode: company.bank.bankSortCode || '',
-                bankAccount: company.bank.bankAccount || '',
-                companyInfo: company.companyInfo || '',
+                // addressLine1: company.address[0] || '',
+                // addressLine2: company.address[1] || '',
+                // town: company.address[2] || '',
+                // county: company.address[3] || '',
+                // postcode: company.address[4] || '',
+                // email: company.contact.email || '',
+                // website: company.contact.website || '',
+                // mobile: company.contact.mobile || '',
+                // fax: company.contact.fax || '',
+                // bankName: company.bank.bankName || '',
+                // bankSortCode: company.bank.bankSortCode || '',
+                // bankAccount: company.bank.bankAccount || '',
+                // companyInfo: company.companyInfo || '',
                 errors: []
             });
         }
         //add error styling to the inputs
         formErrorsStyling(formData.errors);
-    }, [companies, formData.errors]);
+    }, []);
     return (
         <form onSubmit={onSubmit} className='form-profile'>
             <FormInput
@@ -227,6 +226,14 @@ function CompanyForm({
 
             {formData.errors.length > 0 && (
                 <FormErrorsDisplay errors={formData.errors} label='login' />
+            )}
+            {updateId && (
+                <button
+                    className='btn btn--grey btn--sibling'
+                    onClick={() => setDisplay('company')}
+                >
+                    Cancel
+                </button>
             )}
             <button
                 type='submit'

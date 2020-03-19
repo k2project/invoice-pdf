@@ -15,13 +15,16 @@ const Profile = props => {
             <h2 id='dashboard' className='sr-only'>
                 Profile Settings
             </h2>
-            <div className='section__heading'>
-                <h3 className='heading heading--sml' id='profile-details'>
-                    Profile details.
-                </h3>
-            </div>
             {!form && (
                 <Fragment>
+                    <div className='section__heading'>
+                        <h3
+                            className='heading heading--sml'
+                            id='profile-details'
+                        >
+                            Profile details.
+                        </h3>
+                    </div>
                     <ProfileDetails />
                     <div className='section__heading'>
                         <button
@@ -35,9 +38,19 @@ const Profile = props => {
                 </Fragment>
             )}
             {form && (
-                <div className='section__body'>
-                    <ProfileForm displayForm={displayForm} update />
-                </div>
+                <Fragment>
+                    <div className='section__heading'>
+                        <h3
+                            className='heading heading--sml'
+                            id='profile-details'
+                        >
+                            Update profile details form.
+                        </h3>
+                    </div>
+                    <div className='section__body'>
+                        <ProfileForm displayForm={displayForm} update />
+                    </div>
+                </Fragment>
             )}
         </section>
     );

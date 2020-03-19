@@ -12,7 +12,7 @@ const NewInvoice = ({ id, setDisplay, companies, setAlert }) => {
         setCompany(c);
     }, [company]);
     return (
-        <section className='add-company'>
+        <section>
             <div className='section__heading'>
                 <h2 className='heading heading--sml' id='new-invoice-form'>
                     Create a new invoice form
@@ -20,7 +20,7 @@ const NewInvoice = ({ id, setDisplay, companies, setAlert }) => {
                 </h2>
             </div>
             <div className='section__body'>
-                {!id && company && <p>new invoice</p>}
+                <p>new invoice</p>
                 {id && company && (
                     <button
                         className='btn btn--grey'

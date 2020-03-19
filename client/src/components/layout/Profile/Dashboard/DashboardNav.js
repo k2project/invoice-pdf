@@ -9,7 +9,7 @@ function DashboardNav({
     companies,
     setDisplay,
     setCompany,
-    setCompanyInvoice,
+    setCompanyToUpdate,
     setAlert
 }) {
     function handleLinkClick(e) {
@@ -97,7 +97,10 @@ function DashboardNav({
                     <a
                         href='#add-company-form'
                         className='dashboard-nav__link'
-                        onClick={handleLinkClick}
+                        onClick={e => {
+                            handleLinkClick(e);
+                            setCompanyToUpdate(null);
+                        }}
                         onMouseDown={e => e.preventDefault()}
                     >
                         <img
@@ -114,7 +117,7 @@ function DashboardNav({
                         className='dashboard-nav__link dashboard__link--is-active'
                         onClick={e => {
                             handleLinkClick(e);
-                            setCompanyInvoice(null);
+                            setCompanyToUpdate(null);
                         }}
                         onMouseDown={e => e.preventDefault()}
                     >

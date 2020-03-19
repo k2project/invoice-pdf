@@ -4,14 +4,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../../redux/actions/alerts';
 
-const Company = ({ id, createCompanyInvoice, companies, setAlert }) => {
+const Company = ({ id, companyUpdates, companies, setAlert }) => {
     const company = companies.find(c => c._id === id);
     let { companyName } = company;
     return (
-        <div>
-            {companyName}
-            <button onClick={createCompanyInvoice}>Create Invoice</button>
-        </div>
+        <section>
+            <h2>
+                <span className='sr-only'>Company's setting for </span>
+                {companyName}
+            </h2>
+
+            <button onClick={() => companyUpdates('new-invoice-form')}>
+                Create Invoice
+            </button>
+            <button onClick={() => companyUpdates('add-company-form')}>
+                Update Company
+            </button>
+        </section>
     );
 };
 

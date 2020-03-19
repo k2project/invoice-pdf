@@ -15,8 +15,10 @@ import NewInvoice from './Invoices/NewInvoice';
 
 const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
     const [display, setDisplay] = useState('new-invoice-form');
-    const [company, setCompany] = useState(null);
-    const [companyInvoice, setCompanyInvoice] = useState(null);
+    //company being currently displayed in Company component - ID
+    const [companyId, setCompanyId] = useState(null);
+    //company selected for update in 'add company' or 'new invoice' tab - ID
+    const [companyToUpdate, setCompanyToUpdate] = useState(null);
     useEffect(() => {
         getCurrentProfile();
     }, []);
@@ -31,23 +33,28 @@ const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
                 <div className='dashboard__profiled'>
                     <DashboardNav
                         setDisplay={setDisplay}
-                        setCompany={setCompany}
-                        setCompanyInvoice={setCompanyInvoice}
+                        setCompany={setCompanyId}
+                        setCompanyToUpdate={setCompanyToUpdate}
                     />
                     {display === 'profile-settings' && <Profile />}
-                    {display === 'add-company-form' && <AddCompany />}
+                    {display === 'add-company-form' && (
+                        <AddCompany
+                            id={companyToUpdate}
+                            setDisplay={setDisplay}
+                        />
+                    )}
                     {display === 'new-invoice-form' && (
                         <NewInvoice
-                            id={companyInvoice}
+                            id={companyToUpdate}
                             setDisplay={setDisplay}
                         />
                     )}
                     {display === 'company' && (
                         <Company
-                            id={company}
-                            createCompanyInvoice={() => {
-                                setDisplay('new-invoice-form');
-                                setCompanyInvoice(company);
+                            id={companyId}
+                            companyUpdates={tab => {
+                                setDisplay(tab);
+                                setCompanyToUpdate(companyId);
                             }}
                         />
                     )}

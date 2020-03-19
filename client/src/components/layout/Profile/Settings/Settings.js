@@ -13,11 +13,9 @@ const Settings = props => {
                 Account settings
             </h1>
             <div className='wrapper'>
-                <div id='main'>
-                    <ChangeEmail />
-                    <ChangePassword />
-                    <DeleteAccount />
-                </div>
+                <ChangeEmail />
+                <ChangePassword />
+                <DeleteAccount />
             </div>
         </main>
     );

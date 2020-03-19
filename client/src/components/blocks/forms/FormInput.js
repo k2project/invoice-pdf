@@ -36,7 +36,7 @@ const FormInput = ({
                             id={name}
                             onChange={onChange}
                             className={'form__input form__input--' + size}
-                            value={form.formData[name]}
+                            value={form.formData[name] || ''}
                             onClick={onCheckboxClick}
                             onMouseDown={e => e.preventDefault()}
                         />
@@ -53,7 +53,7 @@ const FormInput = ({
                         id={name}
                         onChange={onChange}
                         className='txtarea txtarea--md'
-                        value={form.formData[name]}
+                        value={form.formData[name] || ''}
                     />
                 </Fragment>
             );
@@ -68,7 +68,7 @@ const FormInput = ({
                         id={name}
                         onChange={onChange}
                         className={'form__input form__input--' + size}
-                        value={form.formData[name]}
+                        value={form.formData[name] || ''}
                     />
                 </Fragment>
             );

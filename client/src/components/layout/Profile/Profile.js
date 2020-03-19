@@ -22,7 +22,6 @@ const Profile = ({ history, user }) => {
             {user && (
                 <div className='profile'>
                     <Nav toggleDisplay={toggleDisplay} />
-                    <h1 className='sr-only'>{`${display} settings displayed.`}</h1>
                     {display === 'dashboard' && <Dashboard />}
                     {display === 'account' && <Settings />}
                 </div>
