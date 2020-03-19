@@ -5,7 +5,13 @@ import profileIcon from './../../../../imgs/icons/profileIcon.png';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../redux/actions/alerts';
 
-function DashboardNav({ companies, setDisplay, setCompany, setAlert }) {
+function DashboardNav({
+    companies,
+    setDisplay,
+    setCompany,
+    setCompanyInvoice,
+    setAlert
+}) {
     function handleLinkClick(e) {
         e.preventDefault();
         const target = e.target.closest('a');
@@ -47,7 +53,7 @@ function DashboardNav({ companies, setDisplay, setCompany, setAlert }) {
                 <li>
                     <a
                         href='#profile-settings'
-                        className='dashboard-nav__link dashboard__link--is-active'
+                        className='dashboard-nav__link'
                         onClick={handleLinkClick}
                         onMouseDown={e => e.preventDefault()}
                     >
@@ -105,8 +111,11 @@ function DashboardNav({ companies, setDisplay, setCompany, setAlert }) {
                 <li>
                     <a
                         href='#new-invoice-form'
-                        className='dashboard-nav__link'
-                        onClick={handleLinkClick}
+                        className='dashboard-nav__link dashboard__link--is-active'
+                        onClick={e => {
+                            handleLinkClick(e);
+                            setCompanyInvoice(null);
+                        }}
                         onMouseDown={e => e.preventDefault()}
                     >
                         <img

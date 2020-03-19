@@ -14,8 +14,9 @@ import Company from './Companies/Company';
 import NewInvoice from './Invoices/NewInvoice';
 
 const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
-    const [display, setDisplay] = useState('profile-settings');
+    const [display, setDisplay] = useState('new-invoice-form');
     const [company, setCompany] = useState(null);
+    const [companyInvoice, setCompanyInvoice] = useState(null);
     useEffect(() => {
         getCurrentProfile();
     }, []);
@@ -31,11 +32,25 @@ const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
                     <DashboardNav
                         setDisplay={setDisplay}
                         setCompany={setCompany}
+                        setCompanyInvoice={setCompanyInvoice}
                     />
                     {display === 'profile-settings' && <Profile />}
                     {display === 'add-company-form' && <AddCompany />}
-                    {display === 'new-invoice-form' && <NewInvoice />}
-                    {display === 'company' && <Company id={company} />}
+                    {display === 'new-invoice-form' && (
+                        <NewInvoice
+                            id={companyInvoice}
+                            setDisplay={setDisplay}
+                        />
+                    )}
+                    {display === 'company' && (
+                        <Company
+                            id={company}
+                            createCompanyInvoice={() => {
+                                setDisplay('new-invoice-form');
+                                setCompanyInvoice(company);
+                            }}
+                        />
+                    )}
                 </div>
             )}
         </main>
