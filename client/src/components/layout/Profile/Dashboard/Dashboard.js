@@ -5,6 +5,13 @@ import './Dashboard.scss';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../redux/actions/alerts';
 import { getCurrentProfile } from '../../../../redux/actions/profile';
+import {
+    displayCurrentLink,
+    displayCompany,
+    updateCompany,
+    deleteCompany,
+    invoiceCompany
+} from '../../../../redux/actions/dasboard';
 
 import DashboardNav from './DashboardNav';
 import DashboardInit from './DashboardInit';
@@ -13,7 +20,16 @@ import AddCompany from './Companies/AddCompany';
 import Company from './Companies/Company';
 import NewInvoice from './Invoices/NewInvoice';
 
-const Dashboard = ({ profile: { profile, loading }, getCurrentProfile }) => {
+const Dashboard = ({
+    profile: { profile, loading },
+    getCurrentProfile,
+    dashboard: { currentNavLink, companyToDisplay, companyToUpdate },
+    displayCurrentLink,
+    displayCompany,
+    updateCompany,
+    deleteCompany,
+    invoiceCompany
+}) => {
     const [display, setDisplay] = useState('new-invoice-form');
     //company being currently displayed in Company component - ID
     const [companyDisplaydByID, setCompanyDisplaydByID] = useState(null);
@@ -81,6 +97,14 @@ Dashboard.propTypes = {
     profile: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-    profile: state.profile
+    profile: state.profile,
+    dashboard: state.dashboard
 });
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, {
+    getCurrentProfile,
+    displayCurrentLink,
+    displayCompany,
+    updateCompany,
+    deleteCompany,
+    invoiceCompany
+})(Dashboard);
