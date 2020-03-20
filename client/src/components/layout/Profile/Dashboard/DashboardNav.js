@@ -92,7 +92,9 @@ function DashboardNav({
                                             key={company._id}
                                             href={`#${company._id}`}
                                             className={`dashboard-nav__sublink ${
-                                                companyToDisplay === company._id
+                                                companyToDisplay ===
+                                                    company._id &&
+                                                currentNavLink === 'company'
                                                     ? 'dashboard__link--is-active'
                                                     : ''
                                             }`}

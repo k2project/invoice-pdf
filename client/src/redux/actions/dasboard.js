@@ -27,10 +27,11 @@ export const updateCompany = payload => dispatch => {
         payload
     });
 };
+
 export const deleteCompany = id => async dispatch => {
     try {
         const res = await axios.delete(`/api/profile/company/${id}`);
-        setAlert('Company deleted successfully.', 'success', null, false);
+
         dispatch({
             type: DELETE_COMPANY
         });
@@ -38,6 +39,9 @@ export const deleteCompany = id => async dispatch => {
             type: GET_PROFILE,
             payload: res.data
         });
+        dispatch(
+            setAlert('Company deleted successfully.', 'success', null, false)
+        );
     } catch (err) {
         console.log(err);
     }

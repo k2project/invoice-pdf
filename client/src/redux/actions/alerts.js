@@ -19,6 +19,7 @@ export const setAlert = (
             id
         }
     });
+    // alert(msg);
     setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), timeout);
 };
 export const removeAlert = id => dispatch => {

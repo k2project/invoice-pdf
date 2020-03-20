@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../../redux/actions/alerts';
+import { dialogBox } from '../../../../blocks/forms/formFuns';
 
 import {
     displayCurrentLink,
@@ -42,6 +43,14 @@ const Company = ({
         companyInfo
     } = company;
 
+    const handleDelete = e => {
+        dialogBox(`Are you sure you want to delete ${companyName}?`, () => {
+            deleteCompany(companyToDisplay);
+            e.target.focus();
+        });
+        document.getElementById('dialog-confirm').focus();
+    };
+
     return (
         <section>
             <h2>
@@ -55,9 +64,7 @@ const Company = ({
             <button onClick={() => updateCompany(companyToDisplay)}>
                 Update Company
             </button>
-            <button onClick={() => deleteCompany(companyToDisplay)}>
-                Delete Company
-            </button>
+            <button onClick={handleDelete}>Delete Company</button>
         </section>
     );
 };

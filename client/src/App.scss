@@ -139,6 +139,53 @@ a:focus {
 .alert__close:focus {
     border: dashed 0.1rem #fff;
 }
+.dialog-box {
+    width: 50rem;
+    margin-left: -25rem;
+    min-height: 22rem;
+    margin-top: -15rem;
+    background-color: #fff;
+    position: fixed;
+    z-index: 999;
+    left: 50%;
+    text-align: left;
+    padding: 3rem 3rem 2rem;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    box-shadow: 0 0 0.7rem $COLOR_GREY;
+    border-radius: 1rem;
+    //anim
+    top: 30%;
+    opacity: 0;
+    animation: slideInDialog 0.5s forwards ease-in-out;
+}
+
+.dialog-box__header {
+    color: $COLOR_DARK_SECONDARY;
+    font-size: 2.2rem;
+    padding-bottom: 1.5rem;
+    padding-left: 1rem;
+    border-bottom: solid 0.1rem $COLOR_BG;
+}
+.dialog-box__body {
+    font-size: 1.4rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+}
+.dialog-box__footer {
+    display: block;
+    text-align: center;
+    li {
+        display: inline-block;
+    }
+}
+@keyframes slideInDialog {
+    to {
+        opacity: 1;
+        top: 50%;
+    }
+}
 //====================
 //  FORM STYLING
 //====================
