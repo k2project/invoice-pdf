@@ -1,72 +1,19 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import './Company.scss';
 
 import { connect } from 'react-redux';
-import { setAlert } from '../../../../../redux/actions/alerts';
-import { dialogBox } from '../../../../blocks/forms/formFuns';
 
-import {
-    displayCurrentLink,
-    displayCompany,
-    updateCompany,
-    deleteCompany,
-    invoiceCompany
-} from '../../../../../redux/actions/dasboard';
+import CompanyNav from './CompanyNav';
 
-const Company = ({
-    companies,
-    setAlert,
-    dashboard: { currentNavLink, companyToDisplay },
-    displayCurrentLink,
-    displayCompany,
-    updateCompany,
-    deleteCompany,
-    invoiceCompany
-}) => {
+const Company = ({ companies, dashboard: { companyToDisplay } }) => {
     const company = companies.find(c => c._id === companyToDisplay);
-    let {
-        companyName,
-        companyAcronym,
-        showAcronym,
-        addressLine1,
-        addressLine,
-        town,
-        county,
-        postcode,
-        email,
-        website,
-        mobile,
-        fax,
-        bankName,
-        bankSortCode,
-        bankAccount,
-        companyInfo
-    } = company;
-
-    const handleDelete = e => {
-        const targetEl = e.target;
-        dialogBox(
-            ` delete ${companyName}`,
-            () => deleteCompany(companyToDisplay),
-            targetEl
-        );
-        document.getElementById('dialog-cancel').focus();
-    };
+    let { companyName } = company;
 
     return (
-        <section>
-            <h2>
-                <span className='sr-only'>Company's setting for </span>
-                {companyName}
-            </h2>
-
-            <button onClick={() => invoiceCompany(companyToDisplay)}>
-                Create Invoice
-            </button>
-            <button onClick={() => updateCompany(companyToDisplay)}>
-                Update Company
-            </button>
-            <button onClick={handleDelete}>Delete Company</button>
+        <section className='company'>
+            <h2 className='sr-only'>Company's setting for {companyName}.</h2>
+            <CompanyNav />
         </section>
     );
 };
@@ -77,11 +24,4 @@ const mapStateToProps = state => ({
     companies: state.profile.profile.companies,
     dashboard: state.dashboard
 });
-export default connect(mapStateToProps, {
-    setAlert,
-    displayCurrentLink,
-    displayCompany,
-    updateCompany,
-    deleteCompany,
-    invoiceCompany
-})(Company);
+export default connect(mapStateToProps)(Company);

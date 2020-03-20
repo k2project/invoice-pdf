@@ -1,7 +1,7 @@
 @import '../../../../App.scss';
 
 .section__heading {
-    padding: 3rem 7rem;
+    padding: 3rem 7rem 2.5rem;
     background-color: $COLOR_BG;
 }
 .section__body {
@@ -71,7 +71,7 @@
 .dashboard__link--is-active:hover,
 .dashboard__link--is-active:focus,
 .dashboard__link--is-active {
-    background-color: $COLOR_BG;
+    background-color: #fff;
 }
 
 .dashboard-nav__link:link,
