@@ -37,7 +37,7 @@ export default function(state = initialState, action) {
         case DELETE_COMPANY:
             return {
                 ...state,
-                currentNavLink: 'invoice-form',
+                currentNavLink: 'company-form',
                 companyToDisplay: null,
                 companyToUpdate: null
             };

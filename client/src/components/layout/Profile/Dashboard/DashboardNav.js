@@ -13,6 +13,7 @@ import {
 
 function DashboardNav({
     companies,
+    dashboard: { currentNavLink, companyToDisplay },
     displayCurrentLink,
     displayCompany,
     updateCompany,
@@ -23,8 +24,7 @@ function DashboardNav({
         e.preventDefault();
         const target = e.target.closest('a');
         const href = target.getAttribute('href').slice(1);
-        tagActiveEl(target);
-        console.log(href);
+        // tagActiveEl(target);
         displayCurrentLink(href);
         setAlert(`${href} now desplayed on the page `, 'success');
     }
@@ -32,8 +32,7 @@ function DashboardNav({
         e.preventDefault();
         const target = e.target.closest('a');
         const href = target.getAttribute('href').slice(1);
-        tagActiveEl(target);
-        // displayCurrentLink('company');
+        // tagActiveEl(target);
         displayCompany(href);
         setAlert(
             `${target.textContent} settings are now desplayed on the page `,
@@ -41,14 +40,14 @@ function DashboardNav({
         );
     }
 
-    function tagActiveEl(target) {
-        Array.from(document.querySelectorAll('.dashboard-nav__list a')).forEach(
-            a => {
-                a.classList.remove('dashboard__link--is-active');
-            }
-        );
-        target.classList.add('dashboard__link--is-active');
-    }
+    // function tagActiveEl(target) {
+    //     Array.from(document.querySelectorAll('.dashboard-nav__list a')).forEach(
+    //         a => {
+    //             a.classList.remove('dashboard__link--is-active');
+    //         }
+    //     );
+    //     target.classList.add('dashboard__link--is-active');
+    // }
     return (
         <nav aria-labelledby='dashboard-menu-label' className='dashboard-nav'>
             <h2 id='dashboard-menu-label' className='sr-only'>
@@ -61,7 +60,11 @@ function DashboardNav({
                 <li>
                     <a
                         href='#profile-settings'
-                        className='dashboard-nav__link'
+                        className={`dashboard-nav__link ${
+                            currentNavLink === 'profile-settings'
+                                ? 'dashboard__link--is-active'
+                                : ''
+                        }`}
                         onClick={handleLinkClick}
                         onMouseDown={e => e.preventDefault()}
                     >
@@ -88,7 +91,11 @@ function DashboardNav({
                                         <a
                                             key={company._id}
                                             href={`#${company._id}`}
-                                            className='dashboard-nav__sublink'
+                                            className={`dashboard-nav__sublink ${
+                                                companyToDisplay === company._id
+                                                    ? 'dashboard__link--is-active'
+                                                    : ''
+                                            }`}
                                             onClick={handleSublinkClick}
                                             onMouseDown={e =>
                                                 e.preventDefault()
@@ -110,7 +117,11 @@ function DashboardNav({
                 <li>
                     <a
                         href='#company-form'
-                        className='dashboard-nav__link'
+                        className={`dashboard-nav__link ${
+                            currentNavLink === 'company-form'
+                                ? 'dashboard__link--is-active'
+                                : ''
+                        }`}
                         onClick={e => {
                             handleLinkClick(e);
                             updateCompany(null);
@@ -129,7 +140,11 @@ function DashboardNav({
                 <li>
                     <a
                         href='#invoice-form'
-                        className='dashboard-nav__link dashboard__link--is-active'
+                        className={`dashboard-nav__link ${
+                            currentNavLink === 'invoice-form'
+                                ? 'dashboard__link--is-active'
+                                : ''
+                        }`}
                         onClick={e => {
                             handleLinkClick(e);
                             invoiceCompany(null);
@@ -153,7 +168,8 @@ DashboardNav.propTypes = {
     setAlert: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-    companies: state.profile.profile.companies
+    companies: state.profile.profile.companies,
+    dashboard: state.dashboard
 });
 export default connect(mapStateToProps, {
     setAlert,

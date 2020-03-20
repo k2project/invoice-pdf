@@ -27,21 +27,19 @@ export const updateCompany = payload => dispatch => {
         payload
     });
 };
-export const deleteCompany = id => dispatch => {
-    async function deleteCompany() {
-        try {
-            const res = await axios.delete(`/api/profile/company/${id}`);
-            setAlert('Company deleted successfully.', 'success', null, false);
-            dispatch({
-                type: DELETE_COMPANY
-            });
-            dispatch({
-                type: GET_PROFILE,
-                payload: res.data
-            });
-        } catch (err) {
-            console.log(err);
-        }
+export const deleteCompany = id => async dispatch => {
+    try {
+        const res = await axios.delete(`/api/profile/company/${id}`);
+        setAlert('Company deleted successfully.', 'success', null, false);
+        dispatch({
+            type: DELETE_COMPANY
+        });
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data
+        });
+    } catch (err) {
+        console.log(err);
     }
 };
 export const invoiceCompany = payload => dispatch => {

@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../../redux/actions/alerts';
+import { displayCurrentLink } from '../../../../../redux/actions/dasboard';
 
-const NewInvoice = ({ company, setDisplay, setAlert }) => {
-    // const [company, setCompany] = useState(null);
-    // console.log(id);
+const NewInvoice = ({
+    companies,
+    dashboard: { companyToDisplay },
+    setAlert,
+    displayCurrentLink
+}) => {
+    const company = companies.find(c => c._id === companyToDisplay);
+    console.log(company);
 
-    // useEffect(() => {
-    //     const c = companies.find(c => c._id === id);
-    //     setCompany(c);
-    // }, [company]);
     return (
         <section>
             <div className='section__heading'>
@@ -25,7 +27,7 @@ const NewInvoice = ({ company, setDisplay, setAlert }) => {
                 {company && (
                     <button
                         className='btn btn--grey'
-                        onClick={() => setDisplay('company')}
+                        onClick={() => displayCurrentLink('company')}
                     >
                         Cancel
                     </button>
@@ -36,7 +38,10 @@ const NewInvoice = ({ company, setDisplay, setAlert }) => {
 };
 
 NewInvoice.propTypes = {};
-// const mapStateToProps = state => ({
-//     companies: state.profile.profile.companies
-// });
-export default connect(null, { setAlert })(NewInvoice);
+const mapStateToProps = state => ({
+    companies: state.profile.profile.companies,
+    dashboard: state.dashboard
+});
+export default connect(mapStateToProps, { setAlert, displayCurrentLink })(
+    NewInvoice
+);

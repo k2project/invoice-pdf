@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../../redux/actions/alerts';
-import { getCurrentProfile } from '../../../../../redux/actions/profile';
-import axios from 'axios';
 
 import {
     displayCurrentLink,
@@ -24,18 +22,39 @@ const Company = ({
     deleteCompany,
     invoiceCompany
 }) => {
-    // const company = companies.find(c => c._id === companyToDisplay);
-    // let { companyName } = company;
+    const company = companies.find(c => c._id === companyToDisplay);
+    let {
+        companyName,
+        companyAcronym,
+        showAcronym,
+        addressLine1,
+        addressLine,
+        town,
+        county,
+        postcode,
+        email,
+        website,
+        mobile,
+        fax,
+        bankName,
+        bankSortCode,
+        bankAccount,
+        companyInfo
+    } = company;
 
     return (
         <section>
             <h2>
                 <span className='sr-only'>Company's setting for </span>
-                {/* {companyName} */}
+                {companyName}
             </h2>
 
-            <button onClick={invoiceCompany}>Create Invoice</button>
-            <button onClick={updateCompany}>Update Company</button>
+            <button onClick={() => invoiceCompany(companyToDisplay)}>
+                Create Invoice
+            </button>
+            <button onClick={() => updateCompany(companyToDisplay)}>
+                Update Company
+            </button>
             <button onClick={() => deleteCompany(companyToDisplay)}>
                 Delete Company
             </button>
@@ -51,7 +70,6 @@ const mapStateToProps = state => ({
 });
 export default connect(mapStateToProps, {
     setAlert,
-    getCurrentProfile,
     displayCurrentLink,
     displayCompany,
     updateCompany,
