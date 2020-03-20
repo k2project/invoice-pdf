@@ -73,7 +73,7 @@ export const objHasAllPropertyEmpty = obj => {
     return res;
 };
 
-export const dialogBox = async (msg, cb) => {
+export const dialogBox = async (msg, cb, targetEl) => {
     const exist = document.getElementById('dialog-box');
     if (!exist) {
         let box = document.createElement('div');
@@ -86,11 +86,11 @@ export const dialogBox = async (msg, cb) => {
             <div class="dialog-box__header" id="dialog-header">Confirm Dialog</div>
             <div class="dialog-box__body" id="dialog-body">
                 <span class="sr-only">Confirm dialog. </span>
-                ${msg}
+                Are you sure you want to ${msg}?
             </div>
             <div class="dialog-box__footer" >
                 <button class="btn btn--grey btn--small btn--sibling" id="dialog-cancel">Close</button>
-                <button class="btn btn--danger btn--small" id="dialog-confirm"> OK </button>
+                <button class="btn btn--danger btn--small" id="dialog-confirm"> OK <span class="sr-only">,${msg}</span></button>
             </div>
         `;
         document.body.append(box);
@@ -103,6 +103,7 @@ export const dialogBox = async (msg, cb) => {
         if (e.target.getAttribute('id') === 'dialog-cancel') {
             removeEvents();
             closeDialog();
+            targetEl.focus();
         }
     }
     function confirmDialog(e) {

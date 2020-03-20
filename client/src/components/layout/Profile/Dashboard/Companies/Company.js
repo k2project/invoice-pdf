@@ -16,7 +16,7 @@ import {
 const Company = ({
     companies,
     setAlert,
-    dashboard: { currentNavLink, companyToDisplay, companyToUpdate },
+    dashboard: { currentNavLink, companyToDisplay },
     displayCurrentLink,
     displayCompany,
     updateCompany,
@@ -44,11 +44,13 @@ const Company = ({
     } = company;
 
     const handleDelete = e => {
-        dialogBox(`Are you sure you want to delete ${companyName}?`, () => {
-            deleteCompany(companyToDisplay);
-            e.target.focus();
-        });
-        document.getElementById('dialog-confirm').focus();
+        const targetEl = e.target;
+        dialogBox(
+            ` delete ${companyName}`,
+            () => deleteCompany(companyToDisplay),
+            targetEl
+        );
+        document.getElementById('dialog-cancel').focus();
     };
 
     return (
@@ -83,43 +85,3 @@ export default connect(mapStateToProps, {
     deleteCompany,
     invoiceCompany
 })(Company);
-// const Company = ({ id, companyUpdate, companies, companyDelete, setAlert }) => {
-//     const company = companies.find(c => c._id === id);
-//     let { companyName } = company;
-//     async function deleteCompany() {
-//         try {
-//             await axios.delete(`/api/profile/company/${id}`);
-//             getCurrentProfile();
-//             setAlert('Company deleted successfully.', 'success', null, false);
-//             companyDelete();
-//         } catch (err) {
-//             console.log(err);
-//         }
-//     }
-//     useEffect(() => {
-//         // getCurrentProfile();
-//     }, []);
-//     return (
-//         <section>
-//             <h2>
-//                 <span className='sr-only'>Company's setting for </span>
-//                 {companyName}
-//             </h2>
-
-//             <button onClick={() => companyUpdate('new-invoice-form')}>
-//                 Create Invoice
-//             </button>
-//             <button onClick={() => companyUpdate('add-company-form')}>
-//                 Update Company
-//             </button>
-//             <button onClick={deleteCompany}>Delete Company</button>
-//         </section>
-//     );
-// };
-
-// Company.propTypes = {};
-
-// const mapStateToProps = state => ({
-//     companies: state.profile.profile.companies
-// });
-// export default connect(mapStateToProps, { setAlert })(Company);

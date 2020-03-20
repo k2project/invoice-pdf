@@ -10,14 +10,20 @@ import {
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../../redux/actions/alerts';
 import { getCurrentProfile } from '../../../../../redux/actions/profile';
+import {
+    displayCurrentLink,
+    displayCompany
+} from '../../../../../redux/actions/dasboard';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
 function CompanyForm({
+    companies,
+    dashboard: { companyToUpdate },
     setAlert,
     getCurrentProfile,
-    companyToUpdate: company,
-    setDisplay
+    displayCurrentLink,
+    displayCompany
 }) {
     //initial profile state
     //profile doesnt exist
@@ -52,9 +58,9 @@ function CompanyForm({
             };
 
             await cleanData(formData);
-
+            const _id = companyToUpdate ? companyToUpdate : uuidv4();
             const body = JSON.stringify({
-                _id: company ? company._id : uuidv4(),
+                _id,
                 companyName: formData.companyName,
                 companyAcronym: formData.companyAcronym,
                 showAcronym: formData.showAcronym,
@@ -74,20 +80,25 @@ function CompanyForm({
             });
 
             let alertMsg = `${formData.companyName} has been added to your user profile.`;
-            if (company) {
+            if (companyToUpdate) {
                 //update company
                 await axios.put(
-                    `/api/profile/company/${company._id}`,
+                    `/api/profile/company/${companyToUpdate}`,
                     body,
                     config
                 );
                 getCurrentProfile();
                 alertMsg = `${formData.companyName} profile has been updated successfully.`;
-                setDisplay('company');
+                displayCompany(companyToUpdate);
             } else {
                 //add a new company
                 await axios.post('/api/profile/company', body, config);
-                getCurrentProfile();
+                await getCurrentProfile();
+                displayCompany(_id);
+                //open details
+                document.querySelector(
+                    '.dashboard-nav__list details'
+                ).open = true;
             }
             setAlert(alertMsg, 'success', null, false);
             // clear form
@@ -124,8 +135,9 @@ function CompanyForm({
     }
 
     useEffect(() => {
-        console.log('rendering...');
-        if (company) {
+        const company = companies.find(c => c._id === companyToUpdate);
+
+        if (companyToUpdate) {
             setFormData({
                 ...formData,
                 companyName: company.companyName || '',
@@ -146,7 +158,7 @@ function CompanyForm({
                 companyInfo: company.companyInfo || ''
             });
         }
-    }, [company]);
+    }, [companyToUpdate]);
     useEffect(() => {
         //add error styling to the inputs
         formErrorsStyling(formData.errors);
@@ -238,10 +250,10 @@ function CompanyForm({
             {formData.errors.length > 0 && (
                 <FormErrorsDisplay errors={formData.errors} label='login' />
             )}
-            {company && (
+            {companyToUpdate && (
                 <button
                     className='btn btn--grey btn--sibling'
-                    onClick={() => setDisplay('company')}
+                    onClick={() => displayCurrentLink('company')}
                 >
                     Cancel
                 </button>
@@ -260,7 +272,18 @@ function CompanyForm({
 
 CompanyForm.propTypes = {
     setAlert: PropTypes.func.isRequired,
-    getCurrentProfile: PropTypes.func.isRequired
+    getCurrentProfile: PropTypes.func.isRequired,
+    displayCurrentLink: PropTypes.func.isRequired,
+    companies: PropTypes.object.isRequired,
+    dashboard: PropTypes.object.isRequired
 };
-
-export default connect(null, { setAlert, getCurrentProfile })(CompanyForm);
+const mapStateToProps = state => ({
+    companies: state.profile.profile.companies,
+    dashboard: state.dashboard
+});
+export default connect(mapStateToProps, {
+    setAlert,
+    getCurrentProfile,
+    displayCurrentLink,
+    displayCompany
+})(CompanyForm);
