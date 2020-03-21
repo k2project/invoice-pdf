@@ -32,6 +32,6 @@ const Profile = ({ history, user }) => {
 
 Dashboard.propTypes = {};
 const mapStateToProps = state => ({
-    user: state.auth.user
+    user: state.user.user
 });
 export default withRouter(connect(mapStateToProps)(Profile));

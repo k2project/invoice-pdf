@@ -7,7 +7,7 @@ import { displayCurrentLink } from '../../../../../redux/actions/dasboard';
 
 const NewInvoice = ({
     companies,
-    dashboard: { companyToDisplay },
+    company: { companyToDisplay },
     setAlert,
     displayCurrentLink
 }) => {
@@ -40,7 +40,7 @@ const NewInvoice = ({
 NewInvoice.propTypes = {};
 const mapStateToProps = state => ({
     companies: state.profile.profile.companies,
-    dashboard: state.dashboard
+    company: state.company
 });
 export default connect(mapStateToProps, { setAlert, displayCurrentLink })(
     NewInvoice

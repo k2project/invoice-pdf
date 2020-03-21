@@ -10,7 +10,7 @@ import Profile from './components/layout/Profile/Profile';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { loadUser } from './redux/actions/auth';
+import { loadUser } from './redux/actions/user';
 
 const App = () => {
     useEffect(() => {

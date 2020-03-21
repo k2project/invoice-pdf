@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../redux/actions/alerts';
 import axios from 'axios';
-import { logoutUser } from '../../../../redux/actions/auth';
+import { logoutUser } from '../../../../redux/actions/user';
 
 const DeleteAccount = ({ setAlert, history, id, logoutUser }) => {
     const [formData, setFormData] = useState({
@@ -54,8 +54,8 @@ const DeleteAccount = ({ setAlert, history, id, logoutUser }) => {
 
                 const body = JSON.stringify({ id, password });
 
-                await axios.post('/api/auth/unregister', body, config);
-                await axios.delete('/api/auth/unregister');
+                await axios.post('/api/user/unregister', body, config);
+                await axios.delete('/api/user/unregister');
                 localStorage.removeItem('token');
                 //clear the redux store
                 logoutUser();
@@ -143,7 +143,7 @@ DeleteAccount.propTypes = {
     id: PropTypes.string.isRequired
 };
 const mapStateToProps = state => ({
-    id: state.auth.user._id
+    id: state.user.user._id
 });
 export default connect(mapStateToProps, { setAlert, logoutUser })(
     withRouter(DeleteAccount)

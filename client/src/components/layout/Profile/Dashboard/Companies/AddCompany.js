@@ -18,10 +18,8 @@ const AddCompany = ({ companyToUpdate }) => {
     );
 };
 
-AddCompany.propTypes = {
-    dashboard: PropTypes.object.isRequired
-};
+AddCompany.propTypes = {};
 const mapStateToProps = state => ({
-    companyToUpdate: state.dashboard.companyToUpdate
+    companyToUpdate: state.company.companyToUpdate
 });
 export default connect(mapStateToProps)(AddCompany);

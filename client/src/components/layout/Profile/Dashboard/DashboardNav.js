@@ -4,16 +4,17 @@ import plusIcon from './../../../../imgs/icons/plusIcon.png';
 import profileIcon from './../../../../imgs/icons/profileIcon.png';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../redux/actions/alerts';
+import { displayCurrentLink } from '../../../../redux/actions/dasboard';
 import {
-    displayCurrentLink,
     displayCompany,
     updateCompany,
     invoiceCompany
-} from '../../../../redux/actions/dasboard';
+} from '../../../../redux/actions/company';
 
 function DashboardNav({
     companies,
-    dashboard: { currentNavLink, companyToDisplay },
+    dashboard: { currentNavLink },
+    company: { companyToDisplay },
     displayCurrentLink,
     displayCompany,
     updateCompany,
@@ -161,7 +162,8 @@ DashboardNav.propTypes = {
 };
 const mapStateToProps = state => ({
     companies: state.profile.profile.companies,
-    dashboard: state.dashboard
+    dashboard: state.dashboard,
+    company: state.company
 });
 export default connect(mapStateToProps, {
     setAlert,

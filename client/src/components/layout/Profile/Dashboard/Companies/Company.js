@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 
 import CompanyNav from './CompanyNav';
 
-const Company = ({ companies, dashboard: { companyToDisplay } }) => {
-    const company = companies.find(c => c._id === companyToDisplay);
-    let { companyName } = company;
+const Company = ({ companies, company: { companyToDisplay } }) => {
+    const currentCompany = companies.find(c => c._id === companyToDisplay);
+    let { companyName } = currentCompany;
 
     return (
         <section className='company'>
@@ -22,6 +22,6 @@ Company.propTypes = {};
 
 const mapStateToProps = state => ({
     companies: state.profile.profile.companies,
-    dashboard: state.dashboard
+    company: state.company
 });
 export default connect(mapStateToProps)(Company);

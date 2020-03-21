@@ -48,12 +48,14 @@ const Register = ({ history, setAlert }) => {
             // redirect to login page
             history.push('/');
         } catch (err) {
-            updateStateErrors(
-                form,
-                formData,
-                setFormData,
-                err.response.data.errors
-            );
+            console.log('REGISTER FORM ERR:', err);
+            if (err.response)
+                updateStateErrors(
+                    form,
+                    formData,
+                    setFormData,
+                    err.response.data.errors
+                );
         }
     };
 

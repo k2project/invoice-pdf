@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { logoutUser, loadUser } from '../../../../redux/actions/auth';
+import { logoutUser, loadUser } from '../../../../redux/actions/user';
 import { setAlert } from '../../../../redux/actions/alerts';
 
 import './Nav.scss';

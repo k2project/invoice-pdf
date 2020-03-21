@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../redux/actions/alerts';
 import axios from 'axios';
-import { logoutUser } from '../../../../redux/actions/auth';
+import { logoutUser } from '../../../../redux/actions/user';
 
 const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
     const [formData, setFormData] = useState({
@@ -69,7 +69,7 @@ const ChangePassword = ({ setAlert, history, id, logoutUser }) => {
                     newPasswordConfirmation
                 });
 
-                await axios.put('/api/auth/change-password', body, config);
+                await axios.put('/api/user/change-password', body, config);
 
                 // logout user
                 setAlert(
@@ -182,7 +182,7 @@ ChangePassword.propTypes = {
     id: PropTypes.string.isRequired
 };
 const mapStateToProps = state => ({
-    id: state.auth.user._id
+    id: state.user.user._id
 });
 export default connect(mapStateToProps, { setAlert, logoutUser })(
     withRouter(ChangePassword)

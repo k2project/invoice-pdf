@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../redux/actions/alerts';
 import axios from 'axios';
-import { logoutUser } from '../../../../redux/actions/auth';
+import { logoutUser } from '../../../../redux/actions/user';
 
 const ChangeEmail = ({ setAlert, history, id, email, logoutUser }) => {
     const [formData, setFormData] = useState({
@@ -59,7 +59,7 @@ const ChangeEmail = ({ setAlert, history, id, email, logoutUser }) => {
                     email
                 });
 
-                await axios.put('/api/auth/change-email', body, config);
+                await axios.put('/api/user/change-email', body, config);
 
                 // logout user
                 setAlert(
@@ -151,8 +151,8 @@ ChangeEmail.propTypes = {
     email: PropTypes.string.isRequired
 };
 const mapStateToProps = state => ({
-    id: state.auth.user._id,
-    email: state.auth.user.email
+    id: state.user.user._id,
+    email: state.user.user.email
 });
 export default connect(mapStateToProps, { setAlert, logoutUser })(
     withRouter(ChangeEmail)

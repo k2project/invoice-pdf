@@ -10,16 +10,14 @@ import {
 import { connect } from 'react-redux';
 import { setAlert } from '../../../../../redux/actions/alerts';
 import { getCurrentProfile } from '../../../../../redux/actions/profile';
-import {
-    displayCurrentLink,
-    displayCompany
-} from '../../../../../redux/actions/dasboard';
+import { displayCurrentLink } from '../../../../../redux/actions/dasboard';
+import { displayCompany } from '../../../../../redux/actions/company';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
 function CompanyForm({
     companies,
-    dashboard: { companyToUpdate },
+    company: { companyToUpdate },
     setAlert,
     getCurrentProfile,
     displayCurrentLink,
@@ -83,7 +81,7 @@ function CompanyForm({
             if (companyToUpdate) {
                 //update company
                 await axios.put(
-                    `/api/profile/company/${companyToUpdate}`,
+                    `/api/company/${companyToUpdate}`,
                     body,
                     config
                 );
@@ -92,7 +90,7 @@ function CompanyForm({
                 displayCompany(companyToUpdate);
             } else {
                 //add a new company
-                await axios.post('/api/profile/company', body, config);
+                await axios.post('/api/company', body, config);
                 await getCurrentProfile();
                 displayCompany(_id);
                 //open details
@@ -274,12 +272,12 @@ CompanyForm.propTypes = {
     setAlert: PropTypes.func.isRequired,
     getCurrentProfile: PropTypes.func.isRequired,
     displayCurrentLink: PropTypes.func.isRequired,
-    companies: PropTypes.object.isRequired,
-    dashboard: PropTypes.object.isRequired
+    companies: PropTypes.array.isRequired,
+    company: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
     companies: state.profile.profile.companies,
-    dashboard: state.dashboard
+    company: state.company
 });
 export default connect(mapStateToProps, {
     setAlert,

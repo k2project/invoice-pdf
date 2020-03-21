@@ -1,15 +1,7 @@
-import {
-    DISPLAY_DASHNAV_CURRENT_LINK,
-    DELETE_COMPANY,
-    UPDATE_COMPANY,
-    DISPLAY_COMPANY,
-    INVOICE_COMPANY
-} from '../actions/types';
+import { DISPLAY_DASHNAV_CURRENT_LINK } from '../actions/types';
 
 const initialState = {
-    currentNavLink: 'invoice-form',
-    companyToDisplay: null,
-    companyToUpdate: null
+    currentNavLink: 'invoice-form'
 };
 
 export default function(state = initialState, action) {
@@ -19,34 +11,6 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 currentNavLink: payload
-            };
-        case DISPLAY_COMPANY:
-            return {
-                ...state,
-                currentNavLink: 'company',
-                companyToDisplay: payload,
-                companyToUpdate: null
-            };
-        case UPDATE_COMPANY:
-            return {
-                ...state,
-                currentNavLink: 'company-form',
-                companyToDisplay: payload,
-                companyToUpdate: payload
-            };
-        case DELETE_COMPANY:
-            return {
-                ...state,
-                currentNavLink: 'company-form',
-                companyToDisplay: null,
-                companyToUpdate: null
-            };
-        case INVOICE_COMPANY:
-            return {
-                ...state,
-                currentNavLink: 'invoice-form',
-                companyToDisplay: payload,
-                companyToUpdate: null
             };
 
         default:

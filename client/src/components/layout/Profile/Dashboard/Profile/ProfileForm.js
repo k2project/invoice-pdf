@@ -200,7 +200,7 @@ ProfileForm.propTypes = {
     user: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-    user: state.auth.user,
+    user: state.user.user,
     profile: state.profile.profile
 });
 export default connect(mapStateToProps, { setAlert, getCurrentProfile })(

@@ -7,10 +7,10 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-//@route    GET api/auth/user
+//@route    GET api/user
 //@desc     Get user data
 //@status   Private
-router.get('/user', token, async (req, res) => {
+router.get('/', token, async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password');
         res.json(user);
@@ -19,7 +19,7 @@ router.get('/user', token, async (req, res) => {
         return res.status(500).send('Server error');
     }
 });
-//@route    POSt api/auth/login
+//@route    POSt api/user/login
 //@desc     Authorise login and return token
 //@status   Public
 router.post(
@@ -70,7 +70,7 @@ router.post(
     }
 );
 
-//@route    DELETE api/auth/unregister
+//@route    DELETE api/user/unregister
 //@desc     Delete user's account and profile
 //@status   Private
 router.delete('/unregister', token, async (req, res) => {
@@ -86,7 +86,7 @@ router.delete('/unregister', token, async (req, res) => {
         return res.status(500).send('Server error');
     }
 });
-//@route    POST api/auth/unregister
+//@route    POST api/user/unregister
 //@desc     Authorise account's deactivation
 //@status   Public
 router.post(
@@ -125,7 +125,7 @@ router.post(
         }
     }
 );
-//@route    PUT /api/auth/change-password
+//@route    PUT /api/user/change-password
 //@desc     Change password
 //@status   Private
 router.put(
@@ -202,7 +202,7 @@ router.put(
         }
     }
 );
-//@route    PUT /api/auth/change-email
+//@route    PUT /api/user/change-email
 //@desc     Change email
 //@status   Private
 router.put(

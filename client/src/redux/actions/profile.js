@@ -3,7 +3,7 @@ import { GET_PROFILE, GET_PROFILE_ERR } from './types';
 
 export const getCurrentProfile = () => async dispatch => {
     try {
-        const res = await axios.get('/api/profile/user');
+        const res = await axios.get('/api/profile/');
         dispatch({
             type: GET_PROFILE,
             payload: res.data

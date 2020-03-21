@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../../redux/actions/alerts';
-import { loadUser } from '../../../redux/actions/auth';
+import { loadUser } from '../../../redux/actions/user';
 import FormErrorsDisplay from '../../blocks/forms/FormErrorsDisplay';
 import {
     formErrorsStyling,
@@ -38,7 +38,7 @@ const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
             };
 
             const body = JSON.stringify({ email, password });
-            const res = await axios.post('/api/auth/login', body, config);
+            const res = await axios.post('/api/user/login', body, config);
 
             localStorage.setItem('token', res.data.token);
             setAuthToken(res.data.token);
@@ -52,12 +52,14 @@ const Login = ({ history, setAlert, loginSuccess, loadUser }) => {
             history.push('/dashboard');
         } catch (err) {
             localStorage.removeItem('token');
-            updateStateErrors(
-                form,
-                formData,
-                setFormData,
-                err.response.data.errors
-            );
+            console.log('LOGIN FORM ERR:', err);
+            if (err.response)
+                updateStateErrors(
+                    form,
+                    formData,
+                    setFormData,
+                    err.response.data.errors
+                );
         }
     };
 

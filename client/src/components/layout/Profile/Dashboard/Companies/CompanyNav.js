@@ -10,12 +10,12 @@ import {
     updateCompany,
     deleteCompany,
     invoiceCompany
-} from '../../../../../redux/actions/dasboard';
+} from '../../../../../redux/actions/company';
 
 const CompanyNav = ({
     companies,
     setAlert,
-    dashboard: { companyToDisplay },
+    company: { companyToDisplay },
     updateCompany,
     deleteCompany,
     invoiceCompany
@@ -52,7 +52,10 @@ const CompanyNav = ({
 
     return (
         <nav aria-labelledby='company-nav' className='company-nav'>
-            <h3 id='company-nav' className='heading heading--xs'>
+            <h3
+                id='company-nav'
+                className='heading heading--xs company-nav__heading'
+            >
                 {companyName}
                 <span className='sr-only'> 's navigation bar.</span>
             </h3>
@@ -124,7 +127,7 @@ CompanyNav.propTypes = {};
 
 const mapStateToProps = state => ({
     companies: state.profile.profile.companies,
-    dashboard: state.dashboard
+    company: state.company
 });
 export default connect(mapStateToProps, {
     setAlert,
