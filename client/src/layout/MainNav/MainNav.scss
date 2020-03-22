@@ -1,0 +1,62 @@
+@import '../../App.scss';
+.main-nav {
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    background-color: $COLOR_DARK;
+    padding: 0 0 0 4rem;
+    color: #fff;
+    li {
+        display: inline-block;
+    }
+
+    .main-nav__link,
+    button {
+        width: 10rem;
+        display: inline-block;
+        padding: 2.7rem 0;
+        color: seashell;
+        border: solid 0.1rem $COLOR_DARK;
+        font-size: 1.3rem;
+        text-align: center;
+    }
+    button {
+        width: 14rem;
+    }
+    .main-nav__link:hover,
+    button:hover {
+        text-decoration: none;
+        background-color: $COLOR_THEME;
+        border-color: $COLOR_THEME;
+    }
+
+    .main-nav__link--is-active:hover,
+    .main-nav__link--is-active {
+        text-decoration: none;
+        background-color: lighten($COLOR_DARK, 20%);
+        border-color: lighten($COLOR_DARK, 20%);
+    }
+    .main-nav__link:focus,
+    button:focus {
+        text-decoration: none;
+        border: dashed 0.1rem #fff;
+    }
+}
+.main-nav__logo:link,
+.main-nav__logo:visited {
+    font-family: 'Audiowide', serif;
+    font-size: 2.2rem;
+    padding: 2.1rem 0;
+    display: inline-block;
+    border: dashed 0.1rem $COLOR_DARK;
+    text-decoration: none;
+}
+
+.main-nav__logo:hover {
+    text-decoration: none;
+    border: dashed 0.1rem $COLOR_DARK;
+}
+.main-nav__logo:focus {
+    text-decoration: none;
+    border: dashed 0.1rem #fff;
+}

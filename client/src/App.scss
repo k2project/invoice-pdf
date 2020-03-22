@@ -12,6 +12,8 @@ $COLOR_DARK2: #354052;
 $COLOR_LIGHT2: #edf2f6;
 $COLOR_GREY: #ebedef;
 
+$FONT_LOGO: 'Audiowide', serif;
+
 // ==============
 //    MIXINS
 //===============
@@ -190,24 +192,27 @@ a:focus {
 //  FORM STYLING
 //====================
 form {
-    margin-top: 3rem;
+    margin-top: 2rem;
     display: block;
+    .btn {
+        margin-top: 1.5rem;
+    }
 }
 label,
 .form__input {
     text-align: left;
     display: block;
-    margin: 0.5rem 0;
+    margin: 0.7rem 0;
     width: 100%;
 }
 .form__input--sml {
-    width: 42rem;
+    width: 40rem;
 }
 .form__input--md {
-    width: 55rem;
+    width: 50rem;
 }
 label {
-    margin-top: 2rem;
+    // margin-top: 1rem;
     color: #c1c7cd;
     font-size: 1.4rem;
 }
@@ -327,7 +332,7 @@ fieldset {
     margin: 1rem 0;
     font-size: 1.4rem;
     background-color: none;
-    min-width: 20rem;
+    min-width: 19rem;
 }
 .btn:hover {
     background-color: darken($COLOR_THEME, 10%);
@@ -403,32 +408,75 @@ fieldset {
 //  HEADINGS STYLING
 //====================
 .heading {
-    margin: 1rem 0;
+    display: block;
+    margin: 0;
     font-weight: bold;
 }
-.heading--med {
-    font-size: 3rem;
+.heading--xlg {
+    font-size: 15rem;
+    margin: 0 0 -3.5rem;
 }
-.heading--sml {
-    font-size: 2.5rem;
+.heading--lg {
+    font-size: 4rem;
+    margin: 0;
+}
+.heading--md {
+    font-size: 3rem;
+    font-weight: bold;
+}
+.heading--sm {
+    font-size: 2.2rem;
     font-weight: normal;
-    margin: 2rem 0;
+    margin: 2rem 0 1rem;
 }
 .heading--xs {
     font-size: 1.5rem;
     font-weight: bold;
 }
 p {
-    margin: 1rem 0;
-    font-size: 1.3rem;
+    margin: 0.7rem 0;
+    font-size: 1.2rem;
 }
-.p--lrg {
-    font-size: 1.6rem;
+.p--lg {
+    font-size: 1.5rem;
 }
 //====================
 //  OTHERS STYLING
 //====================
 .wrapper {
-    width: 100rem;
+    width: 80rem;
     margin: auto;
+}
+.not-found {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    background-color: $COLOR_THEME;
+    color: #fff;
+    align-content: center;
+    text-align: center;
+    p {
+        font-size: 1.6rem;
+        margin: 3rem 0 -1rem;
+    }
+}
+.not-found__link:link,
+.not-found__link:visited,
+.not-found__link:active {
+    color: #111;
+    font-size: 2rem;
+    margin-top: 2rem;
+    display: inline-block;
+    padding: 1rem;
+}
+
+.not-found__link:focus {
+    border: dashed 0.1rem #111;
+}
+.section__heading {
+    padding: 3rem 7rem 2.5rem;
+    background-color: $COLOR_BG;
+}
+.section__body {
+    padding: 3rem 7rem;
 }

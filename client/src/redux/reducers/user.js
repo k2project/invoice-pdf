@@ -1,23 +1,38 @@
-import { USER_LOADED, AUTH_ERROR } from '../actions/types';
+import { USER_REGISTERED, USER_LOADED, AUTH_ERROR } from '../actions/types';
 
 const initialState = {
-    user: null
+    user: null,
+    isRegistered: false,
+    isAuthenticated: false,
+    loading: true
 };
 
 export default function(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
+        case USER_REGISTERED:
+            return {
+                ...state,
+                isRegistered: true,
+                loading: false
+            };
         case USER_LOADED:
             return {
                 ...state,
-                user: payload
+                user: payload,
+                isRegistered: true,
+                isAuthenticated: true,
+                loading: false
             };
 
         case AUTH_ERROR:
             localStorage.removeItem('token');
             return {
                 ...state,
-                user: null
+                user: null,
+                isRegistered: false,
+                isAuthenticated: false,
+                loading: true
             };
 
         default:

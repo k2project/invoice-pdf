@@ -49,6 +49,7 @@ router.post(
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
+            console.log('VALIDATION ERR WITH REG', errors.array());
             return res.status(400).json({ errors: errors.array() });
         }
         const { email, password } = req.body;
@@ -72,7 +73,7 @@ router.post(
 
             res.send('Account created successfully.');
         } catch (err) {
-            // console.log(err.message);
+            console.log('REGISTRATION ERR', err);
             res.status(500).send('Server Error');
         }
     }
