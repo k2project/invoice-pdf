@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setProfileCurrentNavLink } from '../../../redux/actions/profile';
+
 import updateIcon from '../../../imgs/icons/updateIcon.png';
 import listIcon from '../../../imgs/icons/list.png';
 
-const ProfileNav = props => {
-    const handleLinkClick = e => {
-        e.preventDefault();
-    };
+const ProfileNav = ({ setProfileCurrentNavLink }) => {
     return (
         <nav aria-label="Profile's navigation bar" className='submenu'>
             <div className='submenu__title'>Welcome!</div>
@@ -16,7 +16,10 @@ const ProfileNav = props => {
                         href='#profile-details'
                         className='submenu__link'
                         onMouseDown={e => e.preventDefault()}
-                        onClick={handleLinkClick}
+                        onClick={e => {
+                            e.preventDefault();
+                            setProfileCurrentNavLink('details');
+                        }}
                     >
                         <img
                             src={listIcon}
@@ -31,7 +34,10 @@ const ProfileNav = props => {
                         href='#profile-update'
                         className='submenu__link'
                         onMouseDown={e => e.preventDefault()}
-                        onClick={handleLinkClick}
+                        onClick={e => {
+                            e.preventDefault();
+                            setProfileCurrentNavLink('update');
+                        }}
                     >
                         <img
                             src={updateIcon}
@@ -46,6 +52,8 @@ const ProfileNav = props => {
     );
 };
 
-ProfileNav.propTypes = {};
+ProfileNav.propTypes = {
+    setProfileCurrentNavLink: PropTypes.func.isRequired
+};
 
-export default ProfileNav;
+export default connect(null, { setProfileCurrentNavLink })(ProfileNav);

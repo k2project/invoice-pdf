@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
 import FormErrorsDisplay from './FormErrorsDisplay';
 import FormInput from './FormInput';
 import { updateStateErrors, cleanData } from './formFuns';
+
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
-import { getCurrentProfile } from '../../redux/actions/profile';
+import {
+    getCurrentProfile,
+    setProfileCurrentNavLink
+} from '../../redux/actions/profile';
+
 import axios from 'axios';
 
 function ProfileForm({
     setAlert,
     user: { email },
     profile,
-    displayForm,
+    setProfileCurrentNavLink,
     getCurrentProfile,
     update
 }) {
@@ -70,12 +76,14 @@ function ProfileForm({
             let alertMsg =
                 'Your profile has been created successfully. Please explore your dashboard below.';
             if (update) {
-                displayForm(false);
                 alertMsg = 'Your profile has been updated successfully.';
+                setProfileCurrentNavLink('details');
             }
             setAlert(alertMsg, 'success', null, false);
         } catch (err) {
-            if (err.response.data.errors) {
+            console.log('PROFILE FORM ERR');
+            console.log(err);
+            if (err.response) {
                 updateStateErrors(
                     form,
                     formData,
@@ -105,8 +113,6 @@ function ProfileForm({
                 bankSortCode: profile.bank.bankSortCode || '',
                 bankAccount: profile.bank.bankAccount || ''
             });
-        //add error styling to the inputs
-        // formErrorsStyling(formData.errors);
     }, [profile]);
     return (
         <form onSubmit={onSubmit} className='form-profile'>
@@ -197,8 +203,13 @@ ProfileForm.propTypes = {
 };
 const mapStateToProps = state => ({
     user: state.user.user,
-    profile: state.profile.profile
+    profile: state.profile.profile,
+    setAlert: PropTypes.func.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired,
+    setProfileCurrentNavLink: PropTypes.func.isRequired
 });
-export default connect(mapStateToProps, { setAlert, getCurrentProfile })(
-    ProfileForm
-);
+export default connect(mapStateToProps, {
+    setAlert,
+    getCurrentProfile,
+    setProfileCurrentNavLink
+})(ProfileForm);

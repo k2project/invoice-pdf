@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { setAlert } from './alerts';
 import {
-    DISPLAY_DASHNAV_CURRENT_LINK,
-    DISPLAY_COMPANY_CURRENT_LINK,
+  
+    SET_COMPANY_CURRENT_NAV_LINK,
     DELETE_COMPANY,
     UPDATE_COMPANY,
     DISPLAY_COMPANY,
@@ -10,9 +10,9 @@ import {
     GET_PROFILE
 } from '../actions/types';
 
-export const displayCompanyCurrentLink = payload => dispatch => {
+export const setCompanyCurrentNavLink = payload => dispatch => {
     dispatch({
-        type: DISPLAY_DASHNAV_CURRENT_LINK,
+        type: SET_COMPANY_CURRENT_NAV_LINK 
         payload
     });
 };
@@ -21,10 +21,7 @@ export const displayCompany = payload => dispatch => {
         type: DISPLAY_COMPANY,
         payload
     });
-    dispatch({
-        type: DISPLAY_DASHNAV_CURRENT_LINK,
-        payload: 'company'
-    });
+  
 };
 export const updateCompany = payload => dispatch => {
     dispatch({
@@ -40,10 +37,7 @@ export const updateCompany = payload => dispatch => {
 export const deleteCompany = id => async dispatch => {
     try {
         const res = await axios.delete(`/api/company/${id}`);
-        dispatch({
-            type: DISPLAY_DASHNAV_CURRENT_LINK,
-            payload: 'company-form'
-        });
+      
 
         dispatch({
             type: DELETE_COMPANY

@@ -1,5 +1,5 @@
 import {
-    DISPLAY_COMPANY_CURRENT_LINK,
+    SET_COMPANY_CURRENT_NAV_LINK,
     DELETE_COMPANY,
     UPDATE_COMPANY,
     DISPLAY_COMPANY,
@@ -15,7 +15,7 @@ const initialState = {
 export default function(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
-        case DISPLAY_COMPANY_CURRENT_LINK:
+        case SET_COMPANY_CURRENT_NAV_LINK:
             return {
                 ...state,
                 currentNavLink: payload

@@ -1,1 +1,19 @@
 @import '../../../App.scss';
+.profile-details {
+    text-align: left;
+    font-size: 1.4rem;
+    li {
+        display: grid;
+        grid-template-columns: 14rem 1fr;
+        padding-bottom: 0.5rem;
+    }
+}
+.profile-details__address {
+    white-space: pre-line;
+    display: block;
+    margin: 2rem 0 0;
+}
+.profile-details__bank {
+    display: block;
+    margin: 2rem 0 0;
+}

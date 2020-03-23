@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { GET_PROFILE, GET_PROFILE_ERR } from './types';
+import {
+    GET_PROFILE,
+    GET_PROFILE_ERR,
+    SET_PROFILE_CURRENT_NAV_LINK
+} from './types';
 
 export const getCurrentProfile = () => async dispatch => {
     try {
@@ -17,4 +21,10 @@ export const getCurrentProfile = () => async dispatch => {
             }
         });
     }
+};
+export const setProfileCurrentNavLink = payload => dispatch => {
+    dispatch({
+        type: SET_PROFILE_CURRENT_NAV_LINK,
+        payload
+    });
 };
