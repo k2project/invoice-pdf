@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './MainNav.scss';
 
@@ -14,6 +15,7 @@ const MainNav = ({ redirectLink, logoutUser, setAlert }) => {
             'success',
             'login page'
         );
+
         logoutUser();
     };
 
@@ -84,12 +86,14 @@ const MainNav = ({ redirectLink, logoutUser, setAlert }) => {
                     </Link>
                 </li>
                 <li role='menuitem'>
-                    <button
+                    <Link
+                        to='/'
+                        className='main-nav__link'
                         onMouseDown={e => e.preventDefault()}
                         onClick={logout}
                     >
                         Sign Out
-                    </button>
+                    </Link>
                 </li>
             </ul>
         </nav>

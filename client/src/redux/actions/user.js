@@ -27,6 +27,7 @@ export const loadUser = () => async dispatch => {
 };
 
 export const logoutUser = () => dispatch => {
+    localStorage.removeItem('token');
     dispatch({ type: AUTH_ERROR });
     dispatch({ type: CLEAR_PROFILE });
 };
