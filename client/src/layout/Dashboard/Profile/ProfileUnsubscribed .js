@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ProfileForm from '../../../components/forms/ProfileForm';
 
 const ProfileUnsubscribed = props => {
     return (
@@ -18,6 +19,7 @@ const ProfileUnsubscribed = props => {
                         Just submit the form and you can always update the
                         details later in the <b>Profile</b> settings.
                     </p>
+                    <ProfileForm />
                 </div>
             </div>
         </div>

@@ -12,11 +12,7 @@ const PrivateRoute = ({
         {...rest}
         render={props =>
             !isAuthenticated || !localStorage.getItem('token') ? (
-                loading ? (
-                    <Redirect to={'/'} />
-                ) : (
-                    <Redirect to={window.location.pathname} />
-                )
+                <Redirect to={'/'} />
             ) : (
                 <Component {...props} />
             )
@@ -25,7 +21,7 @@ const PrivateRoute = ({
 );
 
 PrivateRoute.propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired
+    user: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
     user: state.user

@@ -1,17 +1,25 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getCurrentProfile } from '../../../redux/actions/profile';
 
 import MainNav from '../../MainNav/MainNav';
 import DashboardNav from './../DashboardNav';
 
-const Company = ({ profile }) => {
+const Company = ({
+    profile: { profile, loading },
+    redirectLink,
+    getCurrentProfile
+}) => {
+    useEffect(() => {
+        getCurrentProfile();
+    }, []);
     return (
         <Fragment>
             <MainNav />
             <section className='dashboard'>
-                {!profile && <Redirect to='/dashboard/profile' />}
+                {!profile && !loading && <Redirect to={redirectLink} />}
                 <DashboardNav />
                 <main id='main'>company</main>
             </section>
@@ -19,8 +27,13 @@ const Company = ({ profile }) => {
     );
 };
 
-Company.propTypes = {};
+Company.propTypes = {
+    profile: PropTypes.object.isRequired,
+    redirectLink: PropTypes.string.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired
+};
 const mapStateToProps = state => ({
-    profile: state.profile.profile
+    profile: state.profile,
+    redirectLink: state.global.redirectLink
 });
-export default connect(mapStateToProps)(Company);
+export default connect(mapStateToProps, { getCurrentProfile })(Company);

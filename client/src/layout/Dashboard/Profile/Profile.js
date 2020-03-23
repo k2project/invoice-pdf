@@ -1,17 +1,21 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getCurrentProfile } from '../../../redux/actions/profile';
 
 import MainNav from '../../MainNav/MainNav';
 import DashboardNav from './../DashboardNav';
 import ProfileUnsubscribed from './ProfileUnsubscribed ';
 
-const Profile = ({ profile }) => {
+const Profile = ({ profile: { profile, loading }, getCurrentProfile }) => {
+    useEffect(() => {
+        getCurrentProfile();
+    }, []);
     return (
         <Fragment>
             <MainNav />
-            {!profile && <ProfileUnsubscribed />}
-            {profile && (
+            {!loading && !profile && <ProfileUnsubscribed />}
+            {!loading && profile && (
                 <section className='dashboard'>
                     <DashboardNav />
                     <main id='main'>profile</main>
@@ -21,8 +25,10 @@ const Profile = ({ profile }) => {
     );
 };
 
-Profile.propTypes = {};
+Profile.propTypes = {
+    profile: PropTypes.object.isRequired
+};
 const mapStateToProps = state => ({
-    profile: state.profile.profile
+    profile: state.profile
 });
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, { getCurrentProfile })(Profile);

@@ -10,7 +10,6 @@ import './App.scss';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { loadUser } from './redux/actions/user';
-import { setRedirectLink } from './redux/actions/global';
 
 import PrivateRoute from './utils/PrivateRoute';
 import SkipToMainContentLink from './components/SkipToMainContentLink';
@@ -25,8 +24,12 @@ import NewInvoice from './layout/Dashboard/NewInvoice/NewInvoice';
 import Account from './layout/Account/Account';
 
 const App = () => {
+    //page on refresh
+    if (window.location.pathname !== '/') {
+        localStorage.setItem('link', window.location.pathname);
+        console.log(localStorage.link);
+    }
     useEffect(() => {
-        // if (!store.getState().user.loading)
         store.dispatch(loadUser());
     }, []);
     return (
@@ -48,6 +51,7 @@ const App = () => {
                                 to={store.getState().global.redirectLink}
                             />
                         </PrivateRoute>
+
                         <PrivateRoute
                             exact
                             path='/dashboard/profile'

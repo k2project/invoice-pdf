@@ -47,8 +47,6 @@ const Login = ({ isAuthenticated, redirectLink, setAlert, loadUser }) => {
                 'success',
                 "your profile's dashboard"
             );
-            // redirect to dashboard
-            // history.push('/dashboard');
         } catch (err) {
             localStorage.removeItem('token');
             console.log('LOGIN FORM ERR:', err);
@@ -61,10 +59,15 @@ const Login = ({ isAuthenticated, redirectLink, setAlert, loadUser }) => {
                 );
         }
     };
-    if (isAuthenticated) return <Redirect to={redirectLink} />;
+
     return (
         <Fragment>
-            {!isAuthenticated && !localStorage.getItem('token') && (
+            {isAuthenticated && (
+                <Redirect
+                    to={localStorage.link ? localStorage.link : redirectLink}
+                />
+            )}
+            {!isAuthenticated && !localStorage.token && (
                 <main className='login' id='main'>
                     <section className='login__form'>
                         <Logo />

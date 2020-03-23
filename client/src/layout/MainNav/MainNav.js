@@ -10,13 +10,12 @@ import { setAlert } from '../../redux/actions/alerts';
 
 const MainNav = ({ redirectLink, logoutUser, setAlert }) => {
     const logout = () => {
+        logoutUser();
         setAlert(
             'You have been logged out successfully.',
             'success',
             'login page'
         );
-
-        logoutUser();
     };
 
     return (

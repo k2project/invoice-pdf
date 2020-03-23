@@ -12,14 +12,18 @@ const NotFound = ({ redirectLink, loadUser }) => {
             <div className='wrapper'>
                 <div className='heading heading--xlg'>404</div>
                 <h1 className='heading heading--lg'>Page Not Found</h1>
-                <p>
-                    You seem to have clicked on a broken link or entered URL
-                    that doesn't exists on this site.
-                </p>
-                <Link to={redirectLink} className='not-found__link'>
+                <Link
+                    to={redirectLink}
+                    onMouseDown={e => e.preventDefault()}
+                    className='not-found__link'
+                >
                     <span aria-hidden='true'>&#8592; </span>
                     Go back to the site
                 </Link>
+                {/* <p>
+                    You seem to have clicked on a broken link or entered URL
+                    that doesn't exists on this site.
+                </p> */}
             </div>
         </section>
     );

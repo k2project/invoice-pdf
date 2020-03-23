@@ -254,7 +254,7 @@ fieldset {
     border-radius: 0.4rem;
     border: solid 0.1rem #c1c7cd;
     padding: 0rem 4rem 2rem;
-    width: 55rem;
+    width: 50rem;
     display: block;
     margin: 4rem 0 2rem;
 }
@@ -413,12 +413,14 @@ fieldset {
     font-weight: bold;
 }
 .heading--xlg {
-    font-size: 15rem;
-    margin: 0 0 -3.5rem;
+    font-size: 12rem;
+    margin: 0 0 -2rem;
+    font-family: $FONT_LOGO;
+    opacity: 0.3;
 }
 .heading--lg {
-    font-size: 4rem;
-    margin: 0;
+    font-family: $FONT_LOGO;
+    font-size: 3.2rem;
 }
 .heading--md {
     font-size: 3rem;
@@ -455,16 +457,13 @@ p {
     color: #fff;
     align-content: center;
     text-align: center;
-    p {
-        font-size: 1.6rem;
-        margin: 3rem 0 -1rem;
-    }
+    padding-bottom: 8rem;
 }
 .not-found__link:link,
 .not-found__link:visited,
 .not-found__link:active {
     color: #111;
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin-top: 2rem;
     display: inline-block;
     padding: 1rem;
@@ -478,5 +477,5 @@ p {
     background-color: $COLOR_BG;
 }
 .section__body {
-    padding: 3rem 7rem;
+    padding: 4rem 7rem;
 }
