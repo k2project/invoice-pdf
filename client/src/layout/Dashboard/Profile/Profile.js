@@ -5,7 +5,8 @@ import { getCurrentProfile } from '../../../redux/actions/profile';
 
 import MainNav from '../../MainNav/MainNav';
 import DashboardNav from './../DashboardNav';
-import ProfileUnsubscribed from './ProfileUnsubscribed ';
+import ProfileUnsubscribed from './ProfileUnsubscribed';
+import ProfileMain from './ProfileMain';
 
 const Profile = ({ profile: { profile, loading }, getCurrentProfile }) => {
     useEffect(() => {
@@ -18,7 +19,7 @@ const Profile = ({ profile: { profile, loading }, getCurrentProfile }) => {
             {!loading && profile && (
                 <section className='dashboard'>
                     <DashboardNav />
-                    <main id='main'>profile</main>
+                    <ProfileMain />
                 </section>
             )}
         </Fragment>

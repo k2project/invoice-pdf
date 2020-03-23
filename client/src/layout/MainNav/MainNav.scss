@@ -4,15 +4,14 @@
     display: grid;
     grid-template-columns: 1fr auto auto auto;
     background-color: $COLOR_DARK;
-    padding: 0 0 0 4rem;
+    padding: 0 4rem 0 4rem;
     color: #fff;
     li {
         display: inline-block;
     }
 
-    .main-nav__link,
-    button {
-        width: 10rem;
+    .main-nav__link {
+        width: 11rem;
         display: inline-block;
         padding: 2.7rem 0;
         color: seashell;
@@ -20,11 +19,8 @@
         font-size: 1.3rem;
         text-align: center;
     }
-    button {
-        width: 14rem;
-    }
-    .main-nav__link:hover,
-    button:hover {
+
+    .main-nav__link:hover {
         text-decoration: none;
         background-color: $COLOR_THEME;
         border-color: $COLOR_THEME;
@@ -36,8 +32,7 @@
         background-color: lighten($COLOR_DARK, 20%);
         border-color: lighten($COLOR_DARK, 20%);
     }
-    .main-nav__link:focus,
-    button:focus {
+    .main-nav__link:focus {
         text-decoration: none;
         border: dashed 0.1rem #fff;
     }
@@ -45,8 +40,8 @@
 .main-nav__logo:link,
 .main-nav__logo:visited {
     font-family: 'Audiowide', serif;
-    font-size: 2.2rem;
-    padding: 2.1rem 0;
+    font-size: 2.4rem;
+    padding: 1.9rem 0;
     display: inline-block;
     border: dashed 0.1rem $COLOR_DARK;
     text-decoration: none;

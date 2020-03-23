@@ -16,7 +16,7 @@
     position: sticky;
     top: 0;
     display: block;
-    padding-top: 9rem;
+    padding-top: 6.9rem;
 
     li {
         display: block;
@@ -78,4 +78,39 @@
     height: 1.6rem;
     margin: 0 0.5rem;
     top: 0.3rem;
+}
+.submenu {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    // text-align: right;
+    background-color: $COLOR_BG;
+    ul,
+    li {
+        display: inline-block;
+    }
+}
+.submenu__title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    padding: 0 3rem;
+}
+.submenu__link {
+    display: inline-block;
+    padding: 2.5rem 1.5rem 2.5rem 1rem;
+    font-size: 1.2rem;
+    color: #111;
+    opacity: 0.5;
+}
+.submenu__link:link,
+.submenu__link:active,
+.submenu__link:hover,
+.submenu__link:focus,
+.submenu__link:visited {
+    color: #111;
+    text-decoration: none;
+}
+.submenu__link:link:hover {
+    background-color: darken($COLOR_BG, 3%);
+    opacity: 1;
 }
