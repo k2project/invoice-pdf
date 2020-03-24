@@ -6,22 +6,34 @@ import { getCurrentProfile } from '../../redux/actions/profile';
 
 import MainNav from '../MainNav/MainNav';
 import DashboardNav from './DashboardNav';
+import CompanyForm from '../../components/forms/CompanyForm';
 
 const AddCompany = ({
     profile: { profile, loading },
     redirectLink,
     getCurrentProfile
 }) => {
+    console.log('add-company');
     useEffect(() => {
         getCurrentProfile();
-    }, []);
+        console.log('GP ADD-Company');
+    }, [getCurrentProfile]);
     return (
         <Fragment>
             <MainNav />
             <section className='dashboard'>
                 {!profile && !loading && <Redirect to={redirectLink} />}
                 <DashboardNav />
-                <main id='main'>iadd company form</main>
+                <main id='main'>
+                    <div className='dashboard__heading'>
+                        <h2 className='heading heading--sm'>
+                            Add a new company form.
+                        </h2>
+                    </div>
+                    <div className='dashboard__section'>
+                        {!loading && profile && <CompanyForm />}
+                    </div>
+                </main>
             </section>
         </Fragment>
     );

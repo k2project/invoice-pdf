@@ -10,9 +10,11 @@ import ProfileUnsubscribed from './ProfileUnsubscribed';
 import ProfileMain from './ProfileMain';
 
 const Profile = ({ profile: { profile, loading }, getCurrentProfile }) => {
+    console.log('profile');
     useEffect(() => {
         getCurrentProfile();
-    }, []);
+        console.log('GP Profile');
+    }, [getCurrentProfile]);
     return (
         <Fragment>
             <MainNav />

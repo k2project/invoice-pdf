@@ -6,6 +6,10 @@
 .dashboard__section {
     padding: 5rem 15rem;
 }
+.dashboard__heading {
+    padding: 3rem 15rem 2.5rem;
+    background-color: $COLOR_BG;
+}
 .dashboard-nav {
     min-height: 90vh;
     height: 100%;
@@ -34,8 +38,11 @@
 .dashboard-nav__sublink:last-child {
     padding-bottom: 1.4rem;
 }
-.dashboard-nav__sublink {
+.dashboard-nav__sublink:link,
+.dashboard-nav__sublink:active,
+.dashboard-nav__sublink:visited {
     background-color: lighten($COLOR_THEME, 20%);
+    color: darken($COLOR_THEME, 5%);
     padding-left: 3rem;
 }
 .dashboard-nav__link:focus,
@@ -58,9 +65,7 @@
 
 .dashboard-nav__link:link,
 .dashboard-nav__link:active,
-.dashboard-nav__link:visited,
-.dashboard-nav__sublink:active,
-.dashboard-nav__sublink:visited {
+.dashboard-nav__link:visited {
     color: #111;
 }
 .dashboard-nav__link:focus,

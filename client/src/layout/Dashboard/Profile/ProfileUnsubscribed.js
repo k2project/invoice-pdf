@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ProfileForm from '../../../components/forms/ProfileForm';
 
-const ProfileUnsubscribed = props => {
+const ProfileUnsubscribed = () => {
     return (
         <div className='profile__unsubscribed'>
             <div className='section__heading'>
@@ -25,7 +24,5 @@ const ProfileUnsubscribed = props => {
         </div>
     );
 };
-
-ProfileUnsubscribed.propTypes = {};
 
 export default ProfileUnsubscribed;

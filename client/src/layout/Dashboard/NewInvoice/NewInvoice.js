@@ -12,16 +12,18 @@ const NewInvoice = ({
     redirectLink,
     getCurrentProfile
 }) => {
+    console.log('new-invoice');
     useEffect(() => {
         getCurrentProfile();
-    }, []);
+        console.log('GP INVOICE');
+    }, [getCurrentProfile]);
     return (
         <Fragment>
             <MainNav />
             <section className='dashboard'>
                 {!profile && !loading && <Redirect to={redirectLink} />}
                 <DashboardNav />
-                <main id='main'>invoice form</main>
+                {profile && !loading && <main id='main'>invoice form</main>}
             </section>
         </Fragment>
     );

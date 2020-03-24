@@ -6,12 +6,17 @@ import { loadUser } from '../redux/actions/user';
 const NotFound = ({ redirectLink, loadUser }) => {
     useEffect(() => {
         loadUser();
-    }, []);
+    }, [loadUser]);
     return (
         <section className='not-found'>
             <div className='wrapper'>
                 <div className='heading heading--xlg'>404</div>
-                <h1 className='heading heading--lg'>Page Not Found</h1>
+                <h1 className='heading heading--lg'>
+                    {/^\/dashboard\/company/.test(window.location.pathname)
+                        ? 'Comapny '
+                        : 'Page '}{' '}
+                    Not Found
+                </h1>
                 <Link
                     to={redirectLink}
                     onMouseDown={e => e.preventDefault()}
@@ -20,10 +25,6 @@ const NotFound = ({ redirectLink, loadUser }) => {
                     <span aria-hidden='true'>&#8592; </span>
                     Go back to the site
                 </Link>
-                {/* <p>
-                    You seem to have clicked on a broken link or entered URL
-                    that doesn't exists on this site.
-                </p> */}
             </div>
         </section>
     );

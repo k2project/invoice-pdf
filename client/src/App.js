@@ -22,12 +22,12 @@ import AddCompany from './layout/Dashboard/AddCompany';
 import Company from './layout/Dashboard/Company/Company';
 import NewInvoice from './layout/Dashboard/NewInvoice/NewInvoice';
 import Account from './layout/Account/Account';
+import { getCurrentProfile } from './redux/actions/profile';
 
 const App = () => {
     //page on refresh
     if (window.location.pathname !== '/') {
         localStorage.setItem('link', window.location.pathname);
-        console.log(localStorage.link);
     }
     useEffect(() => {
         store.dispatch(loadUser());
@@ -62,9 +62,10 @@ const App = () => {
                             path='/dashboard/add-company'
                             component={AddCompany}
                         />
+
                         <PrivateRoute
                             exact
-                            path='/dashboard/company'
+                            path='/dashboard/company/:id'
                             component={Company}
                         />
                         <PrivateRoute
