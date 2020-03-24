@@ -22,7 +22,6 @@ import AddCompany from './layout/Dashboard/AddCompany';
 import Company from './layout/Dashboard/Company/Company';
 import NewInvoice from './layout/Dashboard/NewInvoice/NewInvoice';
 import Account from './layout/Account/Account';
-import { getCurrentProfile } from './redux/actions/profile';
 
 const App = () => {
     //page on refresh

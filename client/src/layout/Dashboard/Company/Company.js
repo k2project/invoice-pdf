@@ -6,9 +6,9 @@ import { getCurrentProfile } from '../../../redux/actions/profile';
 
 import MainNav from '../../MainNav/MainNav';
 import DashboardNav from './../DashboardNav';
+import CompanyMain from './CompanyMain';
 
 const Company = ({
-    company: { currentNavLink },
     profile: { profile, loading },
     redirectLink,
     getCurrentProfile
@@ -19,31 +19,27 @@ const Company = ({
 
     let { id } = useParams();
 
-    // const company = profile.companies.find(c => c._id === id);
-    // if (!company) return <Redirect to='/dashboard/company' />;
-
-    // const currentCompany = companies.find(c => c._id === companyToDisplay);
-    // let { companyName } = currentCompany;
-
     return (
         <Fragment>
             <MainNav />
-            <section className='dashboard'>
-                {!profile && !loading && <Redirect to={redirectLink} />}
-                <DashboardNav />
-
-                {/* company url doesnt match existing companies */}
-                {profile && !profile.companies.find(c => c._id === id) && (
-                    <Redirect to='/dashboard/company' />
-                )}
-
-                {profile &&
+            {/* no profile created yet */}
+            {!profile && !loading && <Redirect to={redirectLink} />}
+            {/* company url doesnt match existing companies */}
+            {profile && !profile.companies.find(c => c._id === id) && (
+                <Redirect to='/dashboard/company' />
+            )}
+            {!loading && profile && (
+                <section className='dashboard'>
+                    <DashboardNav />
+                    <CompanyMain />
+                </section>
+            )}
+            {/* {profile &&
                     profile.companies.map(c => {
                         if (c._id === id)
                             return <p key={c._id}>{c.companyName}</p>;
-                    })}
-                {/* <main id='main'>{id}</main> */}
-            </section>
+                    })} */}
+            {/* <main id='main'>{id}</main> */}
         </Fragment>
     );
 };
@@ -54,7 +50,6 @@ Company.propTypes = {
     getCurrentProfile: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-    company: state.company,
     profile: state.profile,
     redirectLink: state.global.redirectLink
 });

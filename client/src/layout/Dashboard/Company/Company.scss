@@ -1,1 +1,26 @@
 @import '../../../App.scss';
+.company-details {
+    text-align: left;
+    font-size: 1.4rem;
+    li {
+        display: grid;
+        grid-template-columns: 16rem 1fr;
+        padding-bottom: 0.5rem;
+    }
+}
+.company-details__acronym {
+    font-size: 1rem;
+    font-style: italic;
+}
+.company-details__address {
+    white-space: pre-line;
+    display: block;
+    margin: 4rem 0 0;
+}
+.company-details__bank {
+    display: block;
+    margin: 4rem 0;
+}
+.company-details__info {
+    white-space: pre;
+}

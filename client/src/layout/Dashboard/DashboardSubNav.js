@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
 
-const DasboardSubNav = props => {
+const DashboardSubNav = props => {
     let { id } = useParams();
     const { companies } = props;
     return (
@@ -26,14 +26,14 @@ const DasboardSubNav = props => {
     );
 };
 
-DasboardSubNav.propTypes = {
+DashboardSubNav.propTypes = {
     companies: PropTypes.array.isRequired,
     setAlert: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
     companies: state.profile.profile.companies
 });
-export default connect(mapStateToProps, { setAlert })(DasboardSubNav);
+export default connect(mapStateToProps, { setAlert })(DashboardSubNav);
 
 function SubNavLinks({ companies, setAlert, id }) {
     return (

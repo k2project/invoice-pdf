@@ -2,14 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Dashboard.scss';
-import DashboardSubNav from './DasboardSubNav';
+import DashboardSubNav from './DashboardSubNav';
 
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
 
 import plusIcon from '../../imgs/icons/plusIcon.png';
 import profileIcon from '../../imgs/icons/profileIcon.png';
-import DasboardSubNav from './DasboardSubNav';
 
 const DashboardNav = ({ profile: { profile, loading }, setAlert }) => {
     return (
@@ -45,7 +44,7 @@ const DashboardNav = ({ profile: { profile, loading }, setAlert }) => {
                     </Link>
                 </li>
 
-                {!loading && profile && <DasboardSubNav />}
+                {!loading && profile && <DashboardSubNav />}
 
                 <li>
                     <Link
