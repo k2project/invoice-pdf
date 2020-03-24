@@ -1,46 +1,25 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
 
-const DasboardSubNav = ({ companies, setAlert }) => {
-    console.log('details');
+const DasboardSubNav = props => {
+    let { id } = useParams();
+    const { companies } = props;
     return (
         <Fragment>
             {companies.length > 0 && (
                 <li>
-                    <details onMouseDown={e => e.preventDefault()}>
-                        <summary className='dashboard-nav__link'>
-                            Companies
-                        </summary>
-                        {companies
-                            .sort((a, b) =>
-                                a.companyName.localeCompare(b.companyName)
-                            )
-                            .map(company => {
-                                return (
-                                    <Link
-                                        key={company._id}
-                                        to={`/dashboard/company/${company._id}`}
-                                        onClick={() => {
-                                            setAlert(
-                                                `The ${company.companyName} settings are now desplayed on the page `,
-                                                'success'
-                                            );
-                                        }}
-                                        onMouseDown={e => e.preventDefault()}
-                                    >
-                                        {company.showAcronym &&
-                                        company.companyAcronym
-                                            ? company.companyAcronym
-                                            : shortenString(
-                                                  company.companyName
-                                              )}
-                                    </Link>
-                                );
-                            })}
-                    </details>
+                    {companies.find(c => c._id === id) ? (
+                        <details onMouseDown={e => e.preventDefault()} open>
+                            <SubNavLinks {...props} />
+                        </details>
+                    ) : (
+                        <details onMouseDown={e => e.preventDefault()}>
+                            <SubNavLinks {...props} />
+                        </details>
+                    )}
                 </li>
             )}
         </Fragment>
@@ -55,6 +34,37 @@ const mapStateToProps = state => ({
     companies: state.profile.profile.companies
 });
 export default connect(mapStateToProps, { setAlert })(DasboardSubNav);
+
+function SubNavLinks({ companies, setAlert }) {
+    return (
+        <Fragment>
+            <summary className='dashboard-nav__link'>Companies</summary>
+            {companies
+                .sort((a, b) => a.companyName.localeCompare(b.companyName))
+                .map(company => {
+                    return (
+                        <Link
+                            key={company._id}
+                            to={`/dashboard/company/${company._id}`}
+                            className='dashboard-nav__sublink'
+                            onClick={() => {
+                                localStorage.setItem('details', true);
+                                setAlert(
+                                    `The ${company.companyName} settings are now desplayed on the page `,
+                                    'success'
+                                );
+                            }}
+                            onMouseDown={e => e.preventDefault()}
+                        >
+                            {company.showAcronym && company.companyAcronym
+                                ? company.companyAcronym
+                                : shortenString(company.companyName)}
+                        </Link>
+                    );
+                })}
+        </Fragment>
+    );
+}
 
 function shortenString(str) {
     const max = 25;
