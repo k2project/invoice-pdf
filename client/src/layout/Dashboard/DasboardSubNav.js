@@ -13,11 +13,11 @@ const DasboardSubNav = props => {
                 <li>
                     {companies.find(c => c._id === id) ? (
                         <details onMouseDown={e => e.preventDefault()} open>
-                            <SubNavLinks {...props} />
+                            <SubNavLinks {...props} id={id} />
                         </details>
                     ) : (
                         <details onMouseDown={e => e.preventDefault()}>
-                            <SubNavLinks {...props} />
+                            <SubNavLinks {...props} id={id} />
                         </details>
                     )}
                 </li>
@@ -35,7 +35,7 @@ const mapStateToProps = state => ({
 });
 export default connect(mapStateToProps, { setAlert })(DasboardSubNav);
 
-function SubNavLinks({ companies, setAlert }) {
+function SubNavLinks({ companies, setAlert, id }) {
     return (
         <Fragment>
             <summary className='dashboard-nav__link'>Companies</summary>
@@ -46,9 +46,12 @@ function SubNavLinks({ companies, setAlert }) {
                         <Link
                             key={company._id}
                             to={`/dashboard/company/${company._id}`}
-                            className='dashboard-nav__sublink'
+                            className={`dashboard-nav__sublink ${
+                                id === company._id
+                                    ? 'dashboard__link--is-active'
+                                    : ''
+                            }`}
                             onClick={() => {
-                                localStorage.setItem('details', true);
                                 setAlert(
                                     `The ${company.companyName} settings are now desplayed on the page `,
                                     'success'

@@ -59,7 +59,8 @@
 }
 .dashboard__link--is-active:hover,
 .dashboard__link--is-active:focus,
-.dashboard__link--is-active {
+.dashboard__link--is-active:link,
+.dashboard__link--is-active:visited {
     background-color: #fff;
 }
 
