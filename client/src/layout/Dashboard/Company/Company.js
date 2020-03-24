@@ -13,16 +13,8 @@ const Company = ({
     redirectLink,
     getCurrentProfile
 }) => {
-    console.log('company');
     useEffect(() => {
-        const detailsEl = document.querySelector(
-            '.dashboard-nav__list details'
-        );
-        if (detailsEl && localStorage.details) {
-            detailsEl.setAttribute('open', 'true');
-        }
         getCurrentProfile();
-        console.log('GP Company');
     }, [getCurrentProfile]);
 
     let { id } = useParams();
@@ -39,9 +31,12 @@ const Company = ({
             <section className='dashboard'>
                 {!profile && !loading && <Redirect to={redirectLink} />}
                 <DashboardNav />
-                {/* {profile && !profile.companies.found(c => c._id === id) && (
+
+                {/* company url doesnt match existing companies */}
+                {profile && !profile.companies.find(c => c._id === id) && (
                     <Redirect to='/dashboard/company' />
-                )} */}
+                )}
+
                 {profile &&
                     profile.companies.map(c => {
                         if (c._id === id)
