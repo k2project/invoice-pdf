@@ -57,24 +57,8 @@ function CompanyForm({
             const _id = updateID ? updateID : uuidv4();
             const body = JSON.stringify({
                 _id,
-                companyName: formData.companyName,
-                companyAcronym: formData.companyAcronym,
-                showAcronym: formData.showAcronym,
-                addressLine1: formData.addressLine1,
-                addressLine2: formData.addressLine2,
-                town: formData.town,
-                county: formData.county,
-                postcode: formData.postcode,
-                website: formData.website,
-                email: formData.email,
-                mobile: formData.mobile,
-                fax: formData.fax,
-                bankName: formData.bankName,
-                bankSortCode: formData.bankSortCode,
-                bankAccount: formData.bankAccount,
-                companyInfo: formData.companyInfo
+                ...formData
             });
-
             let alertMsg = `${formData.companyName} has been added to your user profile.`;
             if (updateID) {
                 //update company
@@ -109,7 +93,7 @@ function CompanyForm({
             setFormData({
                 companyName: company.companyName || '',
                 companyAcronym: company.companyAcronym || '',
-                showAcronym: company.showAcronym || true,
+                showAcronym: company.showAcronym,
                 addressLine1: company.addressLine1 || '',
                 addressLine2: company.addressLine2 || '',
                 town: company.town || '',
@@ -148,7 +132,6 @@ function CompanyForm({
                 type='checkbox'
                 form={{ formData, setFormData }}
                 name='showAcronym'
-                checked
             >
                 Display acronym in the menus over the company's name. Keep it
                 unique.

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../../redux/actions/profile';
@@ -16,8 +16,6 @@ const Company = ({
     useEffect(() => {
         getCurrentProfile();
     }, [getCurrentProfile]);
-
-    let { id } = useParams();
 
     return (
         <Fragment>

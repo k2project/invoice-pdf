@@ -13,10 +13,8 @@ const AddCompany = ({
     redirectLink,
     getCurrentProfile
 }) => {
-    console.log('add-company');
     useEffect(() => {
         getCurrentProfile();
-        console.log('GP ADD-Company');
     }, [getCurrentProfile]);
     return (
         <Fragment>

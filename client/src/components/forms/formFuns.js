@@ -28,6 +28,20 @@ export const inputOnChange = (e, state, stateUpdate) => {
         errors
     });
 };
+export const checkboxOnChange = (e, state, stateUpdate) => {
+    const name = e.target.name;
+    //remove errors styling related to the input
+    //empty errors array
+    e.target.classList.remove('form__input--err');
+    e.target.removeAttribute('aria-label');
+    e.target.value = e.target.checked;
+    const errors = state.errors.filter(err => err.param !== name);
+    stateUpdate({
+        ...state,
+        [name]: e.target.checked,
+        errors
+    });
+};
 export const updateStateErrors = async (form, state, updateState, errors) => {
     if (errors) {
         await updateState({

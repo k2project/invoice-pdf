@@ -1,5 +1,3 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { setAlert } from './alerts';
 import {

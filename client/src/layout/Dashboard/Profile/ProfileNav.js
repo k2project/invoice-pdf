@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setProfileCurrentNavLink } from '../../../redux/actions/profile';
-import { getFirstName } from '../../../utils/funs';
 import updateIcon from '../../../imgs/icons/updateIcon.png';
 import listIcon from '../../../imgs/icons/list.png';
 

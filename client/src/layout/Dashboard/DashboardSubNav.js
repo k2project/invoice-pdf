@@ -47,7 +47,12 @@ function SubNavLinks({ companies, setAlert, setCompanyCurrentNavLink, id }) {
             {companies
                 .sort((a, b) => a.companyName.localeCompare(b.companyName))
                 .map(company => {
-                    const { _id, companyName, companyAcronym } = company;
+                    const {
+                        _id,
+                        companyName,
+                        companyAcronym,
+                        showAcronym
+                    } = company;
                     return (
                         <Link
                             key={_id}
@@ -64,7 +69,11 @@ function SubNavLinks({ companies, setAlert, setCompanyCurrentNavLink, id }) {
                             }}
                             onMouseDown={e => e.preventDefault()}
                         >
-                            {displayCompanyName(companyName, companyAcronym)}
+                            {displayCompanyName(
+                                companyName,
+                                companyAcronym,
+                                showAcronym
+                            )}
                         </Link>
                     );
                 })}

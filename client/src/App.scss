@@ -292,34 +292,36 @@ fieldset {
 }
 .input-checkbox__checkmark {
     position: absolute;
-    top: 0.5rem;
+    top: 0.3rem;
     left: 0;
-    height: 2.5rem;
-    width: 2.5rem;
-    background-color: #eee;
+    height: 2.7rem;
+    width: 2.7rem;
+    border: solid 0.1rem #c1c7cd;
+    border-radius: 0.3rem;
     z-index: 2;
 }
 .input-checkbox__checkmark:after {
     content: '\2713';
     position: absolute;
     display: none;
-    font-size: 2.4rem;
-    color: #fff;
+    font-size: 4rem;
+    color: $COLOR_THEME;
     font-weight: bold;
-    line-height: 2.2rem;
+    line-height: 1.2rem;
     left: 0.2rem;
 }
 .input-checkbox:hover .input-checkbox__checkmark {
-    background-color: #ccc;
+    // background-color: #ccc;
 }
 
 .input-checkbox input:checked ~ .input-checkbox__checkmark {
-    background-color: $COLOR_THEME;
+    border-color: $COLOR_THEME;
 }
 .input-checkbox input:checked ~ .input-checkbox__checkmark:after {
     display: block;
 }
 .input-checkbox input:focus ~ .input-checkbox__checkmark {
+    background-color: $COLOR_GREY;
 }
 
 //====================

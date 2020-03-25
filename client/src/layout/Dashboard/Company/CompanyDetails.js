@@ -41,7 +41,10 @@ const CompanyDetails = ({ companies }) => {
                 {companyAcronym && (
                     <li>
                         <span>Company Acronym:</span>
-                        <span>{companyAcronym}*</span>
+                        <span>
+                            {companyAcronym}
+                            {companyAcronym && showAcronym && <sup>*</sup>}
+                        </span>
                     </li>
                 )}
 

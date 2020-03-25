@@ -54,22 +54,7 @@ function ProfileForm({
 
             await cleanData(formData);
 
-            const body = JSON.stringify({
-                fullName: formData.fullName,
-                company: formData.company,
-                addressLine1: formData.addressLine1,
-                addressLine2: formData.addressLine2,
-                town: formData.town,
-                county: formData.county,
-                postcode: formData.postcode,
-                website: formData.website,
-                email: formData.email,
-                mobile: formData.mobile,
-                fax: formData.fax,
-                bankName: formData.bankName,
-                bankSortCode: formData.bankSortCode,
-                bankAccount: formData.bankAccount
-            });
+            const body = JSON.stringify(formData);
 
             await axios.post('/api/profile/', body, config);
             getCurrentProfile();

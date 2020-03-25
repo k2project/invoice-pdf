@@ -1,5 +1,5 @@
-export const displayCompanyName = (name, acronym, max) => {
-    return acronym ? acronym : shortenString(name, max);
+export const displayCompanyName = (name, acronym, show, max) => {
+    return acronym && show ? acronym : shortenString(name, max);
 };
 export const shortenString = (str, max = 25) => {
     if (str.length > max) {
