@@ -11,7 +11,7 @@ export const setCompanyCurrentNavLink = payload => dispatch => {
 
 export const deleteCompany = id => async dispatch => {
     try {
-        const res = await axios.delete(`/api/company/${id}`);
+        await axios.delete(`/api/company/${id}`);
 
         dispatch(
             setAlert('Company deleted successfully.', 'success', null, false)

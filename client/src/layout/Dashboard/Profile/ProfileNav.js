@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setProfileCurrentNavLink } from '../../../redux/actions/profile';
-
+import { getFirstName } from '../../../utils/funs';
 import updateIcon from '../../../imgs/icons/updateIcon.png';
 import listIcon from '../../../imgs/icons/list.png';
 
-const ProfileNav = ({ setProfileCurrentNavLink }) => {
+const ProfileNav = ({ fullName, setProfileCurrentNavLink }) => {
     return (
         <nav aria-label="Profile's navigation bar" className='submenu'>
-            <div className='submenu__title'>Welcome!</div>
+            <div className='submenu__title'>
+                Welcome{fullName ? ', ' + fullName.split(' ')[0] : ''}!
+            </div>
             <ul aria-label="Profile's navigation links">
                 <li>
                     <a
@@ -53,7 +55,12 @@ const ProfileNav = ({ setProfileCurrentNavLink }) => {
 };
 
 ProfileNav.propTypes = {
-    setProfileCurrentNavLink: PropTypes.func.isRequired
+    setProfileCurrentNavLink: PropTypes.func.isRequired,
+    fullName: PropTypes.string
 };
-
-export default connect(null, { setProfileCurrentNavLink })(ProfileNav);
+const mapStateToProps = state => ({
+    fullName: state.profile.profile.fullName
+});
+export default connect(mapStateToProps, { setProfileCurrentNavLink })(
+    ProfileNav
+);

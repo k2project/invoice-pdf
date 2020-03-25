@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
+import { setCompanyCurrentNavLink } from '../../redux/actions/company';
+import { displayCompanyName } from '../../utils/funs';
 
 const DashboardSubNav = props => {
     let { id } = useParams();
@@ -28,94 +30,44 @@ const DashboardSubNav = props => {
 
 DashboardSubNav.propTypes = {
     companies: PropTypes.array.isRequired,
-    setAlert: PropTypes.func.isRequired
+    setAlert: PropTypes.func.isRequired,
+    setCompanyCurrentNavLink: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
     companies: state.profile.profile.companies
 });
-export default connect(mapStateToProps, { setAlert })(DashboardSubNav);
+export default connect(mapStateToProps, { setAlert, setCompanyCurrentNavLink })(
+    DashboardSubNav
+);
 
-function SubNavLinks({ companies, setAlert, id }) {
+function SubNavLinks({ companies, setAlert, setCompanyCurrentNavLink, id }) {
     return (
         <Fragment>
             <summary className='dashboard-nav__link'>Companies</summary>
             {companies
                 .sort((a, b) => a.companyName.localeCompare(b.companyName))
                 .map(company => {
+                    const { _id, companyName, companyAcronym } = company;
                     return (
                         <Link
-                            key={company._id}
-                            to={`/dashboard/company/${company._id}`}
+                            key={_id}
+                            to={`/dashboard/company/${_id}`}
                             className={`dashboard-nav__sublink ${
-                                id === company._id
-                                    ? 'dashboard__link--is-active'
-                                    : ''
+                                id === _id ? 'dashboard__link--is-active' : ''
                             }`}
                             onClick={() => {
+                                setCompanyCurrentNavLink('default');
                                 setAlert(
-                                    `The ${company.companyName} settings are now desplayed on the page `,
+                                    `The ${companyName} settings are now desplayed on the page `,
                                     'success'
                                 );
                             }}
                             onMouseDown={e => e.preventDefault()}
                         >
-                            {company.showAcronym && company.companyAcronym
-                                ? company.companyAcronym
-                                : shortenString(company.companyName)}
+                            {displayCompanyName(companyName, companyAcronym)}
                         </Link>
                     );
                 })}
         </Fragment>
     );
 }
-
-function shortenString(str) {
-    const max = 25;
-    if (str.length > max) {
-        return str.slice(0, max) + '...';
-    }
-    return str;
-}
-
-// <details >
-
-//     {companies
-//         .sort((a, b) =>
-//             a.companyName.localeCompare(b.companyName)
-//         )
-//         .map(company => {
-//             return (
-//                 <Link
-//                     key={company._id}
-//                     to={`/dashboard/company/${company._id}`}
-//                     className={`dashboard-nav__sublink ${
-//                         window.location.pathname ===
-//                             `/dashboard/company/${company._id}` ||
-//                             window.location.pathname ===
-//                             `/dashboard/company/${company._id}/`
-//                             ? 'dashboard__link--is-active'
-//                             : ''
-//                         }`}
-//                     onClick={() => {
-//                         localStorage.setItem(
-//                             'details',
-//                             true
-//                         );
-//                         setAlert(
-//                             `The ${company.companyName} settings are now desplayed on the page `,
-//                             'success'
-//                         );
-//                     }}
-//                     onMouseDown={e => e.preventDefault()}
-//                 >
-//                     {company.showAcronym &&
-//                         company.companyAcronym
-//                         ? company.companyAcronym
-//                         : shortenString(
-//                             company.companyName
-//                         )}
-//                 </Link>
-//             )
-//         };
-//         })
-// </details>

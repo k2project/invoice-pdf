@@ -69,9 +69,13 @@ const Login = ({ isAuthenticated, redirectLink, setAlert, loadUser }) => {
             )}
             {!isAuthenticated && !localStorage.token && (
                 <main className='login' id='main'>
+                    <section className='login__bg'>
+                        <div className='cover cover--theme'>
+                            <Logo />
+                        </div>
+                    </section>
                     <section className='login__form'>
-                        <Logo />
-                        <h1 className='sr-only'>Account Login</h1>
+                        <h1 className='heading heading--md'>Login</h1>
 
                         <form onSubmit={onSubmit}>
                             <label htmlFor='email'>Email</label>

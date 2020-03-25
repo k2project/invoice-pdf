@@ -84,6 +84,7 @@ function CompanyForm({
             } else {
                 //add a new company
                 await axios.post('/api/company', body, config);
+                setCompanyCurrentNavLink('default');
             }
             await getCurrentProfile();
             history.push(`/dashboard/company/${_id}`);
@@ -149,8 +150,8 @@ function CompanyForm({
                 name='showAcronym'
                 checked
             >
-                Display acronym in the dashboard menu insted of the company's
-                name. Keep it unique.
+                Display acronym in the menus over the company's name. Keep it
+                unique.
             </FormInput>
 
             <fieldset>

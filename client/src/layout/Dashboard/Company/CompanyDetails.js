@@ -49,8 +49,7 @@ const CompanyDetails = ({ companies }) => {
                     <li>
                         <span></span>
                         <span className='company-details__acronym'>
-                            *To be displayed in dashbar menu instead of the full
-                            name.
+                            *To be displayed in menus over the full name.
                         </span>
                     </li>
                 )}
