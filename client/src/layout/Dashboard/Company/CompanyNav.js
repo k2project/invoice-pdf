@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setCompanyCurrentNavLink } from '../../../redux/actions/company';
+import {
+    setCompanyCurrentNavLink,
+    deleteCompany
+} from '../../../redux/actions/company';
 
 import tasksIcon from '../../../imgs/icons/tasksIcon.png';
 import invoicesIcon from '../../../imgs/icons/invoicesIcon.png';
@@ -10,11 +13,19 @@ import updateIcon from '../../../imgs/icons/updateIcon.png';
 import listIcon from '../../../imgs/icons/list.png';
 import deleteIcon from '../../../imgs/icons/deleteIcon.png';
 import { displayCompanyName } from '../../../utils/funs';
+import { dialogBox } from '../../../components/alerts/alertsFuns';
 
-const CompanyNav = ({ companies, setCompanyCurrentNavLink }) => {
+const CompanyNav = ({ companies, setCompanyCurrentNavLink, deleteCompany }) => {
     let { id } = useParams();
     const company = companies.find(c => c._id === id);
-    const { companyName, companyAcronym } = company;
+    const { _id, companyName, companyAcronym } = company;
+
+    const handleDelete = e => {
+        const targetEl = e.target;
+        dialogBox(` delete ${companyName}`, () => deleteCompany(_id), targetEl);
+        document.getElementById('dialog-cancel').focus();
+    };
+
     return (
         <nav aria-label="Company's navigation bar" className='submenu'>
             <div className='submenu__title'>
@@ -94,14 +105,10 @@ const CompanyNav = ({ companies, setCompanyCurrentNavLink }) => {
                     </a>
                 </li>
                 <li>
-                    <a
-                        href='#company-delete'
+                    <button
                         className='submenu__link'
                         onMouseDown={e => e.preventDefault()}
-                        onClick={e => {
-                            e.preventDefault();
-                            setCompanyCurrentNavLink('delete');
-                        }}
+                        onClick={handleDelete}
                     >
                         <img
                             src={deleteIcon}
@@ -109,7 +116,7 @@ const CompanyNav = ({ companies, setCompanyCurrentNavLink }) => {
                             alt=''
                         />
                         Delete Company
-                    </a>
+                    </button>
                 </li>
             </ul>
         </nav>
@@ -118,11 +125,13 @@ const CompanyNav = ({ companies, setCompanyCurrentNavLink }) => {
 
 CompanyNav.propTypes = {
     setCompanyCurrentNavLink: PropTypes.func.isRequired,
+    deleteCompany: PropTypes.func.isRequired,
     companies: PropTypes.array.isRequired
 };
 const mapStateToProps = state => ({
     companies: state.profile.profile.companies
 });
-export default connect(mapStateToProps, { setCompanyCurrentNavLink })(
-    CompanyNav
-);
+export default connect(mapStateToProps, {
+    setCompanyCurrentNavLink,
+    deleteCompany
+})(CompanyNav);

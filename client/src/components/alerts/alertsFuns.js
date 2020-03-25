@@ -1,4 +1,4 @@
-export const dialogBox = async (msg, cb, targetEl) => {
+export const dialogBox = async (msg, cb, targetEl, redirection) => {
     const exist = document.getElementById('dialog-box');
     if (!exist) {
         let box = document.createElement('div');

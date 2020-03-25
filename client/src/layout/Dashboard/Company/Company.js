@@ -24,22 +24,12 @@ const Company = ({
             <MainNav />
             {/* no profile created yet */}
             {!profile && !loading && <Redirect to={redirectLink} />}
-            {/* company url doesnt match existing companies */}
-            {profile && !profile.companies.find(c => c._id === id) && (
-                <Redirect to='/dashboard/company' />
-            )}
             {!loading && profile && (
                 <section className='dashboard'>
                     <DashboardNav />
                     <CompanyMain />
                 </section>
             )}
-            {/* {profile &&
-                    profile.companies.map(c => {
-                        if (c._id === id)
-                            return <p key={c._id}>{c.companyName}</p>;
-                    })} */}
-            {/* <main id='main'>{id}</main> */}
         </Fragment>
     );
 };

@@ -1,8 +1,11 @@
-import { SET_COMPANY_CURRENT_NAV_LINK } from '../actions/types';
+import {
+    SET_COMPANY_CURRENT_NAV_LINK,
+    COMPANY_DELETED
+} from '../actions/types';
 //nav links: tasks | invoices | details | update | delete
 const initialState = {
     currentNavLink: 'tasks',
-    detailsOpen: false
+    companyDeleted: false
 };
 
 export default function(state = initialState, action) {
@@ -13,6 +16,11 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 currentNavLink
+            };
+        case COMPANY_DELETED:
+            return {
+                ...state,
+                companyDeleted: payload
             };
 
         default:
