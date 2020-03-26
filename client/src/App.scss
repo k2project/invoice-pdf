@@ -141,17 +141,23 @@ a:focus {
 .alert__close:focus {
     border: dashed 0.1rem #fff;
 }
+.dialog {
+    position: fixed;
+    width: 100vw;
+    height: 100vw;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 999;
+}
 .dialog-box {
-    width: 50rem;
-    margin-left: -25rem;
-    min-height: 22rem;
+    width: 44rem;
+    margin-left: -20rem;
     margin-top: -15rem;
     background-color: #fff;
     position: fixed;
-    z-index: 999;
     left: 50%;
     text-align: left;
-    padding: 3rem 3rem 2rem;
     display: grid;
     grid-template-rows: auto 1fr auto;
     box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.2);
@@ -165,19 +171,23 @@ a:focus {
 .dialog-box__header {
     color: $COLOR_DARK_SECONDARY;
     font-size: 2.2rem;
-    padding-bottom: 1.5rem;
-    padding-left: 1rem;
+    padding: 3rem 4.3rem 2rem;
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
     border-bottom: solid 0.1rem $COLOR_BG;
+    // opacity: 0.3;
+    background-color: $COLOR_BG;
 }
 .dialog-box__body {
-    font-size: 1.4rem;
-    padding: 0.5rem 1rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 3rem 4.3rem 2rem;
     display: flex;
     align-items: center;
 }
 .dialog-box__footer {
     display: block;
-    text-align: center;
+    padding: 0 4rem 1rem;
     li {
         display: inline-block;
     }
@@ -221,7 +231,7 @@ label {
     border-radius: 0.4rem;
     border: solid 0.1rem #c1c7cd;
     padding: 1rem;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
 }
 .form__input:focus {
     background: $COLOR_GREY;
@@ -258,6 +268,7 @@ fieldset {
     display: block;
     margin: 4rem 0 2rem;
 }
+
 .txtarea {
     border-radius: 0.4rem;
     border: solid 0.1rem #c1c7cd;
@@ -323,18 +334,23 @@ fieldset {
 .input-checkbox input:focus ~ .input-checkbox__checkmark {
     background-color: $COLOR_GREY;
 }
-
+.form-of-4 {
+    display: grid;
+    grid-template-columns: 40rem 8rem 8rem 10rem;
+    grid-column-gap: 0.5rem;
+    margin-top: 1rem;
+}
 //====================
 //  BUTTONS STYLING
 //====================
 .btn {
     border: solid 0.1rem #111;
     border-radius: 0.4rem;
-    padding: 1.4rem 1rem;
+    padding: 1.3rem 0.5rem;
     margin: 1rem 0;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     background-color: none;
-    min-width: 19rem;
+    min-width: 15rem;
 }
 .btn:hover {
     background-color: darken($COLOR_THEME, 10%);
@@ -404,7 +420,7 @@ fieldset {
     padding: 1rem;
 }
 .btn--sibling {
-    margin-right: 2rem;
+    margin-right: 1rem;
 }
 //====================
 //  HEADINGS STYLING
@@ -493,5 +509,5 @@ p {
 .cover--theme {
     background: $COLOR_THEME;
     opacity: 0.8;
-    padding-bottom: 7rem;
+    padding-bottom: 3rem;
 }

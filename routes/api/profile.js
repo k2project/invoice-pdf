@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const token = require('../../middleware/token');
 const Profile = require('../../models/Profile');
-const { check, validationResult } = require('express-validator');
 
 //@route    GET api/profile/
 //@desc     Get user profile

@@ -168,7 +168,7 @@ function ProfileForm({
                 </FormInput>
             </fieldset>
             {formData.errors.length > 0 && (
-                <FormErrorsDisplay errors={formData.errors} label='login' />
+                <FormErrorsDisplay errors={formData.errors} label='profile' />
             )}
             <button
                 type='submit'

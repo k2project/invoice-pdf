@@ -31,7 +31,7 @@ const CompanyDetails = ({ companies }) => {
             <h3 className='sr-only' id='company-details'>
                 Company Details
             </h3>
-            <ul arialabelledby='company-details' className='company-details'>
+            <ul aria-labelledby='company-details' className='company-details'>
                 {companyName && (
                     <li>
                         <span>Company's Name:</span>

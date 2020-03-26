@@ -2,10 +2,22 @@ import axios from 'axios';
 import { setAlert } from './alerts';
 import {
     SET_COMPANY_CURRENT_NAV_LINK,
-    GET_PROFILE,
-    COMPANY_DELETED
+    GET_ALL_COMPANIES,
+    COMPANY_DELETED,
+    TASK_UPDATE
 } from '../actions/types';
 
+export const getAllCompanies = () => async dispatch => {
+    try {
+        const res = await axios.get('api/company/all');
+        dispatch({
+            type: GET_ALL_COMPANIES,
+            payload: res.data
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
 export const setCompanyCurrentNavLink = payload => dispatch => {
     dispatch({
         type: SET_COMPANY_CURRENT_NAV_LINK,
@@ -17,7 +29,7 @@ export const deleteCompany = id => async dispatch => {
     try {
         const res = await axios.delete(`/api/company/${id}`);
         dispatch({
-            type: GET_PROFILE,
+            type: GET_ALL_COMPANIES,
             payload: res.data
         });
         dispatch(
@@ -33,6 +45,27 @@ export const deleteCompany = id => async dispatch => {
                 payload: false
             });
         }, 3000);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const updateTask = payload => dispatch => {
+    dispatch({
+        type: TASK_UPDATE,
+        payload
+    });
+};
+export const deleteTask = id => async dispatch => {
+    try {
+        const res = await axios.delete(`/api/company/tasks/${id}`);
+        dispatch({
+            type: GET_ALL_COMPANIES,
+            payload: res.data
+        });
+        dispatch(
+            setAlert('Task deleted successfully.', 'success', null, false)
+        );
     } catch (err) {
         console.log(err);
     }

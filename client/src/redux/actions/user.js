@@ -3,7 +3,8 @@ import {
     USER_REGISTERED,
     USER_LOADED,
     AUTH_ERROR,
-    CLEAR_PROFILE
+    CLEAR_PROFILE,
+    CLEAR_ALL_COMPANIES
 } from './types';
 import setAuthToken from '../../utils/setAuthToken';
 
@@ -29,4 +30,5 @@ export const loadUser = () => async dispatch => {
 export const logoutUser = () => dispatch => {
     dispatch({ type: AUTH_ERROR });
     dispatch({ type: CLEAR_PROFILE });
+    dispatch({ type: CLEAR_ALL_COMPANIES });
 };

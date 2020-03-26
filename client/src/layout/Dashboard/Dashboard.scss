@@ -4,10 +4,10 @@
     grid-template-columns: 18rem 1fr;
 }
 .dashboard__section {
-    padding: 5rem 15rem;
+    padding: 5rem 12rem;
 }
 .dashboard__heading {
-    padding: 3rem 15rem 2.5rem;
+    padding: 3rem 12rem 2.5rem;
     background-color: $COLOR_BG;
 }
 .dashboard-nav {
@@ -89,7 +89,8 @@
 }
 .submenu {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr auto;
+    padding-right: 4rem;
     align-items: center;
     // text-align: right;
     background-color: $COLOR_BG;
@@ -118,6 +119,7 @@
     color: #111;
     text-decoration: none;
 }
+button.submenu__link:hover,
 .submenu__link:link:hover {
     background-color: darken($COLOR_BG, 3%);
     opacity: 1;

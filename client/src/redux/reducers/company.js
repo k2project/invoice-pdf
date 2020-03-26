@@ -1,11 +1,16 @@
 import {
     SET_COMPANY_CURRENT_NAV_LINK,
-    COMPANY_DELETED
+    GET_ALL_COMPANIES,
+    CLEAR_ALL_COMPANIES,
+    COMPANY_DELETED,
+    TASK_UPDATE
 } from '../actions/types';
 //nav links: tasks | invoices | details | update | delete
 const initialState = {
     currentNavLink: 'tasks',
-    companyDeleted: false
+    companies: null,
+    companyDeleted: false,
+    taskToUpdate: null
 };
 
 export default function(state = initialState, action) {
@@ -17,10 +22,28 @@ export default function(state = initialState, action) {
                 ...state,
                 currentNavLink
             };
+        case GET_ALL_COMPANIES:
+            return {
+                ...state,
+                companies: payload
+            };
+        case CLEAR_ALL_COMPANIES:
+            return {
+                ...state,
+                currentNavLink: 'tasks',
+                companies: null,
+                companyDeleted: false,
+                taskToUpdate: null
+            };
         case COMPANY_DELETED:
             return {
                 ...state,
                 companyDeleted: payload
+            };
+        case TASK_UPDATE:
+            return {
+                ...state,
+                taskToUpdate: payload
             };
 
         default:

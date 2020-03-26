@@ -14,7 +14,7 @@ const ProfileDetails = ({ profile }) => {
             <h3 className='sr-only' id='profile-details'>
                 Profile Details
             </h3>
-            <ul arialabelledby='profile-details' className='profile-details'>
+            <ul aria-labelledby='profile-details' className='profile-details'>
                 {profile.fullName && (
                     <li>
                         <span>Full Name:</span>

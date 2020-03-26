@@ -20,6 +20,7 @@ function CompanyForm({
     update
 }) {
     const updateID = useParams().id;
+    const company = companies.find(c => c._id === updateID);
     //initial profile state
     //profile doesnt exist
     const [formData, setFormData] = useState({
@@ -55,8 +56,10 @@ function CompanyForm({
 
             await cleanData(formData);
             const _id = updateID ? updateID : uuidv4();
+            const tasks = updateID ? [...company.tasks] : [];
             const body = JSON.stringify({
                 _id,
+                tasks,
                 ...formData
             });
             let alertMsg = `${formData.companyName} has been added to your user profile.`;
@@ -89,7 +92,6 @@ function CompanyForm({
 
     useEffect(() => {
         if (update) {
-            const company = companies.find(c => c._id === updateID);
             setFormData({
                 companyName: company.companyName || '',
                 companyAcronym: company.companyAcronym || '',
@@ -196,7 +198,10 @@ function CompanyForm({
             </FormInput>
 
             {formData.errors.length > 0 && (
-                <FormErrorsDisplay errors={formData.errors} label='login' />
+                <FormErrorsDisplay
+                    errors={formData.errors}
+                    label='add-company'
+                />
             )}
             <button
                 type='submit'

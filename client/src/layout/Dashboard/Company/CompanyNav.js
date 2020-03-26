@@ -18,7 +18,7 @@ import { dialogBox } from '../../../components/alerts/alertsFuns';
 const CompanyNav = ({ companies, setCompanyCurrentNavLink, deleteCompany }) => {
     let { id } = useParams();
     const company = companies.find(c => c._id === id);
-    const { _id, companyName, companyAcronym } = company;
+    const { _id, companyName, companyAcronym, showAcronym } = company;
 
     const handleDelete = e => {
         const targetEl = e.target;
@@ -29,7 +29,12 @@ const CompanyNav = ({ companies, setCompanyCurrentNavLink, deleteCompany }) => {
     return (
         <nav aria-label="Company's navigation bar" className='submenu'>
             <div className='submenu__title'>
-                {displayCompanyName(companyName, companyAcronym, 20)}
+                {displayCompanyName(
+                    companyName,
+                    companyAcronym,
+                    showAcronym,
+                    40
+                )}
             </div>
             <ul aria-label="Company's navigation links">
                 <li>

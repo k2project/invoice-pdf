@@ -14,35 +14,31 @@ const FormInput = ({ type = 'text', name, size = 'sml', children, form }) => {
         case 'checkbox':
             return (
                 <Fragment>
-                    {form.formData.showAcronym && (
-                        <div className='input-checkbox'>
-                            <label htmlFor={name}>{children}</label>
+                    <div className='input-checkbox'>
+                        <label htmlFor={name}>{children}</label>
+                        {form.formData.showAcronym && (
                             <input
                                 type={type}
                                 name={name}
                                 id={name}
                                 onChange={handleCheckboxOnChange}
-                                className={'form__input form__input--' + size}
+                                className={'form__input'}
                                 onMouseDown={e => e.preventDefault()}
                                 checked
                             />
-                            <span className='input-checkbox__checkmark'></span>
-                        </div>
-                    )}
-                    {!form.formData.showAcronym && (
-                        <div className='input-checkbox'>
-                            <label htmlFor={name}>{children}</label>
+                        )}
+                        {!form.formData.showAcronym && (
                             <input
                                 type={type}
                                 name={name}
                                 id={name}
                                 onChange={handleCheckboxOnChange}
-                                className={'form__input form__input--' + size}
+                                className={'form__input'}
                                 onMouseDown={e => e.preventDefault()}
                             />
-                            <span className='input-checkbox__checkmark'></span>
-                        </div>
-                    )}
+                        )}
+                        <span className='input-checkbox__checkmark'></span>
+                    </div>
                 </Fragment>
             );
         case 'textarea':
