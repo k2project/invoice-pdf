@@ -1,14 +1,15 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
-import { setCompanyCurrentNavLink } from '../../redux/actions/company';
+import { setCompanyCurrentNavLink } from '../../redux/actions/companies';
 import { displayCompanyName } from '../../utils/funs';
 
 const DashboardSubNav = props => {
     let { id } = useParams();
     const { companies } = props;
+    useEffect(() => {});
     return (
         <Fragment>
             {companies.length > 0 && (
@@ -34,7 +35,7 @@ DashboardSubNav.propTypes = {
     setCompanyCurrentNavLink: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-    companies: state.profile.profile.companies
+    companies: state.companies.companies
 });
 export default connect(mapStateToProps, { setAlert, setCompanyCurrentNavLink })(
     DashboardSubNav

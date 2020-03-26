@@ -6,6 +6,7 @@ import { getCurrentProfile } from '../../../redux/actions/profile';
 
 import MainNav from '../../MainNav/MainNav';
 import DashboardNav from './../DashboardNav';
+import { loadUser } from '../../../redux/actions/user';
 
 const NewInvoice = ({
     profile: { profile, loading },
@@ -15,16 +16,21 @@ const NewInvoice = ({
     console.log('new-invoice');
     useEffect(() => {
         getCurrentProfile();
-        console.log('GP INVOICE');
     }, [getCurrentProfile]);
     return (
         <Fragment>
-            <MainNav />
-            <section className='dashboard'>
-                {!profile && !loading && <Redirect to={redirectLink} />}
-                <DashboardNav />
-                {profile && !loading && <main id='main'>invoice form</main>}
-            </section>
+            {/* no profile created yet */}
+            {!profile && !loading && <Redirect to={redirectLink} />}
+            {profile && !loadUser && (
+                <Fragment>
+                    <MainNav />
+                    <section className='dashboard'>
+                        <DashboardNav />
+                        {/* {profile && !loading && <main id='main'>invoice form</main>} */}
+                        <main id='main'>invoice form</main>
+                    </section>
+                </Fragment>
+            )}
         </Fragment>
     );
 };

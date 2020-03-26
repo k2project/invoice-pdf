@@ -11,9 +11,6 @@ const { check, validationResult } = require('express-validator');
 router.get('/all', token, async (req, res) => {
     try {
         const companies = await Company.find({ user: req.user.id });
-        if (!companies)
-            return res.status(400).json({ msg: 'No companies found.' });
-
         res.json(companies);
     } catch (err) {
         console.error(err.message);
@@ -35,9 +32,10 @@ router.post(
     ],
     async (req, res) => {
         const errors = validationResult(req);
-        if (!errors.isEmpty())
+        if (!errors.isEmpty()) {
+            console.log('VALIDATION ERR WITH COMPANY FORM', errors.array());
             return res.status(400).json({ errors: errors.array() });
-
+        }
         try {
             let company = await Company.findOne({
                 user: req.user.id,

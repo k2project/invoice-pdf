@@ -152,7 +152,7 @@ TaskForm.propTypes = {
 };
 const mapStateToProps = state => ({
     taskToUpdate: state.company.taskToUpdate,
-    companies: state.profile.profile.companies
+    companies: state.companies
 });
 export default connect(mapStateToProps, {
     setAlert,

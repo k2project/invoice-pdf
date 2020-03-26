@@ -3,13 +3,13 @@ import { setAlert } from './alerts';
 import {
     SET_COMPANY_CURRENT_NAV_LINK,
     GET_ALL_COMPANIES,
-    COMPANY_DELETED,
+    COMPANY_DELETED, //for NOT FOUNF page to display text "Company Not Found"
     TASK_UPDATE
-} from '../actions/types';
+} from './types';
 
 export const getAllCompanies = () => async dispatch => {
     try {
-        const res = await axios.get('api/company/all');
+        const res = await axios.get('/api/company/all');
         dispatch({
             type: GET_ALL_COMPANIES,
             payload: res.data
@@ -28,10 +28,7 @@ export const setCompanyCurrentNavLink = payload => dispatch => {
 export const deleteCompany = id => async dispatch => {
     try {
         const res = await axios.delete(`/api/company/${id}`);
-        dispatch({
-            type: GET_ALL_COMPANIES,
-            payload: res.data
-        });
+
         dispatch(
             setAlert('Company deleted successfully.', 'success', null, false)
         );

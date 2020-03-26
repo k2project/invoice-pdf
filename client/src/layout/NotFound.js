@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { loadUser } from '../redux/actions/user';
 
 const NotFound = ({ redirectLink, companyDeleted, loadUser }) => {
-    useEffect(() => {
-        loadUser();
-    }, [loadUser]);
+    // useEffect(() => {
+    //     loadUser();
+    // }, [loadUser]);
     return (
         <Fragment>
             {companyDeleted && <Redirect to='/dashboard/add-company' />}
@@ -37,7 +37,7 @@ const NotFound = ({ redirectLink, companyDeleted, loadUser }) => {
     );
 };
 const mapStateToProps = state => ({
-    companyDeleted: state.company.companyDeleted,
+    companyDeleted: state.companies.companyDeleted,
     redirectLink: state.global.redirectLink
 });
 export default connect(mapStateToProps, { loadUser })(NotFound);

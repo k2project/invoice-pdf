@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {
     setCompanyCurrentNavLink,
     deleteCompany
-} from '../../../redux/actions/company';
+} from '../../../redux/actions/companies';
 
 import tasksIcon from '../../../imgs/icons/tasksIcon.png';
 import invoicesIcon from '../../../imgs/icons/invoicesIcon.png';
@@ -134,7 +134,7 @@ CompanyNav.propTypes = {
     companies: PropTypes.array.isRequired
 };
 const mapStateToProps = state => ({
-    companies: state.profile.profile.companies
+    companies: state.companies.companies
 });
 export default connect(mapStateToProps, {
     setCompanyCurrentNavLink,

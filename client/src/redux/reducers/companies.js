@@ -8,7 +8,8 @@ import {
 //nav links: tasks | invoices | details | update | delete
 const initialState = {
     currentNavLink: 'tasks',
-    companies: null,
+    loading: true,
+    companies: [],
     companyDeleted: false,
     taskToUpdate: null
 };
@@ -25,13 +26,15 @@ export default function(state = initialState, action) {
         case GET_ALL_COMPANIES:
             return {
                 ...state,
+                loading: false,
                 companies: payload
             };
         case CLEAR_ALL_COMPANIES:
             return {
                 ...state,
                 currentNavLink: 'tasks',
-                companies: null,
+                loading: true,
+                companies: [],
                 companyDeleted: false,
                 taskToUpdate: null
             };

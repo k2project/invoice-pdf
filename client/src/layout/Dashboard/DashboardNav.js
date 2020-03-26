@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Dashboard.scss';
@@ -6,11 +6,15 @@ import DashboardSubNav from './DashboardSubNav';
 
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
+import { getAllCompanies } from '../../redux/actions/companies';
 
 import plusIcon from '../../imgs/icons/plusIcon.png';
 import profileIcon from '../../imgs/icons/profileIcon.png';
 
-const DashboardNav = ({ profile: { profile, loading }, setAlert }) => {
+const DashboardNav = ({ companies, getAllCompanies, setAlert }) => {
+    useEffect(() => {
+        getAllCompanies();
+    });
     return (
         <nav aria-label='dashboard submenu' className='dashboard-nav'>
             <ul
@@ -44,7 +48,7 @@ const DashboardNav = ({ profile: { profile, loading }, setAlert }) => {
                     </Link>
                 </li>
 
-                {!loading && profile && <DashboardSubNav />}
+                {companies.length > 0 && <DashboardSubNav />}
 
                 <li>
                     <Link
@@ -106,11 +110,12 @@ const DashboardNav = ({ profile: { profile, loading }, setAlert }) => {
 
 DashboardNav.propTypes = {
     setAlert: PropTypes.func.isRequired,
-    profile: PropTypes.object.isRequired
+    getAllCompanies: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-    profile: state.profile
+    companies: state.companies.companies
 });
 export default connect(mapStateToProps, {
-    setAlert
+    setAlert,
+    getAllCompanies
 })(DashboardNav);

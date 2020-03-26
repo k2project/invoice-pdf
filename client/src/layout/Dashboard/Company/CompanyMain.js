@@ -34,7 +34,7 @@ CompanyMain.propTypes = {
     currentNavLink: PropTypes.string.isRequired
 };
 const mapStateToProps = state => ({
-    currentNavLink: state.company.currentNavLink,
-    companies: state.profile.profile.companies
+    currentNavLink: state.companies.currentNavLink,
+    companies: state.companies.companies
 });
 export default connect(mapStateToProps)(CompanyMain);

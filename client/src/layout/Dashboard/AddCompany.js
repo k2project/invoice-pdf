@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../redux/actions/profile';
+import { getAllCompanies } from '../../redux/actions/companies';
 
 import MainNav from '../MainNav/MainNav';
 import DashboardNav from './DashboardNav';
@@ -11,28 +12,35 @@ import CompanyForm from '../../components/forms/CompanyForm';
 const AddCompany = ({
     profile: { profile, loading },
     redirectLink,
-    getCurrentProfile
+    getCurrentProfile,
+    getAllCompanies
 }) => {
     useEffect(() => {
+        // getAllCompanies();
         getCurrentProfile();
-    }, [getCurrentProfile]);
+    }, [getAllCompanies, getCurrentProfile]);
     return (
         <Fragment>
-            <MainNav />
-            <section className='dashboard'>
-                {!profile && !loading && <Redirect to={redirectLink} />}
-                <DashboardNav />
-                <main id='main'>
-                    <div className='dashboard__heading'>
-                        <h2 className='heading heading--sm'>
-                            Add a new company form.
-                        </h2>
-                    </div>
-                    <div className='dashboard__section'>
-                        {!loading && profile && <CompanyForm />}
-                    </div>
-                </main>
-            </section>
+            {/* no profile created yet */}
+            {!profile && !loading && <Redirect to={redirectLink} />}
+            {profile && !loading && (
+                <Fragment>
+                    <MainNav />
+                    <section className='dashboard'>
+                        <DashboardNav />
+                        <main id='main'>
+                            <div className='dashboard__heading'>
+                                <h2 className='heading heading--sm'>
+                                    Add a new company form.
+                                </h2>
+                            </div>
+                            <div className='dashboard__section'>
+                                <CompanyForm />
+                            </div>
+                        </main>
+                    </section>
+                </Fragment>
+            )}
         </Fragment>
     );
 };
@@ -40,10 +48,13 @@ const AddCompany = ({
 AddCompany.propTypes = {
     profile: PropTypes.object.isRequired,
     redirectLink: PropTypes.string.isRequired,
-    getCurrentProfile: PropTypes.func.isRequired
+    getCurrentProfile: PropTypes.func.isRequired,
+    getAllCompanies: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
     profile: state.profile,
     redirectLink: state.global.redirectLink
 });
-export default connect(mapStateToProps, { getCurrentProfile })(AddCompany);
+export default connect(mapStateToProps, { getAllCompanies, getCurrentProfile })(
+    AddCompany
+);

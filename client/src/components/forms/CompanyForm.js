@@ -6,21 +6,22 @@ import FormInput from './FormInput';
 import { updateStateErrors, cleanData } from './formFuns';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
-import { getCurrentProfile } from '../../redux/actions/profile';
-import { setCompanyCurrentNavLink } from '../../redux/actions/company';
+import {
+    setCompanyCurrentNavLink,
+    getAllCompanies
+} from '../../redux/actions/companies';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
 
 function CompanyForm({
     companies,
     setAlert,
-    getCurrentProfile,
+    getAllCompanies,
     setCompanyCurrentNavLink,
     history,
     update
 }) {
     const updateID = useParams().id;
-    const company = companies.find(c => c._id === updateID);
+
     //initial profile state
     //profile doesnt exist
     const [formData, setFormData] = useState({
@@ -55,14 +56,9 @@ function CompanyForm({
             };
 
             await cleanData(formData);
-            const _id = updateID ? updateID : uuidv4();
-            const tasks = updateID ? [...company.tasks] : [];
-            const body = JSON.stringify({
-                _id,
-                tasks,
-                ...formData
-            });
+            const body = JSON.stringify({ ...formData });
             let alertMsg = `${formData.companyName} has been added to your user profile.`;
+            let id = updateID;
             if (updateID) {
                 //update company
                 await axios.put(`/api/company/${updateID}`, body, config);
@@ -70,11 +66,13 @@ function CompanyForm({
                 setCompanyCurrentNavLink('details');
             } else {
                 //add a new company
-                await axios.post('/api/company', body, config);
+                //returns a new company obj
+                let res = await axios.post('/api/company', body, config);
+                id = res.data._id;
                 setCompanyCurrentNavLink('default');
             }
-            await getCurrentProfile();
-            history.push(`/dashboard/company/${_id}`);
+            await getAllCompanies();
+            history.push(`/dashboard/company/${id}`);
             setAlert(alertMsg, 'success', null, false);
         } catch (err) {
             console.log('COMPANY FORM ERR');
@@ -91,6 +89,7 @@ function CompanyForm({
     }
 
     useEffect(() => {
+        const company = companies.find(c => c._id === updateID);
         if (update) {
             setFormData({
                 companyName: company.companyName || '',
@@ -112,7 +111,7 @@ function CompanyForm({
                 errors: []
             });
         }
-    }, [updateID, companies, update]);
+    }, []);
 
     return (
         <form onSubmit={onSubmit} className='form-profile'>
@@ -217,15 +216,15 @@ function CompanyForm({
 
 CompanyForm.propTypes = {
     setAlert: PropTypes.func.isRequired,
-    getCurrentProfile: PropTypes.func.isRequired,
+    getAllCompanies: PropTypes.func.isRequired,
     companies: PropTypes.array.isRequired,
     setCompanyCurrentNavLink: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-    companies: state.profile.profile.companies
+    companies: state.companies.companies
 });
 export default connect(mapStateToProps, {
     setAlert,
-    getCurrentProfile,
+    getAllCompanies,
     setCompanyCurrentNavLink
 })(withRouter(CompanyForm));

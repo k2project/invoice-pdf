@@ -129,6 +129,6 @@ CompanyDetails.propTypes = {
     companies: PropTypes.array.isRequired
 };
 const mapStateToProps = state => ({
-    companies: state.profile.profile.companies
+    companies: state.companies.companies
 });
 export default connect(mapStateToProps)(CompanyDetails);
