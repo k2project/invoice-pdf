@@ -21,7 +21,7 @@ const NewInvoice = ({
         <Fragment>
             {/* no profile created yet */}
             {!profile && !loading && <Redirect to={redirectLink} />}
-            {profile && !loadUser && (
+            {profile && !loading && (
                 <Fragment>
                     <MainNav />
                     <section className='dashboard'>

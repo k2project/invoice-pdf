@@ -15,8 +15,9 @@ const AddCompany = ({
     getCurrentProfile,
     getAllCompanies
 }) => {
+    // for page refresh
     useEffect(() => {
-        // getAllCompanies();
+        getAllCompanies();
         getCurrentProfile();
     }, [getAllCompanies, getCurrentProfile]);
     return (

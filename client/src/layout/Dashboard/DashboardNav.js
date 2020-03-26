@@ -6,15 +6,11 @@ import DashboardSubNav from './DashboardSubNav';
 
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
-import { getAllCompanies } from '../../redux/actions/companies';
 
 import plusIcon from '../../imgs/icons/plusIcon.png';
 import profileIcon from '../../imgs/icons/profileIcon.png';
 
-const DashboardNav = ({ companies, getAllCompanies, setAlert }) => {
-    useEffect(() => {
-        getAllCompanies();
-    });
+const DashboardNav = ({ companies, setAlert }) => {
     return (
         <nav aria-label='dashboard submenu' className='dashboard-nav'>
             <ul
@@ -109,13 +105,11 @@ const DashboardNav = ({ companies, getAllCompanies, setAlert }) => {
 };
 
 DashboardNav.propTypes = {
-    setAlert: PropTypes.func.isRequired,
-    getAllCompanies: PropTypes.func.isRequired
+    setAlert: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
     companies: state.companies.companies
 });
 export default connect(mapStateToProps, {
-    setAlert,
-    getAllCompanies
+    setAlert
 })(DashboardNav);

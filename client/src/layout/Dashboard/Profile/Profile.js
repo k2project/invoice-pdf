@@ -3,16 +3,22 @@ import PropTypes from 'prop-types';
 import './Profile.scss';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../../redux/actions/profile';
+import { getAllCompanies } from '../../../redux/actions/companies';
 
 import MainNav from '../../MainNav/MainNav';
 import DashboardNav from './../DashboardNav';
 import ProfileUnsubscribed from './ProfileUnsubscribed';
 import ProfileMain from './ProfileMain';
 
-const Profile = ({ profile: { profile, loading }, getCurrentProfile }) => {
+const Profile = ({
+    profile: { profile, loading },
+    getCurrentProfile,
+    getAllCompanies
+}) => {
     useEffect(() => {
         getCurrentProfile();
-    }, [getCurrentProfile]);
+        getAllCompanies();
+    }, [getCurrentProfile, getAllCompanies]);
     return (
         <Fragment>
             <MainNav />
@@ -28,9 +34,13 @@ const Profile = ({ profile: { profile, loading }, getCurrentProfile }) => {
 };
 
 Profile.propTypes = {
-    profile: PropTypes.object.isRequired
+    profile: PropTypes.object.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired,
+    getAllCompanies: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
     profile: state.profile
 });
-export default connect(mapStateToProps, { getCurrentProfile })(Profile);
+export default connect(mapStateToProps, { getCurrentProfile, getAllCompanies })(
+    Profile
+);
