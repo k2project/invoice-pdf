@@ -231,7 +231,7 @@ label {
     border-radius: 0.4rem;
     border: solid 0.1rem #c1c7cd;
     padding: 1rem;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
 }
 .form__input:focus {
     background: $COLOR_GREY;
@@ -263,7 +263,7 @@ legend {
 fieldset {
     border-radius: 0.4rem;
     border: solid 0.1rem #c1c7cd;
-    padding: 0rem 4rem 2rem;
+    padding: 0rem 3rem 2rem;
     width: 50rem;
     display: block;
     margin: 4rem 0 2rem;
@@ -282,7 +282,7 @@ fieldset {
     border: solid 0.1rem $COLOR_GREY;
 }
 .txtarea--md {
-    width: 55rem;
+    width: 50rem;
 }
 .input-checkbox {
     margin-top: 2rem;
@@ -336,7 +336,7 @@ fieldset {
 }
 .form-of-4 {
     display: grid;
-    grid-template-columns: 40rem 8rem 8rem 10rem;
+    grid-template-columns: 30rem 7rem 7rem 8rem;
     grid-column-gap: 0.5rem;
     margin-top: 1rem;
 }
@@ -452,6 +452,7 @@ fieldset {
 .heading--xs {
     font-size: 1.5rem;
     font-weight: bold;
+    margin-bottom: 2rem;
 }
 p {
     margin: 0.7rem 0;

@@ -26,8 +26,36 @@
     white-space: pre;
 }
 .company-tasks {
-    padding: 5rem 15rem;
+    padding: 4rem 15rem;
     fieldset {
         margin-bottom: 0;
+    }
+}
+.task-table {
+    font-size: 1.4rem;
+    th,
+    td {
+        background-color: $COLOR_BG;
+        margin: 0.3rem;
+        min-width: 4.6rem;
+        padding: 0.7rem 1rem;
+        text-align: center;
+    }
+    tr {
+        vertical-align: middle;
+    }
+    th[scope='row'] {
+        text-align: left;
+        width: 30rem;
+    }
+}
+.task-table__icon {
+    height: 2rem;
+    opacity: 0.5;
+}
+.task-update:hover,
+.task-delete:hover {
+    .task-table__icon {
+        opacity: 1;
     }
 }

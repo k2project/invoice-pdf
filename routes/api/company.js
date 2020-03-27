@@ -83,18 +83,6 @@ router.put(
         if (!errors.isEmpty())
             return res.status(400).json({ errors: errors.array() });
         try {
-            // const profile = await Profile.findOne({ user: req.user.id });
-
-            // const updatedItemIndex = profile.companies.findIndex(
-            //     obj => obj._id === req.params.company_id
-            // );
-            // profile.companies = [
-            //     ...profile.companies.slice(0, updatedItemIndex),
-            //     req.body,
-            //     ...profile.companies.slice(updatedItemIndex + 1)
-            // ];
-            // await profile.save();
-            // res.json(profile);
             let company = await Company.findOne({
                 _id: req.params.company_id
             });
@@ -124,17 +112,6 @@ router.put(
 //@status   Private
 router.delete('/:company_id', token, async (req, res) => {
     try {
-        // const profile = await Profile.findOne({ user: req.user.id });
-        // const updatedItemIndex = profile.companies.findIndex(
-        //     obj => obj._id === req.params.company_id
-        // );
-        // profile.companies = [
-        //     ...profile.companies.slice(0, updatedItemIndex),
-        //     ...profile.companies.slice(updatedItemIndex + 1)
-        // ];
-
-        // await profile.save();
-        // res.json(profile);
         const company = await Company.findByIdAndDelete(req.params.company_id);
         res.json(company);
     } catch (err) {
@@ -163,23 +140,58 @@ router.post(
             return res.status(400).json({ errors: errors.array() });
 
         try {
-            const profile = await Profile.findOne({ user: req.user.id });
-            const filter = { companies: [{ _id: req.body.company }] };
-            const update = req.body;
-            console.log(filter);
-            await Profile.findOneAndUpdate(filter, update, {
-                new: true
-            });
-            // const companyToUpdate = profile.companies.find(
-            //     c => c._id === req.body.company
-            // );
-            // companyToUpdate.tasks.unshift(req.body);
-            // console.log(companyToUpdate.tasks);
-            // await profile.save();
-            res.json(profile);
+            const company = await Company.findOne({ _id: req.body.company });
+            company.tasks.push(req.body);
+            await company.save();
+            res.json(company);
         } catch (err) {
             console.error(err.message);
             return res.status(500).send('Server error');
         }
     }
 );
+//@route    DELETE /api/company/tasks/:task_id
+//@desc     Remove the task from the list
+//@status   Private
+router.delete('/tasks/:task_id', token, async (req, res) => {
+    try {
+        const company = await Company.findOne({ _id: req.body.company });
+
+        const itemIndex = company.tasks.findIndex(
+            obj => obj._id === req.params.task_id
+        );
+        company.tasks = [
+            ...company.tasks.slice(0, itemIndex),
+            ...company.tasks.slice(itemIndex + 1)
+        ];
+
+        await company.save();
+        res.json(company);
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send('Server error');
+    }
+});
+//@route    PUT /api/company/tasks/:task_id
+//@desc     Update the task in the list
+//@status   Private
+router.put('/tasks/:task_id', token, async (req, res) => {
+    try {
+        const company = await Company.findOne({ _id: req.body.company });
+
+        const itemIndex = company.tasks.findIndex(
+            obj => obj._id === req.params.task_id
+        );
+        company.tasks = [
+            ...company.tasks.slice(0, itemIndex),
+            req.body,
+            ...company.tasks.slice(itemIndex + 1)
+        ];
+
+        await company.save();
+        res.json(company);
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send('Server error');
+    }
+});

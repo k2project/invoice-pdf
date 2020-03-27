@@ -4,7 +4,8 @@ import {
     SET_COMPANY_CURRENT_NAV_LINK,
     GET_ALL_COMPANIES,
     COMPANY_DELETED, //for NOT FOUNF page to display text "Company Not Found"
-    TASK_UPDATE
+    TASK_TO_UPDATE,
+    TASK_DELETED
 } from './types';
 
 export const getAllCompanies = () => async dispatch => {
@@ -46,24 +47,21 @@ export const deleteCompany = id => async dispatch => {
         console.log(err);
     }
 };
-
-export const updateTask = payload => dispatch => {
+export const setTaskToUpdate = payload => dispatch => {
     dispatch({
-        type: TASK_UPDATE,
+        type: TASK_TO_UPDATE,
         payload
     });
 };
-export const deleteTask = id => async dispatch => {
-    try {
-        const res = await axios.delete(`/api/company/tasks/${id}`);
+export const deleteTaskAndClearForm = payload => dispatch => {
+    dispatch({
+        type: TASK_DELETED,
+        payload: true
+    });
+    setTimeout(() => {
         dispatch({
-            type: GET_ALL_COMPANIES,
-            payload: res.data
+            type: TASK_DELETED,
+            payload: false
         });
-        dispatch(
-            setAlert('Task deleted successfully.', 'success', null, false)
-        );
-    } catch (err) {
-        console.log(err);
-    }
+    }, 3000);
 };

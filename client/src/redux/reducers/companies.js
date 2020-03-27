@@ -3,7 +3,8 @@ import {
     GET_ALL_COMPANIES,
     CLEAR_ALL_COMPANIES,
     COMPANY_DELETED,
-    TASK_UPDATE
+    TASK_TO_UPDATE,
+    TASK_DELETED
 } from '../actions/types';
 //nav links: tasks | invoices | details | update | delete
 const initialState = {
@@ -11,7 +12,8 @@ const initialState = {
     loading: true,
     companies: [],
     companyDeleted: false,
-    taskToUpdate: null
+    taskToUpdate: null,
+    taskDeleted: false
 };
 
 export default function(state = initialState, action) {
@@ -43,10 +45,15 @@ export default function(state = initialState, action) {
                 ...state,
                 companyDeleted: payload
             };
-        case TASK_UPDATE:
+        case TASK_TO_UPDATE:
             return {
                 ...state,
                 taskToUpdate: payload
+            };
+        case TASK_DELETED:
+            return {
+                ...state,
+                taskDeleted: payload
             };
 
         default:

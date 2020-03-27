@@ -6,11 +6,19 @@ import FormInput from './FormInput';
 import { updateStateErrors, cleanData } from './formFuns';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
-import { getCurrentProfile } from '../../redux/actions/profile';
+import {
+    getAllCompanies,
+    setTaskToUpdate
+} from '../../redux/actions/companies';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-function TaskForm({ companies, setAlert, getCurrentProfile, taskToUpdate }) {
+function TaskForm({
+    companies: { companies, taskToUpdate, taskDeleted },
+    setAlert,
+    getAllCompanies,
+    setTaskToUpdate
+}) {
     const [formData, setFormData] = useState({
         taskDesc: '',
         taskQty: '',
@@ -19,6 +27,7 @@ function TaskForm({ companies, setAlert, getCurrentProfile, taskToUpdate }) {
         addToNextInvoice: true,
         errors: []
     });
+
     let { id } = useParams();
     const company = companies.find(c => c._id === id);
     async function onSubmit(e) {
@@ -47,17 +56,28 @@ function TaskForm({ companies, setAlert, getCurrentProfile, taskToUpdate }) {
                     body,
                     config
                 );
+                Array.from(document.querySelectorAll('.task-table tr')).map(
+                    tr => (tr.style.opacity = 1)
+                );
+                setTaskToUpdate(null);
             } else {
                 //add a new task
-                console.log(body);
                 await axios.post('/api/company/tasks', body, config);
             }
 
-            await getCurrentProfile();
+            getAllCompanies();
             let alertMsg = taskToUpdate
                 ? 'Task has been updated successfully.'
-                : 'Task has been added to the list.';
+                : 'A new task has been added to the list.';
             setAlert(alertMsg, 'success', null, false);
+            await setFormData({
+                taskDesc: '',
+                taskQty: '',
+                taskRate: '',
+                taskAmount: '',
+                addToNextInvoice: true,
+                errors: []
+            });
         } catch (err) {
             console.log('TASK FORM ERR');
             console.log(err);
@@ -85,6 +105,20 @@ function TaskForm({ companies, setAlert, getCurrentProfile, taskToUpdate }) {
             });
         }
     }, [taskToUpdate, company]);
+    // clear form on task deletion
+    // when user changes mind to delete over update task
+    useEffect(() => {
+        if (taskDeleted) {
+            setFormData({
+                taskDesc: '',
+                taskQty: '',
+                taskRate: '',
+                taskAmount: '',
+                addToNextInvoice: true,
+                errors: []
+            });
+        }
+    }, [taskDeleted]);
 
     return (
         <form onSubmit={onSubmit} className='form-task'>
@@ -147,14 +181,14 @@ function TaskForm({ companies, setAlert, getCurrentProfile, taskToUpdate }) {
 
 TaskForm.propTypes = {
     setAlert: PropTypes.func.isRequired,
-    getCurrentProfile: PropTypes.func.isRequired,
-    taskToUpdate: PropTypes.string
+    getAllCompanies: PropTypes.func.isRequired,
+    setTaskToUpdate: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-    taskToUpdate: state.company.taskToUpdate,
     companies: state.companies
 });
 export default connect(mapStateToProps, {
     setAlert,
-    getCurrentProfile
+    getAllCompanies,
+    setTaskToUpdate
 })(TaskForm);
