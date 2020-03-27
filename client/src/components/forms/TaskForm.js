@@ -30,6 +30,16 @@ function TaskForm({
 
     let { id } = useParams();
     const company = companies.find(c => c._id === id);
+    const clearState = () => {
+        setFormData({
+            taskDesc: '',
+            taskQty: '',
+            taskRate: '',
+            taskAmount: '',
+            addToNextInvoice: true,
+            errors: []
+        });
+    };
     async function onSubmit(e) {
         e.preventDefault();
         const form = e.target;
@@ -70,14 +80,7 @@ function TaskForm({
                 ? 'Task has been updated successfully.'
                 : 'A new task has been added to the list.';
             setAlert(alertMsg, 'success', null, false);
-            await setFormData({
-                taskDesc: '',
-                taskQty: '',
-                taskRate: '',
-                taskAmount: '',
-                addToNextInvoice: true,
-                errors: []
-            });
+            await clearState();
         } catch (err) {
             console.log('TASK FORM ERR');
             console.log(err);
@@ -95,28 +98,26 @@ function TaskForm({
     useEffect(() => {
         if (taskToUpdate) {
             const task = company.tasks.find(task => task._id === taskToUpdate);
-            setFormData({
-                taskDesc: task.taskDesc || '',
-                taskQty: task.taskQty || '',
-                taskRate: task.taskRate || '',
-                taskAmount: task.taskAmount || '',
-                addToNextInvoice: task.addToNextInvoice,
-                errors: []
-            });
+            if (task) {
+                setFormData({
+                    taskDesc: task.taskDesc || '',
+                    taskQty: task.taskQty || '',
+                    taskRate: task.taskRate || '',
+                    taskAmount: task.taskAmount || '',
+                    addToNextInvoice: task.addToNextInvoice,
+                    errors: []
+                });
+            } else {
+                setTaskToUpdate(null);
+                clearState();
+            }
         }
     }, [taskToUpdate, company]);
     // clear form on task deletion
     // when user changes mind to delete over update task
     useEffect(() => {
         if (taskDeleted) {
-            setFormData({
-                taskDesc: '',
-                taskQty: '',
-                taskRate: '',
-                taskAmount: '',
-                addToNextInvoice: true,
-                errors: []
-            });
+            clearState();
         }
     }, [taskDeleted]);
 

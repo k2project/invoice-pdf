@@ -53,6 +53,7 @@ export const setTaskToUpdate = payload => dispatch => {
         payload
     });
 };
+
 export const deleteTaskAndClearForm = payload => dispatch => {
     dispatch({
         type: TASK_DELETED,

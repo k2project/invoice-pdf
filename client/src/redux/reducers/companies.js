@@ -38,7 +38,8 @@ export default function(state = initialState, action) {
                 loading: true,
                 companies: [],
                 companyDeleted: false,
-                taskToUpdate: null
+                taskToUpdate: null,
+                taskToDelete: false
             };
         case COMPANY_DELETED:
             return {
