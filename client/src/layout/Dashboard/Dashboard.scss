@@ -114,7 +114,6 @@
 .submenu__link:link,
 .submenu__link:active,
 .submenu__link:hover,
-.submenu__link:focus,
 .submenu__link:visited {
     color: #111;
     text-decoration: none;
@@ -123,4 +122,8 @@ button.submenu__link:hover,
 .submenu__link:link:hover {
     background-color: darken($COLOR_BG, 3%);
     opacity: 1;
+}
+button.submenu__link:focus,
+.submenu__link:link:focus {
+    border: dashed 0.1rem #111;
 }

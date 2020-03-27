@@ -86,7 +86,11 @@ const TaskTable = ({
                                 className='task-update'
                                 onClick={e => updateTask(e, _id)}
                             >
-                                <button onClick={e => updateTask(e, _id)}>
+                                <button
+                                    onClick={e => updateTask(e, _id)}
+                                    onMouseDown={e => e.preventDefault()}
+                                    className='task-table__btn'
+                                >
                                     <img
                                         src={updateIcon}
                                         className='task-table__icon '
@@ -96,7 +100,11 @@ const TaskTable = ({
                                 </button>
                             </td>
                             <td className='task-delete'>
-                                <button onClick={() => deleteTask(_id)}>
+                                <button
+                                    onClick={() => deleteTask(_id)}
+                                    onMouseDown={e => e.preventDefault()}
+                                    className='task-table__btn'
+                                >
                                     <img
                                         src={deleteIcon}
                                         className='task-table__icon'

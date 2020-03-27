@@ -98,6 +98,7 @@ function TaskForm({
     useEffect(() => {
         if (taskToUpdate) {
             const task = company.tasks.find(task => task._id === taskToUpdate);
+
             if (task) {
                 setFormData({
                     taskDesc: task.taskDesc || '',
