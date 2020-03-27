@@ -54,9 +54,18 @@
     height: 2rem;
     opacity: 0.5;
 }
+.task-table__btn {
+    font-size: 2.5rem;
+    top: 0;
+    b {
+        top: -0.1rem;
+    }
+}
 .task-table__btn:focus {
-    transform: scale(1.7) translateY(0.1rem);
-    transition: 1s;
+    transform: scale(1.7);
+    b {
+        top: -0.3rem;
+    }
 }
 
 .task-update:hover,

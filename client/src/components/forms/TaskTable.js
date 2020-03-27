@@ -23,6 +23,22 @@ const TaskTable = ({
     let { id } = useParams();
     const company = companies.find(c => c._id === id);
     const { tasks } = company;
+    const toggleTaskInvoiceDisplay = async (taskId, task) => {
+        try {
+            await axios.put(`/api/company/tasks/invoice-display/${taskId}`, {
+                data: { company: company._id, task }
+            });
+            getAllCompanies();
+            setAlert(
+                `Task has been updated successfully.`,
+                'success',
+                null,
+                false
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    };
     const deleteTask = async taskId => {
         setTaskToUpdate(null);
         deleteTaskAndClearForm();
@@ -68,16 +84,36 @@ const TaskTable = ({
             </thead>
             <tbody>
                 {tasks.map(task => {
-                    const {
+                    let {
                         _id,
                         taskDesc,
                         taskQty,
                         taskRate,
-                        taskAmount
+                        taskAmount,
+                        addToNextInvoice
                     } = task;
                     return (
                         <tr key={_id}>
-                            <td></td>
+                            <td
+                                onClick={() => {
+                                    task.addToNextInvoice = !addToNextInvoice;
+                                    toggleTaskInvoiceDisplay(_id, task);
+                                }}
+                            >
+                                <button
+                                    onMouseDown={e => e.preventDefault()}
+                                    className='task-table__btn'
+                                    title={`Task to be${
+                                        addToNextInvoice ? ' ' : ' NOT '
+                                    }included in a new invoice`}
+                                >
+                                    {addToNextInvoice ? (
+                                        <b>&#43;</b>
+                                    ) : (
+                                        <b>&#45;</b>
+                                    )}
+                                </button>
+                            </td>
                             <th scope='row'>{taskDesc}</th>
                             <td>{taskQty}</td>
                             <td>{taskRate}</td>
@@ -87,9 +123,9 @@ const TaskTable = ({
                                 onClick={e => updateTask(e, _id)}
                             >
                                 <button
-                                    onClick={e => updateTask(e, _id)}
                                     onMouseDown={e => e.preventDefault()}
                                     className='task-table__btn'
+                                    title='Update Task'
                                 >
                                     <img
                                         src={updateIcon}
@@ -99,11 +135,14 @@ const TaskTable = ({
                                     <span className='sr-only'>Update Task</span>
                                 </button>
                             </td>
-                            <td className='task-delete'>
+                            <td
+                                className='task-delete'
+                                onClick={() => deleteTask(_id)}
+                            >
                                 <button
-                                    onClick={() => deleteTask(_id)}
                                     onMouseDown={e => e.preventDefault()}
                                     className='task-table__btn'
+                                    title='Delete Task'
                                 >
                                     <img
                                         src={deleteIcon}

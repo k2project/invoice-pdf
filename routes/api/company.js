@@ -195,3 +195,27 @@ router.put('/tasks/:task_id', token, async (req, res) => {
         return res.status(500).send('Server error');
     }
 });
+//@route    PUT /api/company/tasks/invoice-display/:task_id
+//@desc     Update the display of task in a new invocie.
+//@status   Private
+router.put('/tasks/invoice-display/:task_id', token, async (req, res) => {
+    try {
+        const company = await Company.findOne({ _id: req.body.data.company });
+
+        const itemIndex = company.tasks.findIndex(
+            obj => obj._id === req.params.task_id
+        );
+
+        company.tasks = [
+            ...company.tasks.slice(0, itemIndex),
+            req.body.data.task,
+            ...company.tasks.slice(itemIndex + 1)
+        ];
+
+        await company.save();
+        res.json(company);
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send('Server error');
+    }
+});
