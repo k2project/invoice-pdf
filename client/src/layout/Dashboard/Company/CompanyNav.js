@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
     setCompanyCurrentNavLink,
@@ -8,10 +8,12 @@ import {
 } from '../../../redux/actions/companies';
 
 import tasksIcon from '../../../imgs/icons/tasksIcon.png';
+import plusIcon from '../../../imgs/icons/plusIcon.png';
 import invoicesIcon from '../../../imgs/icons/invoicesIcon.png';
 import updateIcon from '../../../imgs/icons/updateIcon.png';
 import listIcon from '../../../imgs/icons/list.png';
 import deleteIcon from '../../../imgs/icons/deleteIcon.png';
+
 import { displayCompanyName } from '../../../utils/funs';
 import { dialogBox } from '../../../components/alerts/alertsFuns';
 
@@ -54,6 +56,23 @@ const CompanyNav = ({ companies, setCompanyCurrentNavLink, deleteCompany }) => {
                         />
                         Tasks
                     </a>
+                </li>
+                <li>
+                    <Link
+                        to={{
+                            pathname: '/dashboard/new-invoice',
+                            state: { company }
+                        }}
+                        className='submenu__link'
+                        onMouseDown={e => e.preventDefault()}
+                    >
+                        <img
+                            src={plusIcon}
+                            className='dashboard__icon'
+                            alt=''
+                        />
+                        New Invoice
+                    </Link>
                 </li>
                 <li>
                     <a

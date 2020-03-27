@@ -26,12 +26,12 @@
     white-space: pre;
 }
 .company-tasks {
-    padding: 4rem 15rem;
     fieldset {
-        margin-bottom: 0;
+        margin: 0;
     }
 }
 .task-table {
+    padding-bottom: 1rem;
     font-size: 1.4rem;
     th,
     td {
@@ -48,6 +48,9 @@
     th[scope='row'] {
         text-align: left;
         width: 30rem;
+    }
+    tfoot td {
+        padding: 1.5rem;
     }
 }
 .task-table__icon {

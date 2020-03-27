@@ -10,7 +10,7 @@ const CompanyTasks = ({ companies }) => {
     const company = companies.find(c => c._id === id);
     return (
         <section className='dashboard__section company-tasks'>
-            <h3 className='heading heading--xs' id='company-tasks'>
+            <h3 className='sr-only' id='company-tasks'>
                 Current Tasks List.
             </h3>
 

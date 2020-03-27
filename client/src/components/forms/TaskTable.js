@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -23,6 +24,8 @@ const TaskTable = ({
     let { id } = useParams();
     const company = companies.find(c => c._id === id);
     const { tasks } = company;
+    const addToNextInvoiceExist = tasks.find(task => task.addToNextInvoice);
+
     const toggleTaskInvoiceDisplay = async (taskId, task) => {
         try {
             await axios.put(`/api/company/tasks/invoice-display/${taskId}`, {
@@ -156,6 +159,22 @@ const TaskTable = ({
                     );
                 })}
             </tbody>
+            {addToNextInvoiceExist && (
+                <tfoot>
+                    <tr>
+                        <td colspan='7'>
+                            <Link
+                                to={{
+                                    pathname: '/dashboard/new-invoice',
+                                    state: { company }
+                                }}
+                            >
+                                Create a new invoice with selected tasks.
+                            </Link>
+                        </td>
+                    </tr>
+                </tfoot>
+            )}
         </table>
     );
 };
