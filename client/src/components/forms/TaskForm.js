@@ -6,6 +6,7 @@ import FormInput from './FormInput';
 import { updateStateErrors, cleanData } from './formFuns';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
+import { handle401Err } from '../../redux/actions/user';
 import {
     getAllCompanies,
     setTaskToUpdate
@@ -17,7 +18,8 @@ function TaskForm({
     companies: { companies, taskToUpdate, taskDeleted },
     setAlert,
     getAllCompanies,
-    setTaskToUpdate
+    setTaskToUpdate,
+    handle401Err
 }) {
     const [formData, setFormData] = useState({
         taskDesc: '',
@@ -91,6 +93,9 @@ function TaskForm({
                     setFormData,
                     err.response.data.errors
                 );
+            }
+            if (err.response.status === 401) {
+                handle401Err();
             }
         }
     }
@@ -192,5 +197,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
     setAlert,
     getAllCompanies,
-    setTaskToUpdate
+    setTaskToUpdate,
+    handle401Err
 })(TaskForm);

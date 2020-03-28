@@ -7,6 +7,7 @@ import { updateStateErrors, cleanData } from './formFuns';
 
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
+import { handle401Err } from '../../redux/actions/user';
 import {
     getCurrentProfile,
     setProfileCurrentNavLink
@@ -20,6 +21,7 @@ function ProfileForm({
     profile,
     setProfileCurrentNavLink,
     getCurrentProfile,
+    handle401Err,
     update
 }) {
     //initial profile state
@@ -76,6 +78,9 @@ function ProfileForm({
                     setFormData,
                     err.response.data.errors
                 );
+            }
+            if (err.response.status === 401) {
+                handle401Err();
             }
         }
     }
@@ -197,5 +202,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
     setAlert,
     getCurrentProfile,
-    setProfileCurrentNavLink
+    setProfileCurrentNavLink,
+    handle401Err
 })(ProfileForm);

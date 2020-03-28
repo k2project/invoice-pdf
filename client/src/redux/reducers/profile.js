@@ -1,7 +1,6 @@
 import {
     GET_PROFILE,
     CLEAR_PROFILE,
-    GET_PROFILE_ERR,
     SET_PROFILE_CURRENT_NAV_LINK
 } from '../actions/types';
 
@@ -10,8 +9,7 @@ import {
 const initialState = {
     profile: null,
     loading: true,
-    currentNavLink: 'details',
-    errors: null
+    currentNavLink: 'details'
 };
 
 export default function(state = initialState, action) {
@@ -30,12 +28,7 @@ export default function(state = initialState, action) {
                 loading: true,
                 errors: null
             };
-        case GET_PROFILE_ERR:
-            return {
-                ...state,
-                loading: false,
-                errors: payload
-            };
+
         case SET_PROFILE_CURRENT_NAV_LINK:
             return {
                 ...state,

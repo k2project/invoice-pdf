@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import { loadUser } from '../redux/actions/user';
 
 const NotFound = ({ redirectLink, companyDeleted, loadUser }) => {
-    // useEffect(() => {
-    //     loadUser();
-    // }, [loadUser]);
     return (
         <Fragment>
             {companyDeleted && <Redirect to='/dashboard/add-company' />}

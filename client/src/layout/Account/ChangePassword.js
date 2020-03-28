@@ -7,10 +7,10 @@ import {
 } from '../../components/forms/formFuns';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
-import { logoutUser } from '../../redux/actions/user';
+import { logoutUser, handle401Err } from '../../redux/actions/user';
 import axios from 'axios';
 
-const ChangePassword = ({ id, setAlert, logoutUser }) => {
+const ChangePassword = ({ id, setAlert, logoutUser, handle401Err }) => {
     const [formData, setFormData] = useState({
         currentPassword: null,
         newPassword: null,
@@ -76,6 +76,9 @@ const ChangePassword = ({ id, setAlert, logoutUser }) => {
                 );
                 logoutUser();
             } catch (err) {
+                if (err.response.status === 401) {
+                    handle401Err();
+                }
                 updateStateErrors(
                     form,
                     formData,
@@ -187,6 +190,6 @@ ChangePassword.propTypes = {
 const mapStateToProps = state => ({
     id: state.user.user._id
 });
-export default connect(mapStateToProps, { setAlert, logoutUser })(
+export default connect(mapStateToProps, { setAlert, logoutUser, handle401Err })(
     ChangePassword
 );

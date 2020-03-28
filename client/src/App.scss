@@ -128,6 +128,10 @@ a:focus {
     background: $COLOR_SUCCESS;
     color: seashell;
 }
+.alert--danger {
+    background: $COLOR_DANGER;
+    color: seashell;
+}
 .alert__close {
     position: absolute;
     font-size: 2.4rem;

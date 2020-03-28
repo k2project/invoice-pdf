@@ -31,6 +31,7 @@ const App = () => {
             window.location.pathname + window.location.search
         );
     }
+
     useEffect(() => {
         store.dispatch(loadUser());
     }, []);
@@ -75,7 +76,7 @@ const App = () => {
                             path='/dashboard/new-invoice'
                             component={NewInvoice}
                         />
-                        <Route component={NotFound} />
+                        <Route to='*' component={NotFound} />
                     </Switch>
                 </Fragment>
             </Router>

@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Profile.scss';
 import { connect } from 'react-redux';
+
 import { getCurrentProfile } from '../../../redux/actions/profile';
 import { getAllCompanies } from '../../../redux/actions/companies';
 

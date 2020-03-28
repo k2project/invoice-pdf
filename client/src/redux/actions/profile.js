@@ -1,9 +1,6 @@
 import axios from 'axios';
-import {
-    GET_PROFILE,
-    GET_PROFILE_ERR,
-    SET_PROFILE_CURRENT_NAV_LINK
-} from './types';
+import { handle401Err } from './user';
+import { GET_PROFILE, SET_PROFILE_CURRENT_NAV_LINK } from './types';
 
 export const getCurrentProfile = () => async dispatch => {
     try {
@@ -14,13 +11,9 @@ export const getCurrentProfile = () => async dispatch => {
         });
     } catch (err) {
         console.log(err);
-        // dispatch({
-        //     type: GET_PROFILE_ERR,
-        //     payload: {
-        //         msg: err.response.statusText,
-        //         status: err.response.status
-        //     }
-        // });
+        if (err.response.status === 401) {
+            dispatch(handle401Err());
+        }
     }
 };
 export const setProfileCurrentNavLink = payload => dispatch => {

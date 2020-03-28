@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setAlert } from './alerts';
+import { handle401Err } from './user';
 import {
     SET_COMPANY_CURRENT_NAV_LINK,
     GET_ALL_COMPANIES,
@@ -17,6 +18,9 @@ export const getAllCompanies = () => async dispatch => {
         });
     } catch (err) {
         console.log(err);
+        if (err.response.status === 401) {
+            dispatch(handle401Err());
+        }
     }
 };
 export const setCompanyCurrentNavLink = payload => dispatch => {
@@ -45,6 +49,9 @@ export const deleteCompany = id => async dispatch => {
         }, 3000);
     } catch (err) {
         console.log(err);
+        if (err.response.status === 401) {
+            dispatch(handle401Err());
+        }
     }
 };
 export const setTaskToUpdate = payload => dispatch => {

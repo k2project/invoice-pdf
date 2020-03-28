@@ -7,10 +7,10 @@ import {
 } from '../../components/forms/formFuns';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
-import { logoutUser } from '../../redux/actions/user';
+import { logoutUser, handle401Err } from '../../redux/actions/user';
 import axios from 'axios';
 
-const DeleteAccount = ({ setAlert, id, logoutUser }) => {
+const DeleteAccount = ({ setAlert, id, logoutUser, handle401Err }) => {
     const [formData, setFormData] = useState({
         password: null,
         errors: []
@@ -68,6 +68,9 @@ const DeleteAccount = ({ setAlert, id, logoutUser }) => {
                     setFormData,
                     err.response.data.errors
                 );
+                if (err.response.status === 401) {
+                    handle401Err();
+                }
             }
         }
     }
@@ -149,6 +152,6 @@ DeleteAccount.propTypes = {
 const mapStateToProps = state => ({
     id: state.user.user._id
 });
-export default connect(mapStateToProps, { setAlert, logoutUser })(
+export default connect(mapStateToProps, { setAlert, logoutUser, handle401Err })(
     DeleteAccount
 );

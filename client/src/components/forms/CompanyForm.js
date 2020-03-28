@@ -6,6 +6,7 @@ import FormInput from './FormInput';
 import { updateStateErrors, cleanData } from './formFuns';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
+import { handle401Err } from '../../redux/actions/user';
 import {
     setCompanyCurrentNavLink,
     getAllCompanies
@@ -17,6 +18,7 @@ function CompanyForm({
     setAlert,
     getAllCompanies,
     setCompanyCurrentNavLink,
+    handle401Err,
     history,
     update
 }) {
@@ -84,6 +86,9 @@ function CompanyForm({
                     setFormData,
                     err.response.data.errors
                 );
+            }
+            if (err.response.status === 401) {
+                handle401Err();
             }
         }
     }
@@ -226,5 +231,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
     setAlert,
     getAllCompanies,
-    setCompanyCurrentNavLink
+    setCompanyCurrentNavLink,
+    handle401Err
 })(withRouter(CompanyForm));

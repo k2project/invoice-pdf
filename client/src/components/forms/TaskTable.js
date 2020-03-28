@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
+import { handle401Err } from '../../redux/actions/user';
 import {
     getAllCompanies,
     setTaskToUpdate,
@@ -19,7 +20,8 @@ const TaskTable = ({
     setAlert,
     getAllCompanies,
     setTaskToUpdate,
-    deleteTaskAndClearForm
+    deleteTaskAndClearForm,
+    handle401Err
 }) => {
     let { id } = useParams();
     const company = companies.find(c => c._id === id);
@@ -40,6 +42,9 @@ const TaskTable = ({
             );
         } catch (err) {
             console.log(err);
+            if (err.response.status === 401) {
+                handle401Err();
+            }
         }
     };
     const deleteTask = async taskId => {
@@ -193,5 +198,6 @@ export default connect(mapStateToProps, {
     setAlert,
     getAllCompanies,
     setTaskToUpdate,
-    deleteTaskAndClearForm
+    deleteTaskAndClearForm,
+    handle401Err
 })(TaskTable);

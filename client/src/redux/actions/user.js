@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setAlert } from './alerts';
 import {
     USER_REGISTERED,
     USER_LOADED,
@@ -23,7 +24,11 @@ export const loadUser = () => async dispatch => {
         });
     } catch (err) {
         console.error('AUTH ERROR ON USER LOADING', err);
-        dispatch({ type: AUTH_ERROR });
+        console.log(err);
+        await dispatch({ type: AUTH_ERROR });
+        if (err.response.status === 401) {
+            dispatch(handle401Err());
+        }
     }
 };
 
@@ -47,5 +52,19 @@ export const logoutUser = () => async dispatch => {
         dispatch({ type: CLEAR_ALL_COMPANIES });
     } catch (err) {
         console.log('LOGIN OUT ERR:', err);
+        if (err.response.status === 401) {
+            dispatch(handle401Err());
+        }
     }
+};
+export const handle401Err = () => dispatch => {
+    dispatch(logoutUser());
+    dispatch(
+        setAlert(
+            'Yor session expired. You have been logged out. Please sign in.',
+            'danger',
+            null,
+            false
+        )
+    );
 };

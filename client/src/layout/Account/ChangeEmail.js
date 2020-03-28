@@ -7,10 +7,10 @@ import {
 } from '../../components/forms/formFuns';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
-import { logoutUser } from '../../redux/actions/user';
+import { logoutUser, handle401Err } from '../../redux/actions/user';
 import axios from 'axios';
 
-const ChangeEmail = ({ id, email, setAlert, logoutUser }) => {
+const ChangeEmail = ({ id, email, setAlert, logoutUser, handle401Err }) => {
     const [formData, setFormData] = useState({
         email: null,
         errors: []
@@ -66,6 +66,9 @@ const ChangeEmail = ({ id, email, setAlert, logoutUser }) => {
                 );
                 logoutUser();
             } catch (err) {
+                if (err.response.status === 401) {
+                    handle401Err();
+                }
                 updateStateErrors(
                     form,
                     formData,
@@ -155,4 +158,6 @@ const mapStateToProps = state => ({
     id: state.user.user._id,
     email: state.user.user.email
 });
-export default connect(mapStateToProps, { setAlert, logoutUser })(ChangeEmail);
+export default connect(mapStateToProps, { setAlert, logoutUser, handle401Err })(
+    ChangeEmail
+);

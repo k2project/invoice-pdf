@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alerts';
-import { loadUser } from '../../redux/actions/user';
+import { loadUser, handle401Err } from '../../redux/actions/user';
 import Logo from '../../components/logo/Logo';
 import FormErrorsDisplay from '../../components/forms/FormErrorsDisplay';
 import {
@@ -15,7 +15,13 @@ import setAuthToken from '../../utils/setAuthToken';
 
 import './Login.scss';
 
-const Login = ({ isAuthenticated, redirectLink, setAlert, loadUser }) => {
+const Login = ({
+    isAuthenticated,
+    redirectLink,
+    setAlert,
+    loadUser,
+    handle401Err
+}) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -57,6 +63,9 @@ const Login = ({ isAuthenticated, redirectLink, setAlert, loadUser }) => {
                     setFormData,
                     err.response.data.errors
                 );
+            if (err.response.status === 401) {
+                handle401Err();
+            }
         }
     };
 
@@ -132,4 +141,6 @@ const mapStateToProps = state => ({
     isAuthenticated: state.user.isAuthenticated,
     redirectLink: state.global.redirectLink
 });
-export default connect(mapStateToProps, { setAlert, loadUser })(Login);
+export default connect(mapStateToProps, { setAlert, loadUser, handle401Err })(
+    Login
+);

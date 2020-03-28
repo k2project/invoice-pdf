@@ -57,7 +57,7 @@ router.post(
             jwt.sign(
                 paylod,
                 config.get('jwtSecret'),
-                { expiresIn: 2880 }, //8hrs
+                { expiresIn: 2880 }, //8hrs:2880
                 (err, token) => {
                     if (err) throw err;
                     res.json({ token });
