@@ -162,11 +162,11 @@ const TaskTable = ({
             {addToNextInvoiceExist && (
                 <tfoot>
                     <tr>
-                        <td colspan='7'>
+                        <td colSpan='7'>
                             <Link
                                 to={{
                                     pathname: '/dashboard/new-invoice',
-                                    state: { company }
+                                    search: `?${company._id}`
                                 }}
                             >
                                 Create a new invoice with selected tasks.

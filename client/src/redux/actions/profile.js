@@ -14,13 +14,13 @@ export const getCurrentProfile = () => async dispatch => {
         });
     } catch (err) {
         console.log(err);
-        dispatch({
-            type: GET_PROFILE_ERR,
-            payload: {
-                msg: err.response.statusText,
-                status: err.response.status
-            }
-        });
+        // dispatch({
+        //     type: GET_PROFILE_ERR,
+        //     payload: {
+        //         msg: err.response.statusText,
+        //         status: err.response.status
+        //     }
+        // });
     }
 };
 export const setProfileCurrentNavLink = payload => dispatch => {

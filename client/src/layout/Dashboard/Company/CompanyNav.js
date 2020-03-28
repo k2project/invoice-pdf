@@ -61,7 +61,7 @@ const CompanyNav = ({ companies, setCompanyCurrentNavLink, deleteCompany }) => {
                     <Link
                         to={{
                             pathname: '/dashboard/new-invoice',
-                            state: { company }
+                            search: `?${company._id}`
                         }}
                         className='submenu__link'
                         onMouseDown={e => e.preventDefault()}

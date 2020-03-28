@@ -1,1 +1,32 @@
 @import '../../../App.scss';
+.new-invoice {
+    display: grid;
+    grid-template-columns: minmax(30rem, 1fr) auto;
+}
+.invoice-select {
+    p {
+        margin-bottom: 0.2rem;
+    }
+    a {
+        font-size: 1.4rem;
+    }
+    ul {
+        padding: 2rem 0 3rem;
+    }
+}
+.invoice-select__link:visited,
+.invoice-select__link:active,
+.invoice-select__link:link {
+    display: block;
+    width: 40rem;
+    margin: 0.3rem 0;
+    padding: 1.5rem 2rem 1.5rem 4rem;
+    background-color: $COLOR_GREY;
+    color: #111;
+    text-decoration: none;
+    border-radius: 0.5rem;
+}
+.invoice-select__link:hover {
+    background-color: $COLOR_THEME;
+    color: #fff;
+}

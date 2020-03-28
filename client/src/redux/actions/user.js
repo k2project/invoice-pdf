@@ -12,8 +12,8 @@ export const registerUser = () => dispatch => {
     dispatch({ type: USER_REGISTERED });
 };
 export const loadUser = () => async dispatch => {
-    if (localStorage.token) {
-        setAuthToken(localStorage.token);
+    if (sessionStorage.token) {
+        setAuthToken(sessionStorage.token);
     }
     try {
         const res = await axios.get('/api/user');
@@ -27,8 +27,25 @@ export const loadUser = () => async dispatch => {
     }
 };
 
-export const logoutUser = () => dispatch => {
-    dispatch({ type: AUTH_ERROR });
-    dispatch({ type: CLEAR_PROFILE });
-    dispatch({ type: CLEAR_ALL_COMPANIES });
+export const logoutUser = () => async dispatch => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const body = JSON.stringify({
+            token: sessionStorage.token,
+            date: new Date()
+        });
+        //add token to expired
+        await axios.post('/api/logout', body, config);
+
+        dispatch({ type: AUTH_ERROR });
+        dispatch({ type: CLEAR_PROFILE });
+        dispatch({ type: CLEAR_ALL_COMPANIES });
+    } catch (err) {
+        console.log('LOGIN OUT ERR:', err);
+    }
 };

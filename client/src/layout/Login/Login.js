@@ -39,7 +39,7 @@ const Login = ({ isAuthenticated, redirectLink, setAlert, loadUser }) => {
             const body = JSON.stringify(formData);
             const res = await axios.post('/api/user/login', body, config);
             //set the token for auth and load user
-            localStorage.setItem('token', res.data.token);
+            sessionStorage.setItem('token', res.data.token);
             setAuthToken(res.data.token);
             loadUser();
             setAlert(
@@ -48,7 +48,7 @@ const Login = ({ isAuthenticated, redirectLink, setAlert, loadUser }) => {
                 "your profile's dashboard"
             );
         } catch (err) {
-            localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
             console.log('LOGIN FORM ERR:', err);
             if (err.response)
                 updateStateErrors(
@@ -64,10 +64,12 @@ const Login = ({ isAuthenticated, redirectLink, setAlert, loadUser }) => {
         <Fragment>
             {isAuthenticated && (
                 <Redirect
-                    to={localStorage.link ? localStorage.link : redirectLink}
+                    to={
+                        sessionStorage.link ? sessionStorage.link : redirectLink
+                    }
                 />
             )}
-            {!isAuthenticated && !localStorage.token && (
+            {!isAuthenticated && !sessionStorage.token && (
                 <main className='login' id='main'>
                     <section className='login__bg'>
                         <div className='cover cover--theme'>

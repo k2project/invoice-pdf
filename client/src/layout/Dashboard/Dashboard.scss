@@ -35,8 +35,12 @@
     padding: 1.2rem 3rem 1.2rem 2rem;
     color: #111;
 }
+.dashboard-nav__sublink {
+    // border-bottom: solid 0.1rem lighten($COLOR_THEME, 15%);
+}
 .dashboard-nav__sublink:last-child {
     padding-bottom: 1.4rem;
+    border: none;
 }
 .dashboard-nav__sublink:link,
 .dashboard-nav__sublink:active,

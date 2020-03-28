@@ -26,7 +26,10 @@ import Account from './layout/Account/Account';
 const App = () => {
     //page on refresh
     if (window.location.pathname !== '/') {
-        localStorage.setItem('link', window.location.pathname);
+        sessionStorage.setItem(
+            'link',
+            window.location.pathname + window.location.search
+        );
     }
     useEffect(() => {
         store.dispatch(loadUser());

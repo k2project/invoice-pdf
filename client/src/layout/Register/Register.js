@@ -68,7 +68,7 @@ const Register = ({
 
     return (
         <Fragment>
-            {!isAuthenticated && !localStorage.getItem('token') && (
+            {!isAuthenticated && !sessionStorage.token && (
                 <main className='register' id='main'>
                     <section className='register__form'>
                         <Logo />
