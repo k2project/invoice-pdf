@@ -32,36 +32,16 @@ export const loadUser = () => async dispatch => {
     }
 };
 
-export const logoutUser = () => async dispatch => {
-    try {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-
-        const body = JSON.stringify({
-            token: sessionStorage.token,
-            date: new Date()
-        });
-        //add token to expired
-        await axios.post('/api/logout', body, config);
-
-        dispatch({ type: AUTH_ERROR });
-        dispatch({ type: CLEAR_PROFILE });
-        dispatch({ type: CLEAR_ALL_COMPANIES });
-    } catch (err) {
-        console.log('LOGIN OUT ERR:', err);
-        if (err.response.status === 401) {
-            dispatch(handle401Err());
-        }
-    }
+export const logoutUser = () => dispatch => {
+    dispatch({ type: AUTH_ERROR });
+    dispatch({ type: CLEAR_PROFILE });
+    dispatch({ type: CLEAR_ALL_COMPANIES });
 };
 export const handle401Err = () => dispatch => {
     dispatch(logoutUser());
     dispatch(
         setAlert(
-            'Yor session expired. You have been logged out. Please sign in.',
+            'Your session expired. You have been logged out. Please sign in.',
             'danger',
             null,
             false

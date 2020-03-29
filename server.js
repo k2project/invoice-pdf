@@ -8,7 +8,6 @@ app.use(express.json({ extended: false }));
 
 app.use('/api/register', require('./routes/api/register'));
 app.use('/api/user', require('./routes/api/user'));
-app.use('/api/logout', require('./routes/api/logout'));
 app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/company', require('./routes/api/company'));
 
